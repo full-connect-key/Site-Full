@@ -37,7 +37,8 @@ final class Seeder
 			$this->ensure('sector', 'sector:' . $slug, $p + ['slug' => $slug, 'status' => 'publish']);
 		}
 		foreach ($c['partners'] ?? [] as $slug => $p) {
-			$this->ensure('partner', 'partner:' . $slug, $p + ['slug' => $slug, 'status' => 'draft']);
+			$id = $this->ensure('partner', 'partner:' . $slug, $p + ['slug' => $slug, 'status' => 'draft']);
+			$this->complete($id, $p['meta'] ?? []);
 		}
 		$order = 0;
 		foreach ($c['categories'] as $slug => $name) {
@@ -93,6 +94,33 @@ final class Seeder
 		$this->fresh[$id] = true;
 		$this->log[]      = "Criado: {$def['title']} ($type)";
 		return $id;
+	}
+
+	/**
+	 * Completa no rascunho só os campos vazios (nunca sobrescreve o que foi
+	 * editado no painel e não publica). Usado para dados que chegaram depois
+	 * da instalação, como os cargos dos sócios.
+	 */
+	private function complete(int $id, array $meta): void
+	{
+		if (!$id || !$meta) {
+			return;
+		}
+		$draft   = json_dec(entry_raw($id)['draft'] ?? null);
+		$changed = false;
+		foreach ($meta as $group => $fields) {
+			foreach ((array) $fields as $k => $v) {
+				if (!has_text($draft[$group][$k] ?? '')) {
+					$draft[$group][$k] = $v;
+					$changed           = true;
+				}
+			}
+		}
+		if ($changed) {
+			entry_save_draft($id, ['draft' => json_enc($draft)], 'seed');
+			$this->log[] = 'Completado: ' . entry_raw($id)['title'];
+		}
+		unset($this->fresh[$id]);
 	}
 
 	/** Grava os dados só em registros recém-criados; publica se indicado. */

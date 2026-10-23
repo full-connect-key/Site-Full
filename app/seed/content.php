@@ -687,9 +687,10 @@ function fck_seed_content(): array {
 		// cargo, bio e retrato ainda pendentes — a seção só aparece com os três
 		// publicados e com retrato.
 		'partners'   => array(
-			'rita-frare'     => array( 'title' => 'Rita Frare', 'order' => 1 ),
-			'emerson-aguiar' => array( 'title' => 'Emerson Aguiar', 'order' => 2 ),
-			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'order' => 3 ),
+			// Cargos informados pelo cliente. Bio e retrato ainda pendentes (ficam em rascunho).
+			'rita-frare'     => array( 'title' => 'Rita Frare', 'order' => 1, 'meta' => array( 'details' => array( 'role' => 'Sócia e CFO' ) ) ),
+			'emerson-aguiar' => array( 'title' => 'Emerson Aguiar', 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Sócio e CEO' ) ) ),
+			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Sócio e CTO' ) ) ),
 		),
 
 		'categories' => array(

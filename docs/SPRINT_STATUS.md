@@ -89,7 +89,7 @@ Lista completa e onde cada item aparece: `docs/CONTENT_GAPS.md`. Resumo:
 - **P1, seções ficam ocultas sem eles:**
   - KVs e imagens de cases;
   - logos de clientes autorizados;
-  - sócios: cargo, bio e retrato (nomes recebidos);
+  - sócios: bio e retrato (nomes e cargos recebidos);
   - time;
   - depoimentos autorizados;
   - imagens dos setores.
@@ -123,6 +123,6 @@ Detalhes em `docs/DEPLOYMENT.md`, itens 3 e 4:
 4. **Banner de cookies:** hoje o site não usa cookies de terceiros e o banner fica oculto em modo automático (ADR-007). Decidir se haverá analytics ou pixels.
 5. **Retenção de dados:** prazo para guardar as mensagens do formulário. Padrão de 12 meses (ADR-008).
 6. **Tipografia:** Google Sans confirmada pelo cliente e servida localmente sob a licença OFL (ADR-004).
-7. **Conteúdo pendente de confirmação:** cargo dos sócios ("CEO e sócios": os três com o mesmo cargo, ou um CEO e dois sócios).
+7. **Sócios:** cargos confirmados (Rita Frare, Sócia e CFO; Emerson Aguiar, Sócio e CEO; Felipe Pelá, Sócio e CTO). Faltam bio e retrato vertical.
 
 Confirmado pelo cliente: a assinatura "powered by 4REAL" fica no logo do FullMatch.
