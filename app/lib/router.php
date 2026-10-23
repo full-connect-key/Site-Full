@@ -111,6 +111,7 @@ function render_entry(array $entry): void
 				'path'        => path_for($entry),
 				'breadcrumb'  => $crumb,
 				'published'   => $entry['type'] === 'article' ? (($details['date'] ?? '') ?: $entry['published_at']) : null,
+				'author'      => $entry['type'] === 'article' && !empty($details['author']) ? (entry_find((int) $details['author'])['title'] ?? null) : null,
 			]);
 			return;
 	}

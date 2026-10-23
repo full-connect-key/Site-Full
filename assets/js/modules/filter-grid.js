@@ -1,10 +1,11 @@
 /**
- * Cases: filtro por setor sem recarregar (URL atualizada com ?setor=, para
- * compartilhar e voltar), reflow suave e "Carregar mais".
+ * Grid filtrável (Cases, Insights): filtro sem recarregar com a URL
+ * atualizada (data-param: ?setor= / ?categoria=), voltar/avançar, reflow
+ * suave e "Carregar mais". data-rhythm="cases" aplica o grid assimétrico.
  */
 import { reducedMotion } from './motion.js'
 
-/** Ritmo do grid (blocos de 7): 7/5 · 4/4/4 · 5/7; espelha fck_case_span() em pages/cases.php. */
+/** Ritmo do grid de Cases (blocos de 7): 7/5 · 4/4/4 · 5/7; espelha fck_case_span() em pages/cases.php. */
 function span(k, n) {
   const r = k % 7
   const start = k - r
@@ -17,24 +18,27 @@ function span(k, n) {
   return count === 1 ? 'is-full' : count === 2 ? 'is-half' : ''
 }
 
-export default function casesFilter(el) {
-  const items = [...el.querySelectorAll('.case-grid__item')]
+export default function filterGrid(el) {
+  const items = [...el.querySelectorAll('[data-filter-item]')]
+  const param = el.dataset.param || 'filtro'
+  const rhythm = el.dataset.rhythm === 'cases'
   const chips = [...el.querySelectorAll('[data-filter]')]
   const more = el.querySelector('[data-more-wrap]')
   const moreBtn = el.querySelector('[data-load-more]')
   const empty = el.querySelector('[data-empty]')
   const count = el.querySelector('[data-results-count]')
   const size = Number(el.dataset.pageSize || 9)
-  let current = new URL(location.href).searchParams.get('setor') || ''
+  let current = new URL(location.href).searchParams.get(param) || ''
   let shown = Math.max(size, items.filter((i) => !i.hidden).length)
 
   const render = (animate) => {
-    const matching = items.filter((i) => !current || i.dataset.sector === current)
+    const matching = items.filter((i) => !current || i.dataset.key === current)
     const first = animate && !reducedMotion() ? new Map(items.map((i) => [i, i.getBoundingClientRect()])) : null
     items.forEach((i) => (i.hidden = true))
     const visible = matching.slice(0, shown)
     visible.forEach((i, k) => {
       i.hidden = false
+      if (!rhythm) return
       i.classList.remove('is-a', 'is-b', 'is-full', 'is-half')
       const cls = span(k, visible.length)
       if (cls) i.classList.add(cls)
@@ -63,21 +67,21 @@ export default function casesFilter(el) {
       current = c.dataset.filter
       shown = size
       const url = new URL(location.href)
-      current ? url.searchParams.set('setor', current) : url.searchParams.delete('setor')
+      current ? url.searchParams.set(param, current) : url.searchParams.delete(param)
       url.searchParams.delete('mostrar')
-      history.pushState({ setor: current }, '', url)
+      history.pushState({ [param]: current }, '', url)
       render(true)
     }),
   )
   moreBtn?.addEventListener('click', (e) => {
     e.preventDefault()
-    const firstNew = items.filter((i) => (!current || i.dataset.sector === current) && i.hidden)[0]
+    const firstNew = items.filter((i) => (!current || i.dataset.key === current) && i.hidden)[0]
     shown += size
     render(true)
     firstNew?.querySelector('a')?.focus()
   })
   window.addEventListener('popstate', () => {
-    current = new URL(location.href).searchParams.get('setor') || ''
+    current = new URL(location.href).searchParams.get(param) || ''
     shown = size
     render(true)
   })

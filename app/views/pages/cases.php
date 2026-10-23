@@ -52,7 +52,7 @@ if ( ! function_exists( 'fck_case_span' ) ) {
 view( 'parts/page-hero', array( 'args' => array( 'data' => g( $entry, 'hero' ) ) ) );
 ?>
 <section class="section cases-list" data-theme="dark" aria-labelledby="cases-list-title">
-	<div class="container" data-module="cases-filter" data-page-size="<?php echo (int) $size; ?>">
+	<div class="container" data-module="filter-grid" data-param="setor" data-rhythm="cases" data-page-size="<?php echo (int) $size; ?>">
 		<h2 id="cases-list-title" class="screen-reader-text"><?php echo e( $entry['title'] ); ?></h2>
 		<?php if ( $cases && $sectors && has_text( $list['filter_all'] ?? '' ) ) : ?>
 			<nav class="chips cases-list__filters" aria-label="<?php echo e( ui( 'content', 'filter_by_sector' ) ); ?>">
@@ -77,7 +77,7 @@ view( 'parts/page-hero', array( 'args' => array( 'data' => g( $entry, 'hero' ) )
 				$pos     = array_search( $c, $filtered, true );
 				$hidden  = ! $in || $pos >= $shown;
 				?>
-				<li class="case-grid__item<?php echo false === $pos || $hidden ? '' : e( fck_case_span( $pos, min( $shown, count( $filtered ) ) ) ); ?>" data-sector="<?php echo e( $sector ); ?>"<?php echo $hidden ? ' hidden' : ''; ?>>
+				<li class="case-grid__item<?php echo false === $pos || $hidden ? '' : e( fck_case_span( $pos, min( $shown, count( $filtered ) ) ) ); ?>" data-filter-item data-key="<?php echo e( $sector ); ?>"<?php echo $hidden ? ' hidden' : ''; ?>>
 					<a class="case-card<?php echo media_ok( $d['kv'] ?? 0 ) ? '' : ' is-plain'; ?>" href="<?php echo e( url_for( $c ) ); ?>">
 						<span class="media-frame case-card__media">
 							<?php if ( media_ok( $d['kv'] ?? 0 ) ) : ?>

@@ -17,7 +17,7 @@ test.describe('Cases', () => {
     await expect(chip).toHaveAttribute('aria-current', 'true')
     const filtered = await items.count()
     expect(filtered).toBeLessThan(total)
-    for (const s of await items.evaluateAll((els) => els.map((e) => e.dataset.sector))) expect(s).toBe(slug)
+    for (const s of await items.evaluateAll((els) => els.map((e) => e.dataset.key))) expect(s).toBe(slug)
 
     await page.goBack()
     await expect(page).toHaveURL(/\/cases$/)
