@@ -15,9 +15,13 @@ function fck_content_gaps(): array {
 	if ( empty( $brand['logo_dark'] ) || empty( $brand['logo_light'] ) ) {
 		$add( 'P0', 'Logos oficiais da Full (SVG)', 'Cabeçalho e rodapé (hoje: nome em texto)' );
 	}
+	if ( empty( $brand['logo_compact_dark'] ) ) {
+		$add( 'P1', 'Logo compacto da Full para fundo escuro (SVG)', 'Cabeçalho (hoje: logo completo)' );
+	}
 	foreach ( fck_posts( 'fck_platform' ) as $p ) {
-		if ( empty( fck_meta( $p->ID, 'identity' )['logo'] ) ) {
-			$add( 'P0', 'Logo oficial — ' . $p->post_title, 'Páginas do ecossistema (hoje: nome em texto)' );
+		$identity = fck_meta( $p->ID, 'identity' );
+		if ( empty( $identity['logo'] ) || empty( $identity['logo_light'] ) ) {
+			$add( 'P0', 'Logo oficial (escuro e claro) — ' . $p->post_title, 'Páginas do ecossistema (hoje: nome em texto)' );
 		}
 	}
 	foreach ( array( 'privacy' => 'Política de Privacidade', 'cookies' => 'Política de Cookies' ) as $key => $label ) {

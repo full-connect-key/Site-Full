@@ -13,7 +13,8 @@ function fck_post_type_schemas(): array {
 				'title'  => 'Identidade e resumos',
 				'fields' => array(
 					fck_f( 'select', 'product', 'Produto (define a cor oficial e a interação)', array( 'options' => fck_product_keys(), 'required' => true, 'help' => 'A cor oficial vem dos tokens da marca e não é editável.' ) ),
-					fck_image( 'logo', 'Logo oficial (SVG)', array( 'help' => 'Sem logo oficial, o site exibe o nome em texto (wordmark neutro).' ) ),
+					fck_image( 'logo', 'Logo oficial para fundo escuro (SVG)', array( 'width' => 'half', 'help' => 'Sem logo oficial, o site exibe o nome em texto (wordmark neutro).' ) ),
+					fck_image( 'logo_light', 'Logo oficial para fundo claro (SVG)', array( 'width' => 'half' ) ),
 					fck_text( 'signature', 'Assinatura', 80 ),
 					fck_textarea( 'summary', 'Resumo (Home)', 200 ),
 					fck_text( 'eco_headline', 'Frase no Ecossistema', 120 ),

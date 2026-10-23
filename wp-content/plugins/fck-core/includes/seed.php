@@ -53,6 +53,7 @@ final class FCK_Seeder {
 		}
 
 		$this->globals( $content['site'], $content['ui'] );
+		$this->logos( $content['logos'] );
 		$this->menus( $content['menus'] );
 
 		// Home como página inicial.
@@ -190,6 +191,76 @@ final class FCK_Seeder {
 				}
 			}
 		}
+	}
+
+	/** Importa os logos oficiais para a biblioteca de mídia e liga aos campos vazios. */
+	private function logos( array $logos ): void {
+		foreach ( $logos as $key => $logo ) {
+			$id = $this->ensure_svg_attachment( 'logo:' . $key, FCK_CORE_DIR . 'seed/logos/' . $logo['file'], $logo['alt'] );
+			if ( ! $id ) {
+				continue;
+			}
+			$parts = explode( ':', $logo['target'] );
+			if ( 'site' === $parts[0] ) {
+				$post = fck_global_post( 'site' ) ?? get_post( (int) $this->find( 'fck_global', 'global:site' ) );
+				if ( ! $post ) {
+					continue;
+				}
+				$group = fck_meta( $post->ID, $parts[1] );
+				if ( empty( $group[ $parts[2] ] ) ) {
+					$group[ $parts[2] ] = $id;
+					update_post_meta( $post->ID, '_fck_' . $parts[1], wp_slash( $group ) );
+					$this->log[] = "Logo aplicado: {$logo['alt']}";
+				}
+			} elseif ( 'platform' === $parts[0] && ! empty( $this->ids['platform'][ $parts[1] ] ) ) {
+				$pid      = $this->ids['platform'][ $parts[1] ];
+				$field    = $parts[2] ?? 'logo';
+				$identity = fck_meta( $pid, 'identity' );
+				if ( empty( $identity[ $field ] ) ) {
+					$identity[ $field ] = $id;
+					update_post_meta( $pid, '_fck_identity', wp_slash( $identity ) );
+					$this->log[] = "Logo aplicado: {$logo['alt']}";
+				}
+			}
+		}
+	}
+
+	private function ensure_svg_attachment( string $key, string $source, string $alt ): ?int {
+		$existing = $this->find( 'attachment', $key );
+		if ( $existing ) {
+			return $existing;
+		}
+		if ( ! is_readable( $source ) ) {
+			return null;
+		}
+		$upload = wp_upload_dir();
+		if ( ! empty( $upload['error'] ) ) {
+			return null;
+		}
+		$name = wp_unique_filename( $upload['path'], basename( $source ) );
+		$dest = trailingslashit( $upload['path'] ) . $name;
+		if ( ! copy( $source, $dest ) ) {
+			return null;
+		}
+		$id = (int) wp_insert_attachment(
+			array(
+				'post_title'     => $alt,
+				'post_mime_type' => 'image/svg+xml',
+				'post_status'    => 'inherit',
+			),
+			$dest
+		);
+		if ( ! $id ) {
+			return null;
+		}
+		$size = fck_svg_dimensions( $dest );
+		wp_update_attachment_metadata( $id, array( 'width' => $size[0], 'height' => $size[1], 'file' => _wp_relative_upload_path( $dest ) ) );
+		update_post_meta( $id, '_wp_attachment_image_alt', $alt );
+		update_post_meta( $id, '_fck_rights_confirmed', true );
+		update_post_meta( $id, '_fck_license', 'Logo oficial — Full Connect Key' );
+		update_post_meta( $id, '_fck_seed_key', $key );
+		$this->log[] = "Mídia importada: {$alt}";
+		return $id;
 	}
 
 	private function menus( array $menus ): void {

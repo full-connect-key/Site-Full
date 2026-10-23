@@ -163,6 +163,43 @@ function fck_is_video( int $id ): bool {
 	return str_starts_with( (string) get_post_mime_type( $id ), 'video/' );
 }
 
+function fck_is_svg( int $id ): bool {
+	return 'image/svg+xml' === get_post_mime_type( $id );
+}
+
+/** Largura/altura de um SVG a partir de width/height ou viewBox. */
+function fck_svg_dimensions( string $file ): array {
+	$xml = @simplexml_load_file( $file ); // phpcs:ignore
+	if ( ! $xml ) {
+		return array( 0, 0 );
+	}
+	$w = (float) $xml['width'];
+	$h = (float) $xml['height'];
+	if ( ( ! $w || ! $h ) && isset( $xml['viewBox'] ) ) {
+		$vb = preg_split( '/[\s,]+/', trim( (string) $xml['viewBox'] ) );
+		$w  = (float) ( $vb[2] ?? 0 );
+		$h  = (float) ( $vb[3] ?? 0 );
+	}
+	return array( (int) round( $w ), (int) round( $h ) );
+}
+
+/** <img> para SVG (o WordPress não gera tamanhos de SVG). */
+function fck_svg_img( int $id, string $class = '', ?string $alt = null, string $loading = 'lazy' ): string {
+	$url  = wp_get_attachment_url( $id );
+	$meta = wp_get_attachment_metadata( $id );
+	if ( ! $url ) {
+		return '';
+	}
+	return sprintf(
+		'<img src="%s" alt="%s" class="%s" loading="%s" decoding="async"%s>',
+		esc_url( $url ),
+		esc_attr( $alt ?? fck_alt( $id ) ),
+		esc_attr( $class ),
+		esc_attr( $loading ),
+		! empty( $meta['width'] ) && ! empty( $meta['height'] ) ? sprintf( ' width="%d" height="%d"', (int) $meta['width'], (int) $meta['height'] ) : ''
+	);
+}
+
 /** Alt do anexo ('' se decorativo). */
 function fck_alt( int $id ): string {
 	if ( get_post_meta( $id, '_fck_decorative', true ) ) {
@@ -203,6 +240,10 @@ function fck_media( mixed $id, array $opts = array() ): string {
 			( $opts['controls'] ?? true ) ? 'controls' : '',
 			fck_alt( $id ) ? ' aria-label="' . esc_attr( fck_alt( $id ) ) . '"' : ''
 		);
+	}
+
+	if ( fck_is_svg( $id ) ) {
+		return fck_svg_img( $id, $class, ! empty( $opts['decorative'] ) ? '' : null, $loading );
 	}
 
 	$attrs = array(

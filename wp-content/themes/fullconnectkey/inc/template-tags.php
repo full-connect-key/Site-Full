@@ -55,8 +55,10 @@ function fck_button( mixed $link, string $variant = 'primary', array $opts = arr
 /** Wordmark: logo oficial se cadastrado; senão o nome em texto (nunca logo inventado). */
 function fck_wordmark( string $name, int $logo = 0, string $class = '' ): string {
 	if ( $logo && fck_attachment_ok( $logo ) ) {
-		$img = wp_get_attachment_image( $logo, 'medium', false, array( 'alt' => $name, 'loading' => 'eager', 'decoding' => 'async' ) );
-		return '<span class="wordmark ' . esc_attr( $class ) . '">' . $img . '</span>';
+		$img = fck_is_svg( $logo )
+			? fck_svg_img( $logo, 'wordmark__img', $name, 'eager' )
+			: wp_get_attachment_image( $logo, 'medium', false, array( 'alt' => $name, 'loading' => 'eager', 'decoding' => 'async', 'class' => 'wordmark__img' ) );
+		return '<span class="wordmark wordmark--logo ' . esc_attr( $class ) . '">' . $img . '</span>';
 	}
 	return '<span class="wordmark ' . esc_attr( $class ) . '">' . esc_html( $name ) . '</span>';
 }

@@ -661,6 +661,25 @@ function fck_seed_content(): array {
 			'feiras-e-eventos' => array( 'title' => 'Feiras e Eventos', 'order' => 3, 'meta' => array( 'details' => array( 'title' => 'Experiências que continuam além do evento.', 'text' => 'Conectamos estratégia, comunicação e experiência para atrair públicos, fortalecer marcas e ampliar as oportunidades de negócio antes, durante e depois de cada evento.' ) ) ),
 		),
 
+		// Logos oficiais (arquivos em seed/logos/): "escuro" = texto branco,
+		// para fundo escuro; "claro" = texto preto, para fundo claro.
+		// Só preenchem o campo se ele estiver vazio.
+		'logos'      => array(
+			'full-escuro'          => array( 'file' => 'full-connect-key-escuro.svg', 'alt' => 'Full Connect Key', 'target' => 'site:brand:logo_dark' ),
+			'full-claro'           => array( 'file' => 'full-connect-key-claro.svg', 'alt' => 'Full Connect Key', 'target' => 'site:brand:logo_light' ),
+			'full-compacto-claro'  => array( 'file' => 'full-compacto-claro.svg', 'alt' => 'Full Connect Key', 'target' => 'site:brand:logo_compact_light' ),
+			'hub-escuro'           => array( 'file' => 'full-hub-escuro.svg', 'alt' => 'Full Hub', 'target' => 'platform:hub:logo' ),
+			'hub-claro'            => array( 'file' => 'full-hub-claro.svg', 'alt' => 'Full Hub', 'target' => 'platform:hub:logo_light' ),
+			'dash-escuro'          => array( 'file' => 'full-dash-escuro.svg', 'alt' => 'Full Dash', 'target' => 'platform:dash:logo' ),
+			'dash-claro'           => array( 'file' => 'full-dash-claro.svg', 'alt' => 'Full Dash', 'target' => 'platform:dash:logo_light' ),
+			'leads-escuro'         => array( 'file' => 'full-leads-escuro.svg', 'alt' => 'Full Leads', 'target' => 'platform:leads:logo' ),
+			'leads-claro'          => array( 'file' => 'full-leads-claro.svg', 'alt' => 'Full Leads', 'target' => 'platform:leads:logo_light' ),
+			'mix-escuro'           => array( 'file' => 'fullmix-escuro.svg', 'alt' => 'FullMix', 'target' => 'platform:mix:logo' ),
+			'mix-claro'            => array( 'file' => 'fullmix-claro.svg', 'alt' => 'FullMix', 'target' => 'platform:mix:logo_light' ),
+			'match-escuro'         => array( 'file' => 'fullmatch-escuro.svg', 'alt' => 'FullMatch', 'target' => 'platform:match:logo' ),
+			'match-claro'          => array( 'file' => 'fullmatch-claro.svg', 'alt' => 'FullMatch', 'target' => 'platform:match:logo_light' ),
+		),
+
 		'categories' => array(
 			'estrategia'    => 'Estratégia',
 			'branding'      => 'Branding',

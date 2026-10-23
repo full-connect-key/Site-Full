@@ -132,6 +132,8 @@ function fck_global_schemas(): array {
 					fck_text( 'site_name', 'Nome do site', 80, array( 'required' => true ) ),
 					fck_image( 'logo_dark', 'Logo para fundo escuro (SVG oficial)', array( 'width' => 'half' ) ),
 					fck_image( 'logo_light', 'Logo para fundo claro (SVG oficial)', array( 'width' => 'half' ) ),
+					fck_image( 'logo_compact_dark', 'Logo compacto para fundo escuro (SVG oficial)', array( 'width' => 'half', 'help' => 'Versão curta usada no cabeçalho. Vazio = usa o logo completo.' ) ),
+					fck_image( 'logo_compact_light', 'Logo compacto para fundo claro (SVG oficial)', array( 'width' => 'half' ) ),
 				),
 			),
 			array(
