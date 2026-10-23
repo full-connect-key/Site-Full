@@ -33,9 +33,29 @@ Acesse **`/admin`** (ex.: `https://fullconnectkey.com.br/admin`) com seu e-mail 
 - **Slug (endereço)**: ao mudar e publicar, o endereço antigo passa a redirecionar automaticamente.
 
 ## Novos conteúdos
-- **Case**: Cases › Adicionar › preencha dados, KV, narrativa, galeria e resultados (se houver números reais) › Publicar. Ele entra sozinho na listagem, nos filtros e no sitemap. Para aparecer na Home, use "Destaque na Home" (1 = grande).
-- **Artigo**: Insights › Adicionar › preencha título, resumo, capa, categoria e corpo › Publicar. Marque "Destaque" para abrir a página Insights.
-- **Matéria**: Imprensa › Adicionar › veículo, data, tipo, link original e resumo próprio.
+- **Case**: Cases › Adicionar › preencha:
+  - dados: cliente, setor, categoria, headline, resumo e KV;
+  - narrativa: O desafio, A ideia, Nossa atuação;
+  - galeria: imagens ou vídeos, cada um com o tamanho no grid;
+  - resultados: só números reais.
+
+  Depois, Publicar. Ele entra sozinho na listagem, no filtro do setor (os filtros mostram só setores que têm case), na rota `/cases/slug` e no sitemap.
+  - Para aparecer na Home, use "Destaque na Home" (1 = grande).
+  - "Próximo case" vazio = o seguinte da listagem; a ordem é o campo "Ordem" na lista Cases › Cases.
+  - Na página Cases › "Página do case" ficam os rótulos (O desafio, A ideia…). Em "Listagem" ficam o texto do filtro "Todos", "Carregar mais" e quantos aparecem por vez.
+- **Artigo**: Insights › Adicionar › preencha título, subtítulo, resumo, capa, categoria, autor e corpo (títulos, listas, citações, imagens e vídeos do YouTube/Vimeo) › Publicar.
+  - A leitura estimada é calculada sozinha.
+  - Marque "Destaque" para o artigo abrir a página Insights e a seção da Home.
+  - "Relacionados" vazio = mais recentes da mesma categoria.
+  - Os filtros por categoria usam o slug da categoria (`?categoria=...`).
+- **Matéria**: Imprensa › Adicionar › manchete original (título), veículo, data, tipo (entrevista, reportagem ou artigo), link original e resumo próprio. Capa e logo do veículo são opcionais; o logo só aparece com direito de uso confirmado.
+  - Na página Full na Mídia, "Mínimo de matérias para exibir arquivo e filtros" define quando aparecem a lista completa e os filtros por tipo. Abaixo disso, só a faixa de destaque.
+
+## Formulário de contato
+- **Textos e opções**: Páginas › Contato. As opções de assunto ficam em "Opções de assunto". Links como `/contato?assunto=imprensa` já abrem com o assunto marcado (assuntos: `projeto`, `imprensa`, `parceria`, `outro`).
+- **Consentimento**: o trecho indicado em "Trecho do consentimento que vira link" vira link para a Política de Privacidade quando ela estiver publicada.
+- **Mensagens recebidas**: Configurações › Mensagens de contato (só administradores). Toda mensagem fica salva no painel, mesmo se o e-mail falhar.
+- **Destinatários por assunto e prazo de retenção**: Configurações › Formulário: destinatários.
 
 ## Papéis
 - **Editor**: conteúdo, mídia, menus e textos.

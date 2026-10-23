@@ -39,6 +39,7 @@ Site em **PHP 8.1+ e MySQL**, com painel próprio em `/admin`. Não usa WordPres
 
 - **Banco**: a Hostinger faz backups automáticos (hPanel › Arquivos › Backups). Antes de mudanças grandes, exporte também pelo phpMyAdmin (*Exportar* › SQL). Para restaurar, use phpMyAdmin › *Importar*.
 - **Arquivos enviados**: faça backup da pasta `public_html/uploads/` (hPanel › Backups ou download pelo Gerenciador de Arquivos).
+- **Testado localmente (23/10/2026)**: `mysqldump` do banco de teste → restauração num banco novo. Contagens de todas as tabelas e checksum da tabela `entries` idênticos, e o site servido a partir do banco restaurado respondeu 200 em todas as rotas. O usuário do banco precisa ter permissão no banco restaurado.
 - **Configuração**: guarde uma cópia segura do `app/config.php` fora do servidor, por exemplo num gerenciador de senhas.
 - Linha de comando (ambiente local ou servidor com SSH):
   ```bash
@@ -85,6 +86,8 @@ Os testes usam um banco separado (`fck_site_test`) e a pasta `uploads-test/`. As
 
 ## 8. Checklist de pré-lançamento
 
+Conteúdo P0 (ver `docs/CONTENT_GAPS.md`):
+
 - [ ] `env` = `production` e `url` com o domínio final em `app/config.php`
 - [ ] SSL ativo e http redirecionando para https
 - [ ] Textos jurídicos aprovados e páginas de Privacidade e Cookies publicadas
@@ -93,3 +96,11 @@ Os testes usam um banco separado (`fck_site_test`) e a pasta `uploads-test/`. As
 - [ ] Redirecionamentos dos endereços do site atual (`fullconnectkey.com.br`) cadastrados em Painel › Redirecionamentos
 - [ ] Senha do administrador forte e usuários editores criados
 - [ ] Backup inicial do banco e de `uploads/`
+- [ ] Domínio e DNS apontando para a Hostinger; `www` e domínio sem `www` resolvendo para o mesmo endereço
+- [ ] Logos de clientes e de veículos de imprensa só com "Direito de uso confirmado"
+- [ ] Prazo de retenção das mensagens do formulário definido (Configurações › Formulário: destinatários)
+- [ ] Rodapé mostrando a versão (commit) esperada depois do deploy
+- [ ] Search Console: enviar `https://DOMINIO/sitemap.xml` depois de mudar `env` para `production`
+
+### Cache
+CSS, fontes e imagens ficam 1 ano no navegador: o CSS leva `?v=` e as mídias têm nomes únicos. O JavaScript é revalidado a cada visita (`no-cache`) e os módulos levam `?v=<commit>`. Depois de um deploy, ninguém fica com JS antigo, e não é preciso limpar o cache.

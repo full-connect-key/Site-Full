@@ -6,13 +6,15 @@ Status: `TODO` / `IN_PROGRESS` / `DONE` / `BLOCKED` / `DONE_WITH_GAPS`
 
 ## Ponto de retomada
 
-Base PHP + painel + MySQL aprovada; conteúdo limitado a 1080px centralizados (token `--content`). Sprints 08 a 11 concluídas (Sprint 11 com pendências de conteúdo jurídico e SMTP, que dependem do cliente).
+**Todas as 14 sprints foram executadas.** Conteúdo limitado a 1080 px centralizados (token `--content`). O lançamento depende só de conteúdo e decisões do cliente (seção "Decisões" abaixo e `docs/CONTENT_GAPS.md`). Nada foi publicado em produção.
 
-Sprint 12 concluída (ver `docs/QA_REPORT.md`).
+Possíveis próximos passos:
+- receber os conteúdos P0 e P1;
+- definir o cargo dos sócios;
+- escolher a branch publicada pela Hostinger e configurar o webhook;
+- conferir a versão no rodapé depois do deploy.
 
-Próximo passo: **Sprint 13 — QA final e entrega** (segurança e segredos, `npm audit`, backup/restauração testados, checklist de pré-lançamento, guia do editor e relatório final).
-
-Extra: rodapé exibe a versão publicada (commit + data do deploy) — `deploy_info()` em `app/lib/helpers.php`.
+Extra: o rodapé exibe a versão publicada (commit + data do deploy) — `deploy_info()` em `app/lib/helpers.php`.
 
 Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.php seed`; `npm run serve`; `npm run test:db && npx playwright test`.
 
@@ -33,9 +35,11 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 10 Full na Mídia | DONE | Hero; faixa horizontal imersiva (matéria sob o cursor/foco se expande e revela a capa por máscara, manchete acompanha o cursor, setas ← → e botões anterior/próximo; no toque, rolagem com snap); veículo (logo só com direito de uso), manchete original, data, tipo, resumo próprio e link externo `noopener noreferrer` com aviso de nova aba; arquivo com filtros por tipo (`?tipo=`) e "Ver mais" **só acima do limiar do painel**; sem matérias: hero, estado vazio e CTA; CTA para `/contato/?assunto=imprensa` | Matérias reais (P2) |
 | 11 Contato/cookies/legais | DONE_WITH_GAPS | Formulário progressivo: etapa 1 assunto (cards de opção, pré-seleção por `?assunto=`), etapa 2 nome, e-mail, empresa opcional, mensagem e consentimento (trecho vira link para a Política de Privacidade quando publicada); foco gerenciado entre etapas e nos erros (`aria-invalid` + `aria-describedby`), validação no cliente espelhando o servidor, estados enviando/erro/sucesso, sucesso **só após confirmação do servidor**; sem JS as duas etapas aparecem e o envio volta com `?contato=sucesso`. Back-end: validação, honeypot, tempo mínimo, token, limite por IP, gravação no painel, SMTP. Banner/central de cookies e página jurídica | Textos jurídicos, destinatários e SMTP aprovados (P0, CONTENT_GAPS) |
 | 12 Polimento | DONE | Lighthouse mobile em 6 páginas (Performance 93–98, Acessibilidade 100, Boas práticas 100; SEO 69 só pelo `noindex` de staging); CLS da Home 0,224 → 0 (troca `no-js`→`js` antes da 1ª pintura); cache de JS corrigido (módulos sem versão ficavam 1 ano no navegador → `no-cache` + `?v=<commit>`); favicon e ícone Apple a partir do símbolo oficial; sem overflow de 320 a 1920 px; alvos de toque ≥ 44 px; roteiro manual de leitor de tela; axe em todas as rotas | Medição de campo (Core Web Vitals) só com tráfego real |
-| 13 QA e entrega | TODO | `docs/DEPLOYMENT.md` (Hostinger, backup, rollback) | Relatório final |
+| 13 QA e entrega | DONE | Revisão de segredos (nenhum no repositório nem no histórico; `app/config.php` nunca versionado), `npm audit` sem vulnerabilidades, PHPMailer 6.12.0, headers de segurança e CSRF testados; backup e restauração **testados localmente** (contagens e checksum idênticos, site no ar a partir do banco restaurado); checklist de pré-lançamento ampliado; `EDITOR_GUIDE.md` final; relatório final (abaixo) | Deploy de produção só com autorização |
 
 ## Testes executados (23/10/2026)
+
+- Sprints 12–13: `tests/e2e/responsive.spec.js` (320 e 1920 px sem overflow, alvos de toque ≥ 44 px), Lighthouse (ver `docs/QA_REPORT.md`), `npm audit` (0 vulnerabilidades), varredura de segredos no histórico (nada encontrado), backup → restauração → site no ar a partir do banco restaurado. **Suíte completa: 109/109** em 1280, 375, 768 e 1440 px; `npm run check` ok.
 
 - Sprint 11: `tests/e2e/contact.spec.js` (etapas, foco, erros acessíveis, e-mail inválido, envio real com sucesso, pré-seleção `?assunto=imprensa` + mensagem no painel, envio sem JS, honeypot não grava). Suíte completa: **106/106** em 1280, 375, 768 e 1440px.
 - Sprint 10: `tests/e2e/press.spec.js` (expansão por cursor e foco, setas, links externos, botões no toque, arquivo/filtros acima do limiar e ausentes abaixo). Suíte completa: **101/101** em 1280, 375, 768 e 1440px.
@@ -46,3 +50,79 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 - `php -l` em todos os arquivos: ok.
 - Playwright: **31/31 em 1280px** e **25/25 em 375, 768 e 1440px**. Cobrem login e bloqueio, rascunho privado, preview, publicação, restauração de versão, limite de caracteres sem truncar, redirect 301 ao trocar slug, upload (e recusa de PHP disfarçado), permissões do editor, 8 rotas públicas com axe (sem violações sérias ou críticas), ausência de overflow, setores, menu mobile, submenu por teclado, carrossel, movimento reduzido, bloqueio de pastas internas, cabeçalhos de segurança e CSRF.
 - Instalação do zero num banco vazio, simulando o primeiro deploy: ok.
+
+## Arquivos principais
+
+| Área | Arquivos |
+|---|---|
+| Entrada e rotas | `index.php`, `.htaccess`, `app/bootstrap.php`, `app/lib/router.php` |
+| Conteúdo e painel | `app/schema/*.php`, `app/lib/content.php`, `app/lib/fields.php`, `app/admin/` |
+| Seed (seção 6) e logos | `app/seed/content.php`, `app/seed/logos/` |
+| Páginas | `app/views/pages/{home,sm,ecosystem,platform,cases,case,insights,article,press,contact,legal,404}.php` |
+| Seções | `app/views/home/`, `app/views/platform/`, `app/views/insights/card.php`, `app/views/parts/` |
+| Estilo e interações | `assets/css/main.css`, `assets/tokens.json`, `assets/js/main.js`, `assets/js/modules/*.js` |
+| Formulário | `app/lib/contact.php`, `app/lib/mail.php`, `assets/js/modules/contact-form.js` |
+| Testes | `tests/e2e/*.spec.js`, `tests/fixtures/fixtures.php`, `tests/unit/tokens.test.mjs`, `scripts/check-*.mjs` |
+| Documentação | `docs/DEPLOYMENT.md`, `docs/EDITOR_GUIDE.md`, `docs/QA_REPORT.md`, `docs/CONTENT_GAPS.md`, `docs/DECISIONS.md` |
+
+## Como rodar localmente
+
+```bash
+cp app/config.sample.php app/config.php     # preencha db e secret
+php scripts/fck.php migrate && php scripts/fck.php seed
+php scripts/fck.php create-admin voce@exemplo.com 'senha-com-12+caracteres'
+npm run serve                                # http://localhost:8080  (painel: /admin)
+npm run check                                # cores, textos fixos e tokens
+npm run test:db && npx playwright test       # banco de teste + e2e (porta 8081)
+```
+Alternativa com Docker: `docker compose up` (PHP 8.3 + MySQL 8 + Mailpit em http://localhost:8025).
+Site no ar para revisão (staging Hostinger): https://lightskyblue-magpie-424044.hostingersite.com/ — atualiza ao clicar em **Implantar** no hPanel (ou por webhook).
+
+## Pendências por prioridade
+
+Lista completa e onde cada item aparece: `docs/CONTENT_GAPS.md`. Resumo:
+- **P0, impedem o lançamento:**
+  - textos jurídicos (Privacidade, Cookies, consentimento);
+  - destinatários do formulário e SMTP;
+  - domínio, SSL e `app/config.php` de produção;
+  - decisão sobre o banner de cookies.
+- **P1, seções ficam ocultas sem eles:**
+  - KVs e imagens de cases;
+  - logos de clientes autorizados;
+  - sócios: cargo, bio e retrato (nomes recebidos);
+  - time;
+  - depoimentos autorizados;
+  - imagens dos setores.
+- **P2, enriquecem o site:**
+  - métricas verificadas;
+  - artigos e matérias reais;
+  - canais de contato e redes;
+  - mídia das páginas de produto.
+
+## Editar o site
+
+Resumo em `docs/EDITOR_GUIDE.md`:
+- textos em Páginas;
+- imagens na Biblioteca de mídia, com texto alternativo e ponto focal;
+- cases, artigos e matérias em Adicionar › Publicar (entram sozinhos em listagens, filtros e sitemap);
+- microtextos em Configurações › Textos de interface.
+
+## Backup, restauração e rollback
+
+Detalhes em `docs/DEPLOYMENT.md`, itens 3 e 4:
+- **banco:** backups automáticos da Hostinger + exportação pelo phpMyAdmin ou `mysqldump`, procedimento testado localmente;
+- **arquivos enviados:** backup da pasta `uploads/`;
+- **conteúdo:** histórico de 50 versões por registro;
+- **código:** `git revert` + Implantar.
+
+## Decisões que precisam de aprovação antes do lançamento
+
+1. **Hospedagem e deploy:** Hostinger compartilhada já em uso. Falta definir a branch publicada (`main` ou a atual), o webhook automático e a autorização para o deploy de produção.
+2. **E-mail:** qual caixa da Hostinger envia, em `smtp` no `app/config.php`, e quem recebe cada assunto.
+3. **Textos legais:** Política de Privacidade, Política de Cookies e texto de consentimento, com revisão jurídica.
+4. **Banner de cookies:** hoje o site não usa cookies de terceiros e o banner fica oculto em modo automático (ADR-007). Decidir se haverá analytics ou pixels.
+5. **Retenção de dados:** prazo para guardar as mensagens do formulário. Padrão de 12 meses (ADR-008).
+6. **Tipografia:** Google Sans confirmada pelo cliente e servida localmente sob a licença OFL (ADR-004).
+7. **Conteúdo pendente de confirmação:**
+   - cargo dos sócios ("CEO e sócios": os três com o mesmo cargo, ou um CEO e dois sócios);
+   - assinatura "powered by 4REAL" no logo do FullMatch.
