@@ -1,0 +1,23 @@
+.fck-fields { display: flex; flex-wrap: wrap; gap: 0 4%; }
+.fck-field { flex: 1 1 100%; margin: 0 0 16px; }
+.fck-field.fck-w-half { flex-basis: 48%; }
+.fck-label { display: block; font-weight: 600; margin-bottom: 4px; }
+.fck-req { color: #b32d2e; }
+.fck-field input[type=text], .fck-field input[type=url], .fck-field input[type=email], .fck-field textarea, .fck-field select { width: 100%; max-width: 100%; }
+.fck-field .description { margin-top: 4px; }
+.fck-count { float: right; font-size: 12px; color: #646970; }
+.fck-count.is-over { color: #b32d2e; font-weight: 600; }
+.fck-heading { flex-basis: 100%; margin: 12px 0 8px; padding-top: 12px; border-top: 1px solid #dcdcde; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: #50575e; }
+.fck-group-desc { color: #50575e; margin-top: 0; }
+.fck-media { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.fck-media-preview img { max-width: 120px; height: auto; border: 1px solid #dcdcde; }
+.fck-link { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; }
+.fck-sub label { display: block; font-size: 12px; color: #50575e; }
+.fck-sub input, .fck-sub select { width: 100%; }
+.fck-repeater .fck-rows { margin: 0 0 8px; padding: 0; list-style: none; counter-reset: row; }
+.fck-row { border: 1px solid #dcdcde; background: #f6f7f7; margin: 0 0 8px; padding: 8px 12px; }
+.fck-row-bar { display: flex; gap: 8px; align-items: center; justify-content: flex-end; margin-bottom: 8px; }
+.fck-row-num { margin-right: auto; font-weight: 600; color: #50575e; }
+.fck-row-fields { display: flex; flex-wrap: wrap; gap: 0 4%; }
+.fck-posts-list { margin: 0 0 8px 20px; }
+.fck-posts-list li { margin-bottom: 4px; }

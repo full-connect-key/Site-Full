@@ -1,30 +1,39 @@
-# Ambiente local de desenvolvimento: PostgreSQL + Mailpit.
-# Uso: docker compose up -d
+# Ambiente local opcional: WordPress + MariaDB + Mailpit.
+# Uso: docker compose up -d  → site em http://localhost:8080, e-mails em http://localhost:8025
 services:
-  postgres:
-    image: postgres:16-alpine
+  db:
+    image: mariadb:11
     restart: unless-stopped
     environment:
-      POSTGRES_USER: fck
-      POSTGRES_PASSWORD: fck_dev
-      POSTGRES_DB: fck
-    ports:
-      - '127.0.0.1:5432:5432'
+      MARIADB_DATABASE: fck_wp
+      MARIADB_USER: fck
+      MARIADB_PASSWORD: fck_dev
+      MARIADB_ROOT_PASSWORD: root_dev
     volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./scripts/docker/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U fck -d fck']
-      interval: 5s
-      timeout: 5s
-      retries: 10
+      - dbdata:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    depends_on: [db]
+    ports:
+      - '127.0.0.1:8080:80'
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: fck_wp
+      WORDPRESS_DB_USER: fck
+      WORDPRESS_DB_PASSWORD: fck_dev
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_ENVIRONMENT_TYPE', 'local' );
+        define( 'FCK_SMTP_HOST', 'mailpit' );
+        define( 'FCK_SMTP_PORT', 1025 );
+    volumes:
+      - ./wp-content/themes/fullconnectkey:/var/www/html/wp-content/themes/fullconnectkey
+      - ./wp-content/plugins/fck-core:/var/www/html/wp-content/plugins/fck-core
 
   mailpit:
     image: axllent/mailpit:latest
-    restart: unless-stopped
     ports:
-      - '127.0.0.1:1025:1025' # SMTP
-      - '127.0.0.1:8025:8025' # interface web: http://localhost:8025
+      - '127.0.0.1:8025:8025'
 
 volumes:
-  pgdata:
+  dbdata:
