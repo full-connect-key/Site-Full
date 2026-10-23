@@ -29,7 +29,7 @@ $skip     = fck_ui( 'a11y', 'skip_to_content' );
 	<div class="site-header__bg" aria-hidden="true"></div>
 	<div class="container site-header__inner">
 		<a class="site-header__brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( fck_ui( 'a11y', 'home_link' ) ?: $name ); ?>">
-			<?php echo fck_wordmark( $name, (int) ( $brand['logo_dark'] ?? 0 ) ); // phpcs:ignore -- escapado. ?>
+			<?php echo fck_wordmark( $name, (int) ( ( $brand['logo_compact_dark'] ?? 0 ) ?: ( $brand['logo_dark'] ?? 0 ) ), 'wordmark--compact' ); // phpcs:ignore -- escapado. ?>
 		</a>
 
 		<?php if ( $items ) : ?>

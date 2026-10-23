@@ -667,6 +667,7 @@ function fck_seed_content(): array {
 		'logos'      => array(
 			'full-escuro'          => array( 'file' => 'full-connect-key-escuro.svg', 'alt' => 'Full Connect Key', 'target' => 'site:brand:logo_dark' ),
 			'full-claro'           => array( 'file' => 'full-connect-key-claro.svg', 'alt' => 'Full Connect Key', 'target' => 'site:brand:logo_light' ),
+			'full-compacto-escuro' => array( 'file' => 'full-compacto-escuro.svg', 'alt' => 'Full Connect Key', 'target' => 'site:brand:logo_compact_dark' ),
 			'full-compacto-claro'  => array( 'file' => 'full-compacto-claro.svg', 'alt' => 'Full Connect Key', 'target' => 'site:brand:logo_compact_light' ),
 			'hub-escuro'           => array( 'file' => 'full-hub-escuro.svg', 'alt' => 'Full Hub', 'target' => 'platform:hub:logo' ),
 			'hub-claro'            => array( 'file' => 'full-hub-claro.svg', 'alt' => 'Full Hub', 'target' => 'platform:hub:logo_light' ),

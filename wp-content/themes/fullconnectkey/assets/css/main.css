@@ -539,5 +539,6 @@ button:disabled { cursor: not-allowed; }
 .wordmark--logo { display: inline-flex; align-items: center; line-height: 0; }
 .wordmark--logo .wordmark__img { width: auto; height: 100%; max-width: none; }
 .site-header__brand .wordmark--logo { height: 3rem; }
+.site-header__brand .wordmark--compact { height: 2rem; }
 .site-footer__brand .wordmark--logo { height: clamp(4rem, 3rem + 3vw, 6rem); }
 .eco-home__name .wordmark--logo { height: clamp(2.75rem, 2.2rem + 1.8vw, 4.25rem); }
