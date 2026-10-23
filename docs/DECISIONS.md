@@ -39,3 +39,10 @@
 
 ## ADR-009 — Canais do simulador FullMix
 - O briefing não define os canais. O seed traz nomes genéricos (TV, Rádio, Mídia exterior, Busca paga, Redes sociais, Mídia programática), usados só na experiência **ilustrativa**, que tem aviso obrigatório. Editáveis no painel; **revisar com a Full**.
+
+## ADR-010 — Botões em vidro (glassmorphism)
+- Todos os botões (primário, secundário, terciário, ícone, filtros, abas de seleção, compartilhar, menu) são cápsulas (`border-radius: 9999px`) de vidro translúcido: `backdrop-filter: blur(12px)`, borda fina semitransparente, reflexo no topo e sombra discreta.
+- A cor vem de `--btn-color`: ciano da marca por padrão e cor oficial do produto dentro de `[data-product]`. Ela aparece no contorno, no brilho do hover e no tingimento do primário.
+- O primário usa vidro tingido a 94% para manter o contraste AA do texto (verificado com axe).
+- Sem suporte a desfoque, o vidro fica mais denso. Com movimento reduzido, não há compressão ao clicar nem deslocamento da seta.
+- Só tokens existentes: nenhuma cor nova.
