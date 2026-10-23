@@ -1,0 +1,1 @@
+CREATE DATABASE fck_test OWNER fck;
