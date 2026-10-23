@@ -216,8 +216,15 @@ function site(string $group): array
 /** Microtexto de interface: ui('a11y', 'open_menu'). */
 function ui(string $group, string $key): string
 {
-	$g = global_entry('ui');
-	return (string) ($g['data']['ui_' . $group][$key] ?? '');
+	$g      = global_entry('ui');
+	$stored = $g['data']['ui_' . $group] ?? [];
+	if (is_array($stored) && array_key_exists($key, $stored)) {
+		return (string) $stored[$key]; // valor do painel (vazio = oculto de propósito)
+	}
+	// Campo criado depois da instalação: usa o texto inicial do seed até ser salvo no painel.
+	static $seed = null;
+	$seed ??= fck_seed_content()['ui'];
+	return (string) ($seed[$group][$key] ?? '');
 }
 
 // ---------------------------------------------------------------------------

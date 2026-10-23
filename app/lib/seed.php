@@ -212,6 +212,12 @@ final class Seeder
 	}
 }
 
+/** Impressão digital do conteúdo inicial: muda quando app/seed/content.php muda. */
+function seed_version(): string
+{
+	return substr(md5_file(FCK_APP . '/seed/content.php') ?: '', 0, 12);
+}
+
 function run_seed(bool $reset = false): array
 {
 	return (new Seeder($reset))->run();

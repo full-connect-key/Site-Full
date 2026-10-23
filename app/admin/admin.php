@@ -156,6 +156,11 @@ function admin_login(string $method): void
 			if (migrations_pending()) {
 				migrate();
 			}
+			// Conteúdo inicial novo (campos, páginas) chega sozinho após um deploy; nunca sobrescreve edições.
+			if (setting('seed_version') !== seed_version()) {
+				run_seed();
+				setting_set('seed_version', seed_version());
+			}
 			contact_retention();
 			$next = (string) input('next', '/admin');
 			redirect_to(str_starts_with($next, '/admin') ? $next : '/admin');
