@@ -415,3 +415,122 @@ button:disabled { cursor: not-allowed; }
   }
   .reveal, .draw-line { opacity: 1 !important; transform: none !important; }
 }
+
+/* ===================================================================== */
+/* 10. Conexões (canvas decorativo)                                       */
+/* ===================================================================== */
+[data-module~='connections'] { position: relative; isolation: isolate; overflow: hidden; }
+.connections__canvas { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+
+/* ===================================================================== */
+/* 11. Home                                                               */
+/* ===================================================================== */
+.section-head { display: grid; gap: 1.5rem; max-width: 56rem; }
+.section-head__text { max-width: 40rem; }
+
+/* Hero */
+.hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-top: calc(var(--header-h) + 3rem); padding-bottom: clamp(3rem, 6vw, 6rem); }
+.hero__glow {
+  position: absolute; inset: auto -20% -40% auto; width: 70vmax; height: 70vmax; z-index: -2; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--brand-cyan) 14%, transparent), transparent 70%);
+}
+.hero__inner { display: grid; gap: clamp(2.5rem, 6vw, 5rem); }
+.hero__title { max-width: 15ch; }
+.hero__title.is-animated { display: grid; }
+.hero__title.is-animated .hero__swap-item {
+  grid-area: 1 / 1; opacity: 0; transform: translateY(0.35em); clip-path: inset(0 0 100% 0);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), clip-path 0.9s var(--ease-out);
+}
+.hero__title.is-animated .hero__swap-item.is-current { opacity: 1; transform: none; clip-path: inset(0 0 -0.2em 0); }
+.hero__title.is-static .hero__swap-item { display: block; }
+.hero__title.is-static .hero__swap-item + .hero__swap-item { margin-top: 0.4em; font-size: 0.5em; line-height: 1.05; color: var(--fg-2); }
+.no-js .hero__swap-item { display: block; }
+.no-js .hero__swap-item + .hero__swap-item { margin-top: 0.4em; font-size: 0.5em; color: var(--fg-2); }
+.hero__bottom { display: grid; gap: 2rem; align-items: end; padding-top: 2rem; border-top: 1px solid var(--line); }
+@media (min-width: 64rem) { .hero__bottom { grid-template-columns: minmax(0, 36rem) auto; justify-content: space-between; } }
+.hero__scroll { position: absolute; left: 50%; bottom: 0; width: 1px; height: clamp(2rem, 5vw, 4rem); background: linear-gradient(var(--accent), transparent); }
+
+/* Marquee */
+.marquee { padding-block: clamp(2rem, 4vw, 3.5rem); border-block: 1px solid var(--line); }
+.marquee__viewport { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marquee__track { display: flex; width: max-content; gap: clamp(3rem, 6vw, 6rem); list-style: none; animation: marquee 40s linear infinite; }
+.marquee:hover .marquee__track, .marquee:focus-within .marquee__track, .marquee.is-paused .marquee__track { animation-play-state: paused; }
+.marquee__item { display: flex; align-items: center; height: 3.5rem; }
+.marquee__logo { height: 100%; width: auto; max-width: 10rem; object-fit: contain; filter: grayscale(1) brightness(1.6); opacity: 0.8; }
+.marquee__controls { display: flex; justify-content: flex-end; margin-top: 1rem; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+  .marquee__item[aria-hidden='true'], .marquee__controls { display: none; }
+}
+
+/* Nossa Essência */
+.essence__title { max-width: 16ch; }
+.essence__grid { display: grid; gap: 2.5rem; margin-top: clamp(3rem, 7vw, 6rem); }
+@media (min-width: 48rem) { .essence__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 64rem) { .essence__grid { grid-template-columns: 1.4fr repeat(3, 1fr); gap: 2rem; } }
+.essence__col { position: relative; display: grid; align-content: start; gap: 1rem; padding-top: 1.75rem; }
+.essence__col > .line { position: absolute; top: 0; left: 0; right: 0; }
+.essence__node { position: absolute; top: -4px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+.essence__name { font-size: var(--fs-display-s); }
+
+/* Ecossistema (Home) */
+.eco-home__head { margin-bottom: clamp(3rem, 6vw, 5rem); }
+.eco-home__list { list-style: none; border-top: 1px solid var(--line); }
+.eco-home__item { border-bottom: 1px solid var(--line); }
+.eco-home__link {
+  position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.5rem 1.5rem;
+  padding-block: clamp(1.25rem, 2.5vw, 2rem); overflow: hidden;
+}
+.eco-home__link::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; background: var(--product);
+  transform: scaleY(0); transform-origin: bottom; transition: transform 0.6s var(--ease-out);
+}
+.eco-home__index { font-size: var(--fs-small); color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.eco-home__name { font-size: var(--fs-display-s); color: var(--product-text); transition: color 0.3s; }
+.eco-home__summary { grid-column: 2 / 3; color: var(--fg-2); max-width: 40rem; transition: color 0.3s; }
+.eco-home__arrow { grid-row: 1 / span 2; grid-column: 3; display: inline-flex; width: 2.75rem; height: 2.75rem; align-items: center; justify-content: center; border: 1px solid var(--line); color: var(--fg); transition: transform 0.4s var(--ease-out), border-color 0.3s, color 0.3s; }
+.eco-home__arrow svg { width: 1.125rem; }
+@media (min-width: 64rem) {
+  .eco-home__link { grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 1.2fr) auto; }
+  .eco-home__summary { grid-column: 3; }
+  .eco-home__arrow { grid-row: 1; grid-column: 4; }
+}
+@media (hover: hover) {
+  .eco-home__link:hover::before, .eco-home__link:focus-visible::before { transform: scaleY(1); }
+  .eco-home__link:hover .eco-home__name, .eco-home__link:focus-visible .eco-home__name,
+  .eco-home__link:hover .eco-home__summary, .eco-home__link:focus-visible .eco-home__summary,
+  .eco-home__link:hover .eco-home__index, .eco-home__link:focus-visible .eco-home__index { color: var(--product-ink); }
+  .eco-home__link:hover .eco-home__arrow, .eco-home__link:focus-visible .eco-home__arrow { transform: translateX(-0.5rem); border-color: currentColor; color: var(--product-ink); }
+}
+.eco-home__cta { margin-top: 3rem; }
+
+/* Setores */
+.sectors__title { max-width: 20ch; }
+.sectors__grid { display: grid; gap: 3rem; margin-top: clamp(3rem, 6vw, 5rem); }
+@media (min-width: 64rem) { .sectors__grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+.sectors__buttons { display: grid; border-top: 1px solid var(--line); }
+.sectors__btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 5rem; padding-block: 1rem;
+  border-bottom: 1px solid var(--line); text-align: left; font-family: var(--font-display); font-size: var(--fs-display-s); line-height: 1.1;
+  color: var(--fg-3); transition: color 0.3s, padding 0.4s var(--ease-out);
+}
+.sectors__btn:hover { color: var(--fg); }
+.sectors__btn[aria-pressed='true'] { color: var(--fg); padding-left: 1rem; }
+.sectors__icon { width: 1.5rem; height: 1.5rem; flex: none; transition: transform 0.4s var(--ease-out); }
+.sectors__btn[aria-pressed='true'] .sectors__icon { transform: rotate(45deg); color: var(--accent); }
+.sectors__stage { display: grid; align-content: start; min-height: 16rem; }
+.sectors__panel, .sectors__intro { display: grid; gap: 1.25rem; align-content: start; animation: fade-up 0.6s var(--ease-out); }
+.sectors__media { aspect-ratio: 4 / 3; }
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } }
+.no-js .sectors__panel { display: grid !important; }
+
+/* CTA cinematográfico */
+.cta-band { padding-block: clamp(6rem, 4rem + 10vw, 14rem); }
+.cta-band__inner { display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+.cta-band__title { max-width: 14ch; }
+.cta-band__bottom { display: grid; gap: 2rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+@media (min-width: 64rem) { .cta-band__bottom { grid-template-columns: minmax(0, 34rem) auto; justify-content: space-between; align-items: end; } }
+
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
