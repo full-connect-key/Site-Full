@@ -8,7 +8,7 @@ Status: `TODO` / `IN_PROGRESS` / `DONE` / `BLOCKED` / `DONE_WITH_GAPS`
 
 Base PHP + painel + MySQL aprovada; conteúdo limitado a 1200px centralizados (token `--content`). Sprints retomadas.
 
-Próximo passo: **Sprint 07 — páginas das 5 plataformas** (`app/views/pages/platform.php` hoje mostra só hero + CTA). Depois as Sprints 08 a 13 em ordem.
+Próximo passo: **Sprint 08 — Cases** (listagem com filtros na URL e página do case). Depois as Sprints 09 a 13 em ordem.
 
 Extra: rodapé exibe a versão publicada (commit + data do deploy) — `deploy_info()` em `app/lib/helpers.php`.
 
@@ -25,7 +25,7 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 04 Home 7–11 | DONE | Sócios (expansão/acordeão); Depoimentos (carrossel acessível); Time (galeria arrastável); Insights (abas acessíveis); CTA final | — |
 | 05 S&M | DONE | Hero; narrativa Entender/Conectar/Amplificar fixa com progresso e diagrama; empilhada com movimento reduzido; CTA | — |
 | 06 Ecossistema | DONE | Hero (título + alternativo); navegação entre as soluções (abas acessíveis: clique, toque, setas) com diagrama "Seu negócio" no centro, linha e nó na cor oficial da ativa, logo, frase, texto, imagem opcional e link para a página; S&M só no texto; CTA | — |
-| 07 Plataformas | TODO | Rotas, hero, logo e cor oficial; CTA | As 5 interações exclusivas |
+| 07 Plataformas | DONE | Template comum (hero com logo oficial, assinatura e cor do produto; solução; CTA) e 5 interações: Hub (cards em caos que se organizam em colunas pela rolagem), Dash (seletor com 3 gráficos ilustrativos e selo), Leads (rede de pontos que converge em oportunidades), FullMix (blocos + simulador de distribuição que mantém 100%, com aviso obrigatório sempre visível e sem projeções), FullMatch (seletor de perfis, detalhes de oferta/ciclo quando preenchidos) | Imagens/vídeos de produto (P2) |
 | 08 Cases | TODO | Listagem e página do item (hero + CTA) | Grid, filtros na URL, galeria, resultados, próximo case |
 | 09 Insights | TODO | Listagem e página do item (hero + CTA) | Destaque, filtros, artigo completo, compartilhar |
 | 10 Full na Mídia | TODO | Hero + CTA | Navegação horizontal imersiva |
