@@ -1,25 +1,20 @@
-# WordPress local (núcleo baixado via WP-CLI, não versionado)
-/.wp-local/
+# Configuração do servidor (senhas) — criada uma vez em cada ambiente
+/app/config.php
 
-# dependências de ferramentas de teste
+# Arquivos enviados pelo painel e dados de execução (não versionar)
+/uploads/*
+!/uploads/.htaccess
+/storage/*
+!/storage/.htaccess
+
+# Ferramentas de desenvolvimento
 /node_modules
-
-# uploads e logs
-/wp-content/uploads/
-*.log
-
-# testes
 /test-results/
 /playwright-report/
-
-# backups locais do banco
-/backups
-
-# segredos
+/dist/
+/backups/
 .env
-wp-config.php
-
-# misc
+*.log
 .DS_Store
 .idea/
-/dist/
+/uploads-*/

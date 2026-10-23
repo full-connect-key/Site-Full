@@ -1,39 +1,28 @@
-# Ambiente local opcional: WordPress + MariaDB + Mailpit.
-# Uso: docker compose up -d  → site em http://localhost:8080, e-mails em http://localhost:8025
+# Ambiente local opcional: PHP 8.3 + Apache (lê o .htaccess) + MySQL + Mailpit.
+# Uso: docker compose up -d → site em http://localhost:8080, e-mails em http://localhost:8025
+# Crie app/config.php com db.host = "db", db.name = "fck_site", user "fck", senha "fck_dev".
 services:
-  db:
-    image: mariadb:11
-    restart: unless-stopped
-    environment:
-      MARIADB_DATABASE: fck_wp
-      MARIADB_USER: fck
-      MARIADB_PASSWORD: fck_dev
-      MARIADB_ROOT_PASSWORD: root_dev
-    volumes:
-      - dbdata:/var/lib/mysql
-
-  wordpress:
-    image: wordpress:php8.3-apache
+  web:
+    image: php:8.3-apache
+    ports: ['127.0.0.1:8080:80']
+    volumes: ['.:/var/www/html']
     depends_on: [db]
-    ports:
-      - '127.0.0.1:8080:80'
+    command: >
+      bash -c "a2enmod rewrite headers expires deflate >/dev/null &&
+               docker-php-ext-install pdo_mysql >/dev/null &&
+               apt-get update -qq && apt-get install -y -qq libwebp-dev libjpeg-dev libpng-dev >/dev/null &&
+               docker-php-ext-configure gd --with-webp --with-jpeg >/dev/null && docker-php-ext-install gd >/dev/null &&
+               sed -ri 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf && apache2-foreground"
+  db:
+    image: mysql:8.0
     environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_NAME: fck_wp
-      WORDPRESS_DB_USER: fck
-      WORDPRESS_DB_PASSWORD: fck_dev
-      WORDPRESS_CONFIG_EXTRA: |
-        define( 'WP_ENVIRONMENT_TYPE', 'local' );
-        define( 'FCK_SMTP_HOST', 'mailpit' );
-        define( 'FCK_SMTP_PORT', 1025 );
-    volumes:
-      - ./wp-content/themes/fullconnectkey:/var/www/html/wp-content/themes/fullconnectkey
-      - ./wp-content/plugins/fck-core:/var/www/html/wp-content/plugins/fck-core
-
+      MYSQL_DATABASE: fck_site
+      MYSQL_USER: fck
+      MYSQL_PASSWORD: fck_dev
+      MYSQL_ROOT_PASSWORD: root_dev
+    volumes: ['dbdata:/var/lib/mysql']
   mailpit:
     image: axllent/mailpit:latest
-    ports:
-      - '127.0.0.1:8025:8025'
-
+    ports: ['127.0.0.1:8025:8025']
 volumes:
   dbdata:

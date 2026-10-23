@@ -6,7 +6,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { test } from 'node:test'
 
-const theme = new URL('../../wp-content/themes/fullconnectkey/', import.meta.url)
+const theme = new URL('../../', import.meta.url)
 const tokens = JSON.parse(readFileSync(new URL('assets/tokens.json', theme), 'utf8'))
 const css = readFileSync(new URL('assets/css/main.css', theme), 'utf8')
 

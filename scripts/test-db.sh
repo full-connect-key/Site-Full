@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
-# Cria/atualiza o banco de TESTE (fck_wp_test) com o seed + fixtures fictícias
-# usadas pelos testes e2e. Nunca toca o banco de revisão.
+# Recria o banco de TESTE (fck_site_test) com o seed + fixtures fictícias.
+# Nunca toca o banco de revisão.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-export FCK_DB_NAME="${FCK_TEST_DB:-fck_wp_test}"
-WP="wp --allow-root --path=$(pwd)/.wp-local"
-$WP db create 2>/dev/null || true
-if ! $WP core is-installed 2>/dev/null; then
-  $WP core install --url="${WP_TEST_URL:-http://localhost:8081}" --title="Full Connect Key (teste)" --admin_user=admin --admin_password=dev-only-change-me-123 --admin_email=admin@localhost.test --skip-email
-  $WP post delete 1 2 3 --force >/dev/null 2>&1 || true
-fi
-$WP theme activate fullconnectkey >/dev/null
-$WP plugin activate fck-core >/dev/null
-$WP fck seed >/dev/null
-$WP eval-file tests/fixtures/fixtures.php
-echo "✓ banco de teste pronto ($FCK_DB_NAME). Servidor de teste: npm run serve:test (http://localhost:8081)"
+export FCK_DB_NAME="${FCK_TEST_DB:-fck_site_test}" FCK_URL="${FCK_TEST_URL:-http://localhost:8081}" FCK_UPLOADS=uploads-test
+rm -rf uploads-test && mkdir -p uploads-test && cp uploads/.htaccess uploads-test/
+mysql -u"${DB_ROOT_USER:-root}" -e "DROP DATABASE IF EXISTS \`$FCK_DB_NAME\`; CREATE DATABASE \`$FCK_DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; GRANT ALL ON \`$FCK_DB_NAME\`.* TO 'fck'@'localhost';"
+php scripts/fck.php migrate
+php scripts/fck.php seed >/dev/null
+php scripts/fck.php create-admin e2e-admin@localhost.test e2e-admin-pass-123
+php scripts/fck.php fixtures
+echo "✓ banco de teste pronto. Servidor: npm run serve:test (http://localhost:8081)"

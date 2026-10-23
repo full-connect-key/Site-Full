@@ -4,7 +4,7 @@ import { defineConfig, devices } from '@playwright/test'
 const baseURL = process.env.E2E_BASE_URL || 'http://localhost:8081'
 
 /**
- * E2E contra o WordPress local (npm run setup && npm run serve).
+ * E2E contra o banco de TESTE (npm run test:db), servido na porta 8081.
  * Viewports do briefing: 375 / 768 / 1280 / 1440.
  */
 export default defineConfig({
@@ -24,5 +24,5 @@ export default defineConfig({
   ],
   webServer: process.env.E2E_BASE_URL
     ? undefined
-    : { command: 'FCK_DB_NAME=fck_wp_test php -S 127.0.0.1:8081 -t .wp-local scripts/dev-router.php', url: baseURL, reuseExistingServer: true, timeout: 30_000 },
+    : { command: 'FCK_LOGIN_LIMIT=1000 FCK_DB_NAME=fck_site_test FCK_URL=http://localhost:8081 FCK_UPLOADS=uploads-test php -S 127.0.0.1:8081 -t . scripts/router.php', url: baseURL, reuseExistingServer: true, timeout: 30_000 },
 })

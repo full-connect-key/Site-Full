@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
  * Auditoria editorial: procura textos fixos nos templates do tema.
+ * (app/views — site público; o painel em app/admin é ferramenta interna).
  * Todo texto visível ou lido por leitor de tela deve vir do painel
  * (campos do conteúdo ou "Textos de interface").
  * Detecta: texto entre tags fora de PHP, atributos de texto literais
@@ -11,8 +12,8 @@ import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 const root = process.cwd()
-const themeDir = join(root, 'wp-content/themes/fullconnectkey')
-const allow = new Set(['plugin-missing.php']) // tela técnica exibida só se o plugin estiver desligado
+const themeDir = join(root, 'app/views')
+const allow = new Set()
 const hits = []
 
 const files = []
@@ -32,8 +33,8 @@ for (const file of files) {
   const lineOf = (idx) => src.slice(0, idx).split('\n').length
 
   // 1) Strings literais com letras em funções de saída de texto.
-  const fnRe = /\b(esc_html|esc_attr|esc_html_e|esc_attr_e|__|_e|_x)\(\s*(['"])((?:(?!\2).)*\p{L}{2,}(?:(?!\2).)*)\2/gu
-  for (const m of src.matchAll(fnRe)) hits.push(`${rel}:${lineOf(m.index)}: ${m[1]}('${m[3]}')`)
+  const fnRe = /\b(e|ee|esc_html|esc_attr|__|_e)\(\s*(['"])((?:(?!\2).)*\p{L}{2,}(?:(?!\2).)*)\2/gu
+  for (const m of src.matchAll(fnRe)) if (!(m[2] === '"' && m[3].includes('$'))) hits.push(`${rel}:${lineOf(m.index)}: ${m[1]}('${m[3]}')`)
 
   // 2) HTML fora dos blocos PHP.
   let html = ''
