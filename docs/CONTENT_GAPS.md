@@ -23,6 +23,5 @@ Sem dados fictícios: enquanto um item não chega, a seção correspondente fica
 | P2 | FullMatch: rótulos "tipo de oferta" / "ciclo de recompra" e detalhes por perfil | Página FullMatch | Interação mais simples | Só headline e texto por perfil |
 | P2 | Revisão dos canais ilustrativos do simulador FullMix (ADR-009) | Página FullMix | — | Canais genéricos |
 | Revisar | Microtextos de interface criados no desenvolvimento (marcados com `(*)` em `app/seed/content.php`, ex.: "Pular para o conteúdo", "(abre em nova aba)") | Acessibilidade e rótulos | — | Editáveis em Configurações › Textos de interface |
-| Confirmar | Assinatura "powered by 4REAL" no logo do FullMatch | Logo FullMatch | — | Mantida como no arquivo oficial |
 
-**Recebido:** logos oficiais da Full (completo e compacto, versões para fundo escuro e claro) e das 5 plataformas (escuro e claro), e a tipografia Google Sans.
+**Recebido:** assinatura "powered by 4REAL" no logo do FullMatch confirmada pelo cliente (mantida); logos oficiais da Full (completo e compacto, versões para fundo escuro e claro) e das 5 plataformas (escuro e claro), e a tipografia Google Sans.
