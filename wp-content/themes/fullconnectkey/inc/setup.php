@@ -50,7 +50,7 @@ add_action(
 	static function (): void {
 		printf(
 			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
-			esc_url( FCK_THEME_URL . '/assets/fonts/BricolageGrotesque-latin-variable.woff2' )
+			esc_url( FCK_THEME_URL . '/assets/fonts/GoogleSans-latin-variable.woff2' )
 		);
 	},
 	1

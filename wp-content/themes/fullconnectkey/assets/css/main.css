@@ -1,31 +1,25 @@
 /*
  * Full Connect Key — estilos do site.
+ * Tipografia: Google Sans (títulos e textos), definida pela marca.
  * Tokens: valores idênticos a assets/tokens.json (fonte de verdade, verificada
  * por tests/unit/tokens.test.mjs). Cores nunca são editáveis no painel: o
  * editor escolhe variantes (dark / light / produto).
  */
 
 /* ===================================================================== */
-/* 1. Fontes (provisórias, OFL — ver docs/DECISIONS.md)                   */
+/* 1. Fontes — Google Sans (OFL 1.1), hospedada no próprio site           */
 /* ===================================================================== */
 @font-face {
-  font-family: 'FCK Display';
-  src: url('../fonts/BricolageGrotesque-latin-variable.woff2') format('woff2');
-  font-weight: 200 800;
-  font-stretch: 75% 100%;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'FCK Text';
-  src: url('../fonts/Inter-latin-variable.woff2') format('woff2');
-  font-weight: 100 900;
+  font-family: 'Google Sans';
+  src: url('../fonts/GoogleSans-latin-variable.woff2') format('woff2');
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'FCK Text';
-  src: url('../fonts/Inter-latin-variable-italic.woff2') format('woff2');
-  font-weight: 100 900;
+  font-family: 'Google Sans';
+  src: url('../fonts/GoogleSans-latin-variable-italic.woff2') format('woff2');
+  font-weight: 400 700;
   font-style: italic;
   font-display: swap;
 }
@@ -70,8 +64,8 @@
   --match-on-light: #b4402f;
 
   /* Tipografia */
-  --font-display: 'FCK Display', 'Arial Narrow', system-ui, sans-serif;
-  --font-text: 'FCK Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Google Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-text: 'Google Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --fs-display-xl: clamp(2.75rem, 1.4rem + 6.4vw, 9.5rem);
   --fs-display-l: clamp(2.375rem, 1.3rem + 4.6vw, 6.75rem);
   --fs-display-m: clamp(2rem, 1.25rem + 3vw, 4.5rem);
@@ -156,6 +150,7 @@ html {
 }
 body {
   margin: 0;
+  font-optical-sizing: auto;
   background: var(--surface);
   color: var(--fg);
   font-family: var(--font-text);
