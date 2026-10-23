@@ -48,6 +48,7 @@ function fck_ui_definition(): array {
 			'illustrative'        => array( 'Selo de conteúdo ilustrativo', 40 ),
 			'scroll_hint'         => array( 'Dica de rolagem/arraste', 80 ),
 			'progress'            => array( 'Progresso', 60, 'Use {n} e {total}.' ),
+			'deploy_label'        => array( 'Rótulo da versão publicada (rodapé)', 40, 'Ex.: Versão. Use {commit} e {data}. Vazio = não exibe.' ),
 		),
 		'form'     => array(
 			'_title'           => 'Formulários',

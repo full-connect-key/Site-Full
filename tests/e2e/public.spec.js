@@ -92,3 +92,25 @@ test.describe('Site público', () => {
     await ctx.close()
   })
 })
+
+test.describe('Ecossistema e rodapé', () => {
+  test('ecossistema: seleção por clique e setas troca painel e nó do diagrama @responsive', async ({ page }) => {
+    await page.goto('/ecossistema')
+    const tabs = page.locator('.eco__tab')
+    await expect(tabs).toHaveCount(5)
+    await tabs.nth(2).click()
+    await expect(tabs.nth(2)).toHaveAttribute('aria-selected', 'true')
+    await expect(page.locator('#eco-panel-2')).toBeVisible()
+    await expect(page.locator('[data-eco-node="2"]')).toHaveClass(/is-active/)
+    await page.keyboard.press('ArrowDown')
+    await expect(tabs.nth(3)).toBeFocused()
+    await expect(page.locator('#eco-panel-3')).toBeVisible()
+    // S&M é método, não nó do diagrama
+    await expect(page.locator('.eco__tab', { hasText: 'S&M' })).toHaveCount(0)
+  })
+
+  test('rodapé mostra a versão publicada', async ({ page }) => {
+    await page.goto('/')
+    await expect(page.locator('.site-footer__version')).toHaveText(/[0-9a-f]{7}/)
+  })
+})

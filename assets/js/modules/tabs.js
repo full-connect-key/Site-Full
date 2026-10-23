@@ -6,6 +6,7 @@ export default function tabs(el) {
   const list = [...el.querySelectorAll('[role="tab"]')]
   if (!list.length) return
   const select = (tab, focus = false) => {
+    el.dispatchEvent(new CustomEvent('fck:tab', { detail: { index: list.indexOf(tab) } }))
     list.forEach((t) => {
       const on = t === tab
       t.setAttribute('aria-selected', String(on))
@@ -15,7 +16,7 @@ export default function tabs(el) {
     })
     if (focus) tab.focus()
   }
-  const hover = window.matchMedia('(hover: hover)').matches
+  const hover = el.dataset.tabsHover !== 'false' && window.matchMedia('(hover: hover)').matches
   list.forEach((t, i) => {
     t.addEventListener('click', () => select(t))
     if (hover) t.addEventListener('mouseenter', () => select(t))

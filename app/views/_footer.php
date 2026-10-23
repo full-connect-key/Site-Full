@@ -77,11 +77,20 @@ $has_contacts = ! empty( $contacts['email'] ) || has_text( $contacts['phone'] ??
 		</div>
 
 		<div class="site-footer__bottom">
+			<?php
+			$deploy       = deploy_info();
+			$deploy_label = ui( 'a11y', 'deploy_label' );
+			?>
+			<div class="site-footer__meta">
 			<?php if ( has_text( $footer['copyright'] ?? '' ) ) : ?>
 				<p><?php echo e( fill( $footer['copyright'], array( 'ano' => date( 'Y' ) ) ) ); ?></p>
 			<?php else : ?>
 				<span></span>
 			<?php endif; ?>
+			<?php if ( $deploy && '' !== $deploy_label ) : ?>
+				<p class="site-footer__version" data-deploy="<?php echo e( $deploy['commit'] ); ?>"><?php echo e( trim( fill( $deploy_label, array( 'commit' => $deploy['commit'], 'data' => $deploy['deployed'] ) ), ' ·' ) ); ?></p>
+			<?php endif; ?>
+			</div>
 			<ul class="site-footer__legal">
 				<?php foreach ( $legal as $link ) : ?>
 					<?php if ( $link['href'] ) : ?>

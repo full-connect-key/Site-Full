@@ -722,3 +722,38 @@ button:disabled { cursor: not-allowed; }
   .method.is-pinned .method__names { grid-auto-flow: column; justify-content: start; gap: 1.25rem; }
   .method.is-pinned .method__name a { font-size: var(--fs-display-xs); }
 }
+
+/* Ecossistema — navegação com o negócio no centro */
+.eco__nav { display: grid; gap: 2.5rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
+@media (min-width: 64rem) { .eco__nav { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.1fr); gap: 2.5rem; align-items: center; } }
+.eco__list { display: grid; border-top: 1px solid var(--line); }
+.eco__tab { display: grid; grid-template-columns: auto 1fr; gap: 0.125rem 0.875rem; align-items: center; padding: 1rem 0 1rem 0.5rem; min-height: 3.5rem; border-bottom: 1px solid var(--line); text-align: left; color: var(--fg-3); transition: color 0.3s, padding 0.4s var(--ease-out); }
+.eco__tab:hover { color: var(--fg); }
+.eco__tab[aria-selected='true'] { color: var(--fg); padding-left: 1rem; }
+.eco__tab-dot { grid-row: span 2; width: 0.75rem; height: 0.75rem; border-radius: 50%; border: 2px solid var(--product); transition: background 0.3s; }
+.eco__tab[aria-selected='true'] .eco__tab-dot { background: var(--product); }
+.eco__tab-name { font-family: var(--font-display); font-size: var(--fs-display-xs); font-weight: 600; line-height: 1.15; }
+.eco__tab[aria-selected='true'] .eco__tab-name { color: var(--product-text); }
+.eco__tab-sig { grid-column: 2; color: var(--fg-3); }
+.eco__stage { position: relative; max-width: 26rem; width: 100%; margin-inline: auto; }
+.eco__diagram { width: 100%; height: auto; overflow: visible; }
+.eco__orbit { fill: none; stroke: var(--line); stroke-dasharray: 2 6; }
+.eco__link { stroke: var(--line); stroke-width: 1; transition: stroke 0.5s, stroke-width 0.5s; }
+.eco__dot { fill: var(--surface); stroke: var(--product); stroke-width: 2; transition: fill 0.4s, r 0.4s; cursor: pointer; }
+.eco__node.is-active .eco__link { stroke: var(--product); stroke-width: 2; }
+.eco__node.is-active .eco__dot { fill: var(--product); r: 14; }
+.eco__core { fill: var(--surface-2); stroke: var(--accent); stroke-width: 1.5; }
+.eco__stage[data-product] .eco__core { stroke: var(--product, var(--accent)); }
+.eco__center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 0 30%; font-family: var(--font-display); font-weight: 600; line-height: 1.15; pointer-events: none; }
+.eco__panels { display: grid; }
+.eco__panel { display: grid; gap: 1rem; align-content: start; animation: fade-up 0.5s var(--ease-out); }
+.eco__panel:focus-visible { outline-offset: 6px; }
+.eco__logo .wordmark--logo { height: clamp(3rem, 2.4rem + 2vw, 4.5rem); }
+.eco__logo .wordmark:not(.wordmark--logo) { font-size: var(--fs-display-s); color: var(--product-text); }
+.eco__media { aspect-ratio: 16 / 10; }
+.eco__headline { color: var(--fg); }
+.eco__more { color: var(--product-text); }
+.no-js .eco__panel { display: grid !important; padding-top: 2rem; border-top: 1px solid var(--line); }
+.no-js .eco__panels { gap: 2rem; }
+.site-footer__meta { display: grid; gap: 0.25rem; }
+.site-footer__version { font-size: 0.75rem; color: var(--fg-3); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }

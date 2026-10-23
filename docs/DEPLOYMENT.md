@@ -27,6 +27,8 @@ Site em **PHP 8.1+ e MySQL**, com painel próprio em `/admin`. Não usa WordPres
 - Envie os commits para a branch configurada e clique em **Implantar** no hPanel. Para automatizar, cadastre a URL de *webhook* que a Hostinger mostra em GitHub › Settings › Webhooks.
 - Se uma versão trouxer **migrations** (arquivos novos em `app/migrations/`), elas são aplicadas sozinhas no próximo login de um administrador. Também dá para aplicá-las em Painel › Ferramentas › *Aplicar atualizações*. Elas só criam ou acrescentam, nunca apagam dados.
 
+**Qual versão está no ar?** O rodapé mostra *Versão abc1234 · data/hora do deploy*. O código é o commit publicado, igual ao do GitHub. Esse texto é editável em Configurações › Textos de interface › "Rótulo da versão publicada"; deixe o campo vazio para ocultá-lo. Se o deploy não mantiver a pasta `.git`, crie na raiz um arquivo `VERSION` com o identificador.
+
 ## 3. Rollback
 
 - **Código**: no GitHub, reverta o commit com `git revert` e faça o deploy de novo. Outra opção é apontar o deploy da Hostinger para um commit ou tag anterior.

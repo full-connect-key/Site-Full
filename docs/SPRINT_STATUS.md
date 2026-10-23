@@ -6,9 +6,11 @@ Status: `TODO` / `IN_PROGRESS` / `DONE` / `BLOCKED` / `DONE_WITH_GAPS`
 
 ## Ponto de retomada
 
-**Migração para PHP + painel + MySQL concluída e testada** (23/10/2026). Por pedido do usuário, as sprints seguintes só recomeçam depois que ele validar a nova base.
+Base PHP + painel + MySQL aprovada; conteúdo limitado a 1200px centralizados (token `--content`). Sprints retomadas.
 
-Próximo passo após o ok: **Sprint 06 — página Ecossistema** (`app/views/pages/ecosystem.php` hoje mostra só hero + CTA). Depois as Sprints 07 a 13 em ordem.
+Próximo passo: **Sprint 07 — páginas das 5 plataformas** (`app/views/pages/platform.php` hoje mostra só hero + CTA). Depois as Sprints 08 a 13 em ordem.
+
+Extra: rodapé exibe a versão publicada (commit + data do deploy) — `deploy_info()` em `app/lib/helpers.php`.
 
 Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.php seed`; `npm run serve`; `npm run test:db && npx playwright test`.
 
@@ -22,7 +24,7 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 03 Home 1–6 | DONE | Hero com alternância e canvas de conexões; faixa de logos (só autorizados, pausa); Nossa Essência; Ecossistema com cores oficiais; Setores (`aria-pressed`, desseleção); Cases 1+2 com indicadores só reais | — |
 | 04 Home 7–11 | DONE | Sócios (expansão/acordeão); Depoimentos (carrossel acessível); Time (galeria arrastável); Insights (abas acessíveis); CTA final | — |
 | 05 S&M | DONE | Hero; narrativa Entender/Conectar/Amplificar fixa com progresso e diagrama; empilhada com movimento reduzido; CTA | — |
-| 06 Ecossistema | TODO | Hero + CTA do painel | Navegação interativa com "Seu negócio" no centro |
+| 06 Ecossistema | DONE | Hero (título + alternativo); navegação entre as soluções (abas acessíveis: clique, toque, setas) com diagrama "Seu negócio" no centro, linha e nó na cor oficial da ativa, logo, frase, texto, imagem opcional e link para a página; S&M só no texto; CTA | — |
 | 07 Plataformas | TODO | Rotas, hero, logo e cor oficial; CTA | As 5 interações exclusivas |
 | 08 Cases | TODO | Listagem e página do item (hero + CTA) | Grid, filtros na URL, galeria, resultados, próximo case |
 | 09 Insights | TODO | Listagem e página do item (hero + CTA) | Destaque, filtros, artigo completo, compartilhar |

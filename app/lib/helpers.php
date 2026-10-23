@@ -173,3 +173,63 @@ function reading_minutes(string $html): int
 	$words = preg_match_all('/[\p{L}\p{N}]+/u', strip_tags($html));
 	return max(1, (int) round($words / 200));
 }
+
+/**
+ * Versão publicada: commit atual (lido de .git, criado pelo deploy por Git
+ * da Hostinger) e horário do deploy. Alternativa: arquivo VERSION na raiz.
+ *
+ * @return array{commit:string,branch:string,deployed:string}|null
+ */
+function deploy_info(): ?array
+{
+	static $info = false;
+	if ($info !== false) {
+		return $info;
+	}
+	$info = null;
+	$git  = FCK_ROOT . '/.git';
+	if (is_file($git)) { // worktree/submódulo: "gitdir: caminho"
+		$line = trim((string) file_get_contents($git));
+		if (str_starts_with($line, 'gitdir:')) {
+			$git = trim(substr($line, 7));
+			$git = str_starts_with($git, '/') ? $git : FCK_ROOT . '/' . $git;
+		}
+	}
+	if (is_dir($git) && is_file($git . '/HEAD')) {
+		$head   = trim((string) file_get_contents($git . '/HEAD'));
+		$branch = '';
+		$commit = '';
+		$stamp  = filemtime($git . '/HEAD') ?: 0;
+		if (str_starts_with($head, 'ref:')) {
+			$ref    = trim(substr($head, 4));
+			$branch = (string) preg_replace('#^refs/heads/#', '', $ref);
+			if (is_file($git . '/' . $ref)) {
+				$commit = trim((string) file_get_contents($git . '/' . $ref));
+				$stamp  = max($stamp, (int) filemtime($git . '/' . $ref));
+			} elseif (is_file($git . '/packed-refs')) {
+				foreach (file($git . '/packed-refs') ?: [] as $l) {
+					if (str_ends_with(trim($l), ' ' . $ref)) {
+						$commit = substr(trim($l), 0, 40);
+					}
+				}
+			}
+		} else {
+			$commit = $head; // HEAD destacado
+		}
+		foreach (['FETCH_HEAD', 'ORIG_HEAD', 'index'] as $f) {
+			if (is_file($git . '/' . $f)) {
+				$stamp = max($stamp, (int) filemtime($git . '/' . $f));
+			}
+		}
+		if (preg_match('/^[0-9a-f]{7,40}$/', $commit)) {
+			$info = ['commit' => substr($commit, 0, 7), 'branch' => $branch, 'deployed' => $stamp ? date('d/m/Y H:i', $stamp) : ''];
+		}
+	}
+	if (!$info && is_file(FCK_ROOT . '/VERSION')) {
+		$v = trim((string) file_get_contents(FCK_ROOT . '/VERSION'));
+		if ($v !== '') {
+			$info = ['commit' => mb_substr(clean_line($v), 0, 40), 'branch' => '', 'deployed' => date('d/m/Y H:i', (int) filemtime(FCK_ROOT . '/VERSION'))];
+		}
+	}
+	return $info;
+}

@@ -63,6 +63,7 @@ function fck_seed_content(): array {
 				'illustrative'          => 'Ilustrativo', // (*)
 				'scroll_hint'           => 'Arraste ou use as setas para ver mais', // (*)
 				'progress'              => '{n} de {total}', // (*)
+				'deploy_label'          => 'Versão {commit} · {data}', // (*) identificação do deploy no rodapé
 			),
 			'form'     => array(
 				'required'         => 'Preencha este campo para continuar.',
