@@ -81,7 +81,7 @@
   --section: clamp(5rem, 3rem + 8vw, 11rem);
   --section-sm: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
   --header-h: 4.5rem;
-  --content: 1200px; /* largura máxima do conteúdo; laterais livres */
+  --content: 1080px; /* largura máxima do conteúdo; laterais livres */
   --container: calc(var(--content) + 2 * var(--gutter));
   --measure: 68ch;
 
@@ -634,7 +634,7 @@ button:disabled { cursor: not-allowed; }
 .team__scroller.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
 .team__scroller:focus-visible { outline-offset: -3px; }
 .team__scroller { max-width: var(--content); margin-inline: auto; }
-@media (max-width: 1248px) { .team__scroller { margin-inline: var(--gutter); } }
+@media (max-width: 1128px) { .team__scroller { margin-inline: var(--gutter); } }
 .team__list { display: flex; gap: 1rem; list-style: none; width: max-content; }
 .team-card { width: clamp(15rem, 22vw, 20rem); scroll-snap-align: start; }
 .team-card__media { aspect-ratio: 3 / 4; }
