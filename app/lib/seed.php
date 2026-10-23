@@ -36,6 +36,9 @@ final class Seeder
 		foreach ($c['sectors'] as $slug => $p) {
 			$this->ensure('sector', 'sector:' . $slug, $p + ['slug' => $slug, 'status' => 'publish']);
 		}
+		foreach ($c['partners'] ?? [] as $slug => $p) {
+			$this->ensure('partner', 'partner:' . $slug, $p + ['slug' => $slug, 'status' => 'draft']);
+		}
 		$order = 0;
 		foreach ($c['categories'] as $slug => $name) {
 			$this->ensure('category', 'category:' . $slug, ['title' => $name, 'slug' => $slug, 'status' => 'publish', 'order' => ++$order]);

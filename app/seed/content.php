@@ -682,6 +682,15 @@ function fck_seed_content(): array {
 			'match-claro'          => array( 'file' => 'fullmatch-claro.svg', 'alt' => 'FullMatch', 'target' => 'platform:match:logo_light' ),
 		),
 
+		// Sócios (nomes informados pela Full em 23/10/2026). Entram como rascunho:
+		// cargo, bio e retrato ainda pendentes — a seção só aparece com os três
+		// publicados e com retrato.
+		'partners'   => array(
+			'rita-frare'     => array( 'title' => 'Rita Frare', 'order' => 1 ),
+			'emerson-aguiar' => array( 'title' => 'Emerson Aguiar', 'order' => 2 ),
+			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'order' => 3 ),
+		),
+
 		'categories' => array(
 			'estrategia'    => 'Estratégia',
 			'branding'      => 'Branding',
