@@ -6,9 +6,9 @@ Status: `TODO` / `IN_PROGRESS` / `DONE` / `BLOCKED` / `DONE_WITH_GAPS`
 
 ## Ponto de retomada
 
-Base PHP + painel + MySQL aprovada; conteúdo limitado a 1080px centralizados (token `--content`). Sprints 08 e 09 concluídas.
+Base PHP + painel + MySQL aprovada; conteúdo limitado a 1080px centralizados (token `--content`). Sprints 08, 09 e 10 concluídas.
 
-Próximo passo: **Sprint 10 — Full na Mídia** (navegação horizontal imersiva; arquivo e filtros só acima do limiar). Depois as Sprints 11 a 13 em ordem.
+Próximo passo: **Sprint 11 — Contato** (formulário progressivo em duas etapas sobre o back-end que já existe em `app/lib/contact.php`). Depois as Sprints 12 e 13.
 
 Extra: rodapé exibe a versão publicada (commit + data do deploy) — `deploy_info()` em `app/lib/helpers.php`.
 
@@ -28,13 +28,14 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 07 Plataformas | DONE | Template comum (hero com logo oficial, assinatura e cor do produto; solução; CTA) e 5 interações: Hub (cards em caos que se organizam em colunas pela rolagem), Dash (seletor com 3 gráficos ilustrativos e selo), Leads (rede de pontos que converge em oportunidades), FullMix (blocos + simulador de distribuição que mantém 100%, com aviso obrigatório sempre visível e sem projeções), FullMatch (seletor de perfis, detalhes de oferta/ciclo quando preenchidos) | Imagens/vídeos de produto (P2) |
 | 08 Cases | DONE | Listagem: hero, filtros por setor (só setores com case) refletidos na URL (`?setor=`, funcionam sem JS e com voltar/avançar), grid editorial assimétrico em blocos de 7 (7/5 · 4/4/4 · 5/7) sem buracos, cantos retos e gaps pequenos, nome/categoria no hover/foco (visíveis no mobile), reflow suave (FLIP, desligado com movimento reduzido), "Carregar mais" (`page_size`, link `?mostrar=` sem JS), estado vazio, CTA. Página do case: KV full-bleed com parallax leve, cliente · categoria, headline e resumo; O desafio / A ideia / Nossa atuação; galeria mista (imagem/vídeo com poster, sem autoplay) com tamanhos do painel; resultados só se preenchidos; próximo case manual ou cíclico; CTA da página Cases | KVs e imagens reais com autorização (P1) |
 | 09 Insights | DONE | Listagem: destaque editorial (artigo grande + manchetes como abas; marcados como destaque primeiro), grid sem repetir o destaque, filtro por categoria na URL (`?categoria=`, também sem JS), carregar mais, estado vazio, CTA. Artigo: categoria (link para o filtro), título, subtítulo, autor e cargo, data, leitura estimada, capa, corpo em texto rico sanitizado (títulos, listas, citações, imagens, vídeos YouTube/Vimeo), compartilhar (LinkedIn, WhatsApp, e-mail, copiar link), relacionados (manuais → mesma categoria → recentes), JSON-LD Article com autor | Artigos reais (P2) |
-| 10 Full na Mídia | TODO | Hero + CTA | Navegação horizontal imersiva |
+| 10 Full na Mídia | DONE | Hero; faixa horizontal imersiva (matéria sob o cursor/foco se expande e revela a capa por máscara, manchete acompanha o cursor, setas ← → e botões anterior/próximo; no toque, rolagem com snap); veículo (logo só com direito de uso), manchete original, data, tipo, resumo próprio e link externo `noopener noreferrer` com aviso de nova aba; arquivo com filtros por tipo (`?tipo=`) e "Ver mais" **só acima do limiar do painel**; sem matérias: hero, estado vazio e CTA; CTA para `/contato/?assunto=imprensa` | Matérias reais (P2) |
 | 11 Contato/cookies/legais | IN_PROGRESS | Back-end do formulário (validação, honeypot, token, limite por IP, gravação, SMTP), banner/central de cookies, página jurídica | Formulário progressivo na página Contato |
 | 12 Polimento | TODO | Testes de acessibilidade (axe) nas rotas atuais; SEO técnico (meta, OG, canonical, sitemap, robots, JSON-LD) | Lighthouse, auditoria completa |
 | 13 QA e entrega | TODO | `docs/DEPLOYMENT.md` (Hostinger, backup, rollback) | Relatório final |
 
 ## Testes executados (23/10/2026)
 
+- Sprint 10: `tests/e2e/press.spec.js` (expansão por cursor e foco, setas, links externos, botões no toque, arquivo/filtros acima do limiar e ausentes abaixo). Suíte completa: **101/101** em 1280, 375, 768 e 1440px.
 - Sprint 09: `tests/e2e/insights.spec.js` (abas do destaque, grid sem duplicar, filtro na URL e sem JS, artigo com leitura/autor/compartilhar/copiar link/relacionados/JSON-LD) + axe no artigo — 50/50 nas suítes públicas em 1280 + 375px.
 - Sprint 08: Playwright **59/59 em 1280 + 375px** (inclui `tests/e2e/cases.spec.js`: filtro na URL, histórico, filtro sem JS, card acessível, página do case, próximo cíclico, case sem resultados sem bloco vazio, publicar → listagem + filtro + rota + sitemap) e axe na página do case.
 
