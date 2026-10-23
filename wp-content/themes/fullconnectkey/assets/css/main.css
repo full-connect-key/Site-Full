@@ -664,3 +664,58 @@ button:disabled { cursor: not-allowed; }
 .feature__tab[aria-selected='true'] { color: var(--fg); border-left-color: var(--accent); padding-left: 1.25rem; }
 .feature__tab-title { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.25; font-weight: 600; }
 .no-js .feature__panel { display: block !important; }
+
+/* ===================================================================== */
+/* 12. Páginas internas                                                   */
+/* ===================================================================== */
+.page-hero { min-height: 88svh; display: flex; flex-direction: column; justify-content: flex-end; padding-top: calc(var(--header-h) + 4rem); padding-bottom: clamp(3rem, 6vw, 6rem); }
+.page-hero__inner { display: grid; gap: 1.75rem; }
+.page-hero__title { max-width: 18ch; }
+.page-hero__alt { max-width: 26ch; color: var(--product-text, var(--accent)); }
+.page-hero__bottom { display: grid; gap: 2rem; align-items: end; margin-top: 1.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+@media (min-width: 64rem) { .page-hero__bottom { grid-template-columns: minmax(0, 44rem) auto; justify-content: space-between; } }
+
+/* S&M — narrativa do método */
+.method { padding-top: var(--section); }
+.method__intro { padding-bottom: clamp(2rem, 5vw, 4rem); }
+.method__track { position: relative; }
+.method__stage { display: grid; gap: 2.5rem; }
+.method__names { list-style: none; display: grid; gap: 0.25rem; }
+.method__name a { display: inline-flex; min-height: 2.75rem; align-items: center; font-family: var(--font-display); font-size: var(--fs-display-s); font-weight: 600; color: var(--fg-3); transition: color 0.4s; }
+.method__name.is-active a, .method__name a:hover { color: var(--fg); }
+.method__progress { margin-top: 1.5rem; height: 2px; background: var(--line); overflow: hidden; max-width: 20rem; }
+.method__progress-bar { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(0.02); transition: transform 0.15s linear; }
+.method__visual { display: none; }
+.method__svg { width: 100%; height: auto; overflow: visible; }
+.method__ring { fill: none; stroke: var(--line); stroke-width: 1; }
+.method__spoke { stroke: var(--line); stroke-width: 1; transition: stroke 0.6s; }
+.method__spoke.is-active { stroke: var(--accent); }
+.method__node { fill: var(--surface); stroke: var(--fg-3); stroke-width: 1.5; transition: fill 0.5s, stroke 0.5s; }
+.method__node.is-active { fill: var(--accent); stroke: var(--accent); }
+.method__core { fill: var(--accent); }
+.method__panel { display: grid; gap: 1rem; align-content: start; }
+.method__panel:focus { outline: none; }
+.method__step-name { color: var(--accent); }
+.method__headline { max-width: 22ch; }
+.method__text { max-width: 36rem; }
+
+/* Estático (sem JS / movimento reduzido): empilhado e legível */
+.method:not(.is-pinned) .method__panels { display: grid; gap: 4rem; padding-bottom: var(--section); }
+.method:not(.is-pinned) .method__nav { display: none; }
+.method:not(.is-pinned) .method__panel { padding-top: 2rem; border-top: 1px solid var(--line); }
+
+/* Fixado: a faixa tem a altura de N telas; o palco fica preso */
+.method.is-pinned .method__track { height: calc(var(--steps) * 100svh); }
+.method.is-pinned .method__sticky { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; padding-top: var(--header-h); }
+.method.is-pinned .method__stage { width: 100%; }
+.method.is-pinned .method__panels { display: grid; }
+.method.is-pinned .method__panel { grid-area: 1 / 1; opacity: 0; transform: translateY(2rem); transition: opacity 0.6s var(--ease-out), transform 0.8s var(--ease-out); pointer-events: none; }
+.method.is-pinned .method__panel.is-active { opacity: 1; transform: none; pointer-events: auto; }
+@media (min-width: 64rem) {
+  .method.is-pinned .method__stage { grid-template-columns: 1fr 1fr 1.2fr; align-items: center; gap: 3rem; }
+  .method.is-pinned .method__visual { display: block; max-width: 26rem; }
+}
+@media (max-width: 63.99rem) {
+  .method.is-pinned .method__names { grid-auto-flow: column; justify-content: start; gap: 1.25rem; }
+  .method.is-pinned .method__name a { font-size: var(--fs-display-xs); }
+}
