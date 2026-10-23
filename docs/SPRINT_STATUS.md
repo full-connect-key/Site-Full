@@ -8,7 +8,9 @@ Status: `TODO` / `IN_PROGRESS` / `DONE` / `BLOCKED` / `DONE_WITH_GAPS`
 
 Base PHP + painel + MySQL aprovada; conteúdo limitado a 1080px centralizados (token `--content`). Sprints 08 a 11 concluídas (Sprint 11 com pendências de conteúdo jurídico e SMTP, que dependem do cliente).
 
-Próximo passo: **Sprint 12 — Polimento** (auditoria de acessibilidade e desempenho, Lighthouse, favicon/ícones, revisão de movimento). Depois a Sprint 13 (QA final e relatório).
+Sprint 12 concluída (ver `docs/QA_REPORT.md`).
+
+Próximo passo: **Sprint 13 — QA final e entrega** (segurança e segredos, `npm audit`, backup/restauração testados, checklist de pré-lançamento, guia do editor e relatório final).
 
 Extra: rodapé exibe a versão publicada (commit + data do deploy) — `deploy_info()` em `app/lib/helpers.php`.
 
@@ -30,7 +32,7 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 09 Insights | DONE | Listagem: destaque editorial (artigo grande + manchetes como abas; marcados como destaque primeiro), grid sem repetir o destaque, filtro por categoria na URL (`?categoria=`, também sem JS), carregar mais, estado vazio, CTA. Artigo: categoria (link para o filtro), título, subtítulo, autor e cargo, data, leitura estimada, capa, corpo em texto rico sanitizado (títulos, listas, citações, imagens, vídeos YouTube/Vimeo), compartilhar (LinkedIn, WhatsApp, e-mail, copiar link), relacionados (manuais → mesma categoria → recentes), JSON-LD Article com autor | Artigos reais (P2) |
 | 10 Full na Mídia | DONE | Hero; faixa horizontal imersiva (matéria sob o cursor/foco se expande e revela a capa por máscara, manchete acompanha o cursor, setas ← → e botões anterior/próximo; no toque, rolagem com snap); veículo (logo só com direito de uso), manchete original, data, tipo, resumo próprio e link externo `noopener noreferrer` com aviso de nova aba; arquivo com filtros por tipo (`?tipo=`) e "Ver mais" **só acima do limiar do painel**; sem matérias: hero, estado vazio e CTA; CTA para `/contato/?assunto=imprensa` | Matérias reais (P2) |
 | 11 Contato/cookies/legais | DONE_WITH_GAPS | Formulário progressivo: etapa 1 assunto (cards de opção, pré-seleção por `?assunto=`), etapa 2 nome, e-mail, empresa opcional, mensagem e consentimento (trecho vira link para a Política de Privacidade quando publicada); foco gerenciado entre etapas e nos erros (`aria-invalid` + `aria-describedby`), validação no cliente espelhando o servidor, estados enviando/erro/sucesso, sucesso **só após confirmação do servidor**; sem JS as duas etapas aparecem e o envio volta com `?contato=sucesso`. Back-end: validação, honeypot, tempo mínimo, token, limite por IP, gravação no painel, SMTP. Banner/central de cookies e página jurídica | Textos jurídicos, destinatários e SMTP aprovados (P0, CONTENT_GAPS) |
-| 12 Polimento | TODO | Testes de acessibilidade (axe) nas rotas atuais; SEO técnico (meta, OG, canonical, sitemap, robots, JSON-LD) | Lighthouse, auditoria completa |
+| 12 Polimento | DONE | Lighthouse mobile em 6 páginas (Performance 93–98, Acessibilidade 100, Boas práticas 100; SEO 69 só pelo `noindex` de staging); CLS da Home 0,224 → 0 (troca `no-js`→`js` antes da 1ª pintura); cache de JS corrigido (módulos sem versão ficavam 1 ano no navegador → `no-cache` + `?v=<commit>`); favicon e ícone Apple a partir do símbolo oficial; sem overflow de 320 a 1920 px; alvos de toque ≥ 44 px; roteiro manual de leitor de tela; axe em todas as rotas | Medição de campo (Core Web Vitals) só com tráfego real |
 | 13 QA e entrega | TODO | `docs/DEPLOYMENT.md` (Hostinger, backup, rollback) | Relatório final |
 
 ## Testes executados (23/10/2026)

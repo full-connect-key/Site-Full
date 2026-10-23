@@ -168,6 +168,26 @@ function client_key(): string
 }
 
 /** Contagem de palavras para leitura estimada. */
+/**
+ * Versão do JavaScript: muda a cada deploy (commit) ou, sem .git, quando
+ * qualquer arquivo de assets/js muda. Vai no ?v= do main.js e dos módulos.
+ */
+function js_version(): string
+{
+	static $v = null;
+	if ($v === null) {
+		$v = (string) (deploy_info()['commit'] ?? '');
+		if ($v === '') {
+			$max = 0;
+			foreach (array_merge(glob(FCK_ROOT . '/assets/js/*.js') ?: [], glob(FCK_ROOT . '/assets/js/modules/*.js') ?: []) as $f) {
+				$max = max($max, (int) filemtime($f));
+			}
+			$v = (string) ($max ?: FCK_VERSION);
+		}
+	}
+	return $v;
+}
+
 function reading_minutes(string $html): int
 {
 	$words = preg_match_all('/[\p{L}\p{N}]+/u', strip_tags($html));

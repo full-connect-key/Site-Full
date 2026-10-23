@@ -12,17 +12,21 @@ $cta      = link_of( $menu['cta'] ?? null );
 $items    = menu_tree( (array) ( $menu['main'] ?? array() ) );
 $skip     = ui( 'a11y', 'skip_to_content' );
 ?><!doctype html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="dark" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#05080A">
+<script nonce="<?php echo e( csp_nonce() ); ?>">if('noModule' in HTMLScriptElement.prototype)document.documentElement.classList.replace('no-js','js')</script>
+<link rel="icon" href="<?php echo e( asset( 'icon.svg' ) ); ?>" type="image/svg+xml">
+<link rel="icon" href="<?php echo e( url( '/favicon.ico' ) ); ?>" sizes="48x48">
+<link rel="apple-touch-icon" href="<?php echo e( asset( 'apple-touch-icon.png' ) ); ?>">
 <?php seo_head( $seo ); ?>
 <link rel="preload" href="<?php echo e( asset( 'fonts/GoogleSans-latin-variable.woff2' ) ); ?>" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?php echo e( asset( 'css/main.css' ) ); ?>">
-<script type="module" src="<?php echo e( asset( 'js/main.js' ) ); ?>" nonce="<?php echo e( csp_nonce() ); ?>"></script>
+<script type="module" src="<?php echo e( url( 'assets/js/main.js' ) . '?v=' . rawurlencode( js_version() ) ); ?>" nonce="<?php echo e( csp_nonce() ); ?>"></script>
 </head>
-<body class="no-js <?php echo e( $body_class ?? '' ); ?>" id="top">
+<body class="<?php echo e( $body_class ?? '' ); ?>" id="top">
 <?php if ( $skip ) : ?>
 	<a class="skip-link" href="#conteudo"><?php echo e( $skip ); ?></a>
 <?php endif; ?>

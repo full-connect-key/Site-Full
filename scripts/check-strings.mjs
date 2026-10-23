@@ -49,6 +49,8 @@ for (const file of files) {
     i = m.index + m[0].length
   }
   html += src.slice(i)
+  // Código de <script> não é texto editorial.
+  html = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, (s) => ' '.repeat(s.length))
 
   for (const t of html.matchAll(/>([^<>]*\p{L}{2,}[^<>]*)</gu)) {
     const text = t[1].trim()

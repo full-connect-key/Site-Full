@@ -434,16 +434,19 @@ button:disabled { cursor: not-allowed; }
 }
 .hero__inner { display: grid; gap: clamp(2.5rem, 6vw, 5rem); }
 .hero__title { max-width: 15ch; }
-.hero__title.is-animated { display: grid; }
-.hero__title.is-animated .hero__swap-item {
-  grid-area: 1 / 1; opacity: 0; transform: translateY(0.35em); clip-path: inset(0 0 100% 0);
-  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), clip-path 0.9s var(--ease-out);
+.hero__swap-item { display: block; }
+.hero__swap-item + .hero__swap-item { margin-top: 0.4em; font-size: 0.5em; line-height: 1.05; color: var(--fg-2); }
+/* Com JS e movimento liberado, o layout final (títulos sobrepostos) vale desde o primeiro quadro: sem deslocamento (CLS). */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero__title:not(.is-static) { display: grid; }
+  .js .hero__title:not(.is-static) .hero__swap-item {
+    grid-area: 1 / 1; margin: 0; font-size: inherit; line-height: inherit; color: inherit;
+    opacity: 0; transform: translateY(0.35em); clip-path: inset(0 0 100% 0);
+    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), clip-path 0.9s var(--ease-out);
+  }
+  .js .hero__title.is-animated .hero__swap-item.is-current,
+  .js .hero__title:not(.is-animated):not(.is-static) .hero__swap-item:first-child { opacity: 1; transform: none; clip-path: inset(0 0 -0.2em 0); }
 }
-.hero__title.is-animated .hero__swap-item.is-current { opacity: 1; transform: none; clip-path: inset(0 0 -0.2em 0); }
-.hero__title.is-static .hero__swap-item { display: block; }
-.hero__title.is-static .hero__swap-item + .hero__swap-item { margin-top: 0.4em; font-size: 0.5em; line-height: 1.05; color: var(--fg-2); }
-.no-js .hero__swap-item { display: block; }
-.no-js .hero__swap-item + .hero__swap-item { margin-top: 0.4em; font-size: 0.5em; color: var(--fg-2); }
 .hero__bottom { display: grid; gap: 2rem; align-items: end; padding-top: 2rem; border-top: 1px solid var(--line); }
 @media (min-width: 64rem) { .hero__bottom { grid-template-columns: minmax(0, 36rem) auto; justify-content: space-between; } }
 .hero__scroll { position: absolute; left: 50%; bottom: 0; width: 1px; height: clamp(2rem, 5vw, 4rem); background: linear-gradient(var(--accent), transparent); }
@@ -722,8 +725,9 @@ button:disabled { cursor: not-allowed; }
   .method.is-pinned .method__visual { display: block; max-width: 26rem; }
 }
 @media (max-width: 63.99rem) {
-  .method.is-pinned .method__names { grid-auto-flow: column; justify-content: start; gap: 1.25rem; }
+  .method.is-pinned .method__names { display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
   .method.is-pinned .method__name a { font-size: var(--fs-display-xs); }
+  .method__stage > * { min-width: 0; }
 }
 
 /* Ecossistema — navegação com o negócio no centro */
@@ -980,7 +984,7 @@ button:disabled { cursor: not-allowed; }
 
 .article-head { padding-top: calc(var(--header-h) + clamp(3rem, 8vw, 6rem)); padding-bottom: clamp(2.5rem, 5vw, 4rem); background: var(--surface); color: var(--fg); }
 .article-head__inner { display: grid; gap: 1.25rem; }
-.article-head__cat a { color: var(--accent); }
+.article-head__cat a { display: inline-flex; align-items: center; min-height: 2.75rem; margin-block: -0.875rem; color: var(--accent); }
 .article-head__title { max-width: 22ch; }
 .article-head__subtitle { color: var(--fg-2); max-width: 44rem; }
 .article-head__meta { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; color: var(--fg-3); margin-top: 0.5rem; }
