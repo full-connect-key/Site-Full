@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 
 import { trackErrors } from './helpers.js'
 
-const pages = ['/', '/sm', '/ecossistema', '/ecossistema/full-hub', '/ecossistema/full-dash', '/ecossistema/full-leads', '/ecossistema/fullmix', '/ecossistema/fullmatch', '/cases', '/insights', '/full-na-midia', '/contato']
+const pages = ['/', '/sm', '/ecossistema', '/ecossistema/full-hub', '/ecossistema/full-dash', '/ecossistema/full-leads', '/ecossistema/fullmix', '/ecossistema/fullmatch', '/cases', '/cases/case-teste-1', '/insights', '/full-na-midia', '/contato']
 
 test.describe('Site público', () => {
   for (const path of pages) {

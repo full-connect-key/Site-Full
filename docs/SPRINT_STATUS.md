@@ -6,9 +6,9 @@ Status: `TODO` / `IN_PROGRESS` / `DONE` / `BLOCKED` / `DONE_WITH_GAPS`
 
 ## Ponto de retomada
 
-Base PHP + painel + MySQL aprovada; conteúdo limitado a 1200px centralizados (token `--content`). Sprints retomadas.
+Base PHP + painel + MySQL aprovada; conteúdo limitado a 1080px centralizados (token `--content`). Sprint 08 concluída.
 
-Próximo passo: **Sprint 08 — Cases** (listagem com filtros na URL e página do case). Depois as Sprints 09 a 13 em ordem.
+Próximo passo: **Sprint 09 — Insights** (listagem com destaque, filtro por categoria na URL, artigo completo). Depois as Sprints 10 a 13 em ordem.
 
 Extra: rodapé exibe a versão publicada (commit + data do deploy) — `deploy_info()` em `app/lib/helpers.php`.
 
@@ -26,7 +26,7 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 05 S&M | DONE | Hero; narrativa Entender/Conectar/Amplificar fixa com progresso e diagrama; empilhada com movimento reduzido; CTA | — |
 | 06 Ecossistema | DONE | Hero (título + alternativo); navegação entre as soluções (abas acessíveis: clique, toque, setas) com diagrama "Seu negócio" no centro, linha e nó na cor oficial da ativa, logo, frase, texto, imagem opcional e link para a página; S&M só no texto; CTA | — |
 | 07 Plataformas | DONE | Template comum (hero com logo oficial, assinatura e cor do produto; solução; CTA) e 5 interações: Hub (cards em caos que se organizam em colunas pela rolagem), Dash (seletor com 3 gráficos ilustrativos e selo), Leads (rede de pontos que converge em oportunidades), FullMix (blocos + simulador de distribuição que mantém 100%, com aviso obrigatório sempre visível e sem projeções), FullMatch (seletor de perfis, detalhes de oferta/ciclo quando preenchidos) | Imagens/vídeos de produto (P2) |
-| 08 Cases | TODO | Listagem e página do item (hero + CTA) | Grid, filtros na URL, galeria, resultados, próximo case |
+| 08 Cases | DONE | Listagem: hero, filtros por setor (só setores com case) refletidos na URL (`?setor=`, funcionam sem JS e com voltar/avançar), grid editorial assimétrico em blocos de 7 (7/5 · 4/4/4 · 5/7) sem buracos, cantos retos e gaps pequenos, nome/categoria no hover/foco (visíveis no mobile), reflow suave (FLIP, desligado com movimento reduzido), "Carregar mais" (`page_size`, link `?mostrar=` sem JS), estado vazio, CTA. Página do case: KV full-bleed com parallax leve, cliente · categoria, headline e resumo; O desafio / A ideia / Nossa atuação; galeria mista (imagem/vídeo com poster, sem autoplay) com tamanhos do painel; resultados só se preenchidos; próximo case manual ou cíclico; CTA da página Cases | KVs e imagens reais com autorização (P1) |
 | 09 Insights | TODO | Listagem e página do item (hero + CTA) | Destaque, filtros, artigo completo, compartilhar |
 | 10 Full na Mídia | TODO | Hero + CTA | Navegação horizontal imersiva |
 | 11 Contato/cookies/legais | IN_PROGRESS | Back-end do formulário (validação, honeypot, token, limite por IP, gravação, SMTP), banner/central de cookies, página jurídica | Formulário progressivo na página Contato |
@@ -34,6 +34,8 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 13 QA e entrega | TODO | `docs/DEPLOYMENT.md` (Hostinger, backup, rollback) | Relatório final |
 
 ## Testes executados (23/10/2026)
+
+- Sprint 08: Playwright **59/59 em 1280 + 375px** (inclui `tests/e2e/cases.spec.js`: filtro na URL, histórico, filtro sem JS, card acessível, página do case, próximo cíclico, case sem resultados sem bloco vazio, publicar → listagem + filtro + rota + sitemap) e axe na página do case.
 
 - `npm run check`: ok. Sem paleta antiga, sem textos fixos nos templates, tokens e contraste ok.
 - `php -l` em todos os arquivos: ok.

@@ -115,6 +115,7 @@ function fck_seed_content(): array {
 				'share_whatsapp' => 'WhatsApp', // (*)
 				'share_email'    => 'E-mail', // (*)
 				'filter_by'      => 'Filtrar por categoria', // (*)
+				'filter_by_sector' => 'Filtrar por setor', // (*)
 				'results_count'  => '{n} resultados', // (*)
 			),
 		),
