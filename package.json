@@ -1,0 +1,24 @@
+{
+  "name": "full-connect-key-site",
+  "private": true,
+  "description": "Ferramentas de desenvolvimento e testes do site Full Connect Key (WordPress). Não é necessário na hospedagem.",
+  "type": "module",
+  "scripts": {
+    "setup": "bash scripts/dev-setup.sh",
+    "serve": "php -S 127.0.0.1:8080 -t .wp-local scripts/dev-router.php",
+    "seed": "wp --path=.wp-local fck seed",
+    "lint:php": "bash scripts/lint-php.sh",
+    "check:colors": "node scripts/check-colors.mjs",
+    "check:strings": "node scripts/check-strings.mjs",
+    "test:unit": "node --test tests/unit/*.test.mjs",
+    "test:e2e": "playwright test",
+    "check": "npm run lint:php && npm run check:colors && npm run check:strings && npm run test:unit",
+    "package": "bash scripts/package.sh",
+    "serve:test": "FCK_DB_NAME=fck_wp_test php -S 127.0.0.1:8081 -t .wp-local scripts/dev-router.php",
+    "test:db": "bash scripts/test-db.sh"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.63.0"
+  }
+}
