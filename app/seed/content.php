@@ -507,7 +507,7 @@ function fck_seed_content(): array {
 			// Cargos informados pelo cliente. Bio e retrato ainda pendentes (ficam em rascunho).
 			'rita-frare'     => array( 'title' => 'Rita Frare', 'order' => 1, 'meta' => array( 'details' => array( 'role' => 'Sócia e CFO', 'bio' => 'Mais de 25 anos liderando marketing, comercial e finanças. MBA em Gestão e Marketing Global (USP). Atendeu Unilever, P&G, ABF, Petrobras e SURA.' ) ) ),
 			'emerson-aguiar' => array( 'title' => 'Emerson Aguiar', 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Sócio e CEO', 'bio' => 'Engenheiro, 10 anos em gestão comercial na distribuição industrial. Na publicidade desde 2004, com Casas Bahia, Burger King e Hershey’s. Fundou a Full em 2009.' ) ) ),
-			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Sócio e CTO' ) ) ),
+			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Sócio e CTO', 'bio' => 'Cientista da computação, fazendo sites desde 1999. Mais de 15 anos em marketing digital e centenas de campanhas em varejo, eventos, feiras e imobiliário.' ) ) ),
 		),
 
 		'categories' => array(

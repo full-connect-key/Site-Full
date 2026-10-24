@@ -41,7 +41,7 @@ function content_gaps(): array
 		$add('P0', 'SMTP para envio de e-mails (app/config.php)', 'Contato (mensagens ficam só no painel)');
 	}
 	if ($count('partner') < 3) {
-		$add('P1', 'Sócios: cargo, bio e retrato de Rita Frare, Emerson Aguiar e Felipe Pelá (cadastrados como rascunho — completar e publicar)', 'Home › Os Sócios (seção oculta)');
+		$add('P1', 'Sócios: retrato vertical de Rita Frare, Emerson Aguiar e Felipe Pelá (cargo e bio já cadastrados, em rascunho — adicionar a foto e publicar)', 'Home › Os Sócios (seção oculta)');
 	}
 	if (!$count('team')) {
 		$add('P1', 'Time (fotos e frases "Conecta X a Y.")', 'Home › O Time (seção oculta)');
