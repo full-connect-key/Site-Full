@@ -76,3 +76,10 @@
 ## ADR-013 — Item "Sócios" no menu
 - Pedido do cliente (24/10/2026): "Sócios" no menu principal, depois de "Ecossistema Full", e no grupo do rodapé, depois de "S&M". Leva à seção Os Sócios da Home (`/#socios`). O briefing v1.1 não previa esse item.
 - Em sites já instalados, o seed adiciona o item uma única vez. Ele pode ser renomeado, movido ou removido em Configurações › Menus, e não volta se for removido.
+
+## ADR-014 — Hero da Home com o símbolo Full
+- Proposta A aprovada (protótipos em `docs/prototipos-hero/`): o símbolo (espiral de pontos no ângulo áureo, com anéis vazados) é desenhado em canvas por `assets/js/modules/symbol.js`, com as cores tiradas dos tokens (`--white`, `--brand-cyan`, `--brand-cyan-dark`).
+- Animação: o símbolo nasce do centro para fora, depois gira devagar e "respira". Perto do cursor, os pontos se afastam e acendem.
+- Desempenho e acessibilidade: a animação pausa fora da tela e com a aba oculta. Com movimento reduzido, o símbolo aparece completo e parado. No desktop os pontos se dissolvem atrás do título (máscara); no celular o símbolo fica acima do texto, mais suave.
+- O título continua alternando entre o título principal e o alternativo (ou a assinatura). Quando o texto alternativo tem duas frases ou mais, a última vira destaque menor, em azul e na linha de baixo. É regra de formatação, sem texto fixo no código: hoje, "Ative o modo Full.".
+- Medição (1366×768): quadros p50 16,7 ms / p95 18,3 ms, nenhuma tarefa longa.

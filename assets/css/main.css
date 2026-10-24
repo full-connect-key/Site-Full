@@ -460,6 +460,12 @@ button:disabled { cursor: not-allowed; }
 /* ===================================================================== */
 [data-module~='connections'] { position: relative; isolation: isolate; overflow: hidden; }
 .connections__canvas { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+/* Símbolo Full no hero da Home (espiral áurea animada) */
+[data-module~='symbol'] { position: relative; isolation: isolate; overflow: hidden; }
+.symbol__canvas { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+@media (max-width: 47.99rem) { .symbol__canvas { opacity: 0.55; } }
+/* Desktop: os pontos se dissolvem atrás do título para não disputar a leitura */
+@media (min-width: 48rem) { .symbol__canvas { -webkit-mask-image: linear-gradient(to right, transparent 22%, #000 58%); mask-image: linear-gradient(to right, transparent 22%, #000 58%); } }
 
 /* ===================================================================== */
 /* 11. Home                                                               */
@@ -475,6 +481,8 @@ button:disabled { cursor: not-allowed; }
 }
 .hero__inner { display: grid; gap: clamp(2.5rem, 6vw, 5rem); }
 .hero__title { max-width: 15ch; }
+.hero__accent { display: block; margin-top: 0.3em; font-size: 0.55em; line-height: 1.05; color: var(--accent); }
+@media (min-width: 64rem) { .hero__title { max-width: 11ch; font-size: clamp(3.5rem, 1.5rem + 3.6vw, 6.25rem); } }
 .hero__swap-item { display: block; }
 .hero__swap-item + .hero__swap-item { margin-top: 0.4em; font-size: 0.5em; line-height: 1.05; color: var(--fg-2); }
 /* Com JS e movimento liberado, o layout final (títulos sobrepostos) vale desde o primeiro quadro: sem deslocamento (CLS). */
