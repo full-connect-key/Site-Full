@@ -237,15 +237,14 @@ button:disabled { cursor: not-allowed; }
 .btn::before, .icon-btn::before, .chip::before, .selector__tab::before, .share__btn::before {
   content: ''; position: absolute; inset: 1px 1px 50%; z-index: -1; border-radius: 9999px 9999px 40% 40% / 9999px 9999px 60% 60%;
   background: linear-gradient(color-mix(in srgb, var(--white) 14%, transparent), transparent);
-  opacity: 0.7; pointer-events: none; transition: opacity 0.25s ease;
+  opacity: 0.5; pointer-events: none; transition: opacity 0.25s ease;
 }
 [data-theme='light'] :is(.btn, .icon-btn, .chip, .selector__tab, .share__btn)::before { background: linear-gradient(color-mix(in srgb, var(--white) 60%, transparent), transparent); }
 :is(.btn, .icon-btn, .chip, .selector__tab, .share__btn, .menu-toggle):hover {
   border-color: color-mix(in srgb, var(--btn-color) 60%, var(--glass-edge));
-  background: color-mix(in srgb, var(--fg) 10%, transparent);
-  box-shadow: inset 0 1px 0 var(--glass-hi), 0 0 0 1px color-mix(in srgb, var(--btn-color) 18%, transparent), 0 10px 28px -12px color-mix(in srgb, var(--btn-color) 45%, transparent);
+  background: color-mix(in srgb, var(--fg) 9%, transparent);
 }
-:is(.btn, .icon-btn, .chip, .selector__tab, .share__btn):hover::before { opacity: 1; }
+:is(.btn, .icon-btn, .chip, .selector__tab, .share__btn):hover::before { opacity: 0.75; }
 :is(.btn, .icon-btn, .chip, .selector__tab, .share__btn, .menu-toggle):active { transform: scale(0.97); box-shadow: inset 0 1px 0 var(--glass-hi), inset 0 2px 8px -4px var(--glass-shadow); }
 :is(.btn, .icon-btn, .chip, .selector__tab, .share__btn, .menu-toggle):focus-visible { border-radius: 9999px; outline: 2px solid var(--btn-color); outline-offset: 3px; }
 
@@ -253,19 +252,15 @@ button:disabled { cursor: not-allowed; }
   display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
   min-height: 3rem; padding: 0.75rem 1.625rem; font-size: var(--fs-small); font-weight: 600; letter-spacing: 0.01em; color: var(--fg);
 }
-/* Primário: vidro tingido pela cor da área (quase opaco para manter o contraste do texto) */
+/* Primário: o mesmo vidro transparente, com contorno na cor da área e um leve tom (sem preenchimento nem brilho) */
 .btn--primary, .btn--product {
-  background: color-mix(in srgb, var(--btn-color) 94%, transparent);
-  border-color: color-mix(in srgb, var(--white) 35%, var(--btn-color));
-  color: var(--accent-contrast);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--white) 45%, transparent), 0 10px 28px -14px color-mix(in srgb, var(--btn-color) 70%, transparent);
+  background: color-mix(in srgb, var(--btn-color) 12%, transparent);
+  border-color: color-mix(in srgb, var(--btn-color) 75%, transparent);
+  color: var(--fg);
 }
-.btn--product, [data-product] .btn--primary, [data-product] .chip[aria-current='true'] { color: var(--product-ink, var(--hero-black)); }
-.btn--primary::before, .btn--product::before { background: linear-gradient(color-mix(in srgb, var(--white) 38%, transparent), transparent); }
 .btn--primary:hover, .btn--product:hover {
-  background: color-mix(in srgb, var(--btn-color) 94%, var(--white));
-  border-color: color-mix(in srgb, var(--white) 55%, var(--btn-color));
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--white) 55%, transparent), 0 0 0 4px color-mix(in srgb, var(--btn-color) 18%, transparent), 0 14px 32px -12px color-mix(in srgb, var(--btn-color) 75%, transparent);
+  background: color-mix(in srgb, var(--btn-color) 20%, transparent);
+  border-color: var(--btn-color);
 }
 /* Secundário: vidro claro com contorno na cor da área */
 .btn--secondary { border-color: color-mix(in srgb, var(--btn-color) 40%, var(--glass-edge)); color: var(--fg); }
@@ -286,7 +281,7 @@ button:disabled { cursor: not-allowed; }
 /* Sem suporte a desfoque: vidro mais denso para manter a leitura sobre fotos e vídeos */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .btn, .icon-btn, .chip, .selector__tab, .share__btn, .menu-toggle { background: color-mix(in srgb, var(--surface-2) 88%, transparent); }
-  .btn--primary, .btn--product { background: var(--btn-color); }
+  .btn--primary, .btn--product { background: color-mix(in srgb, var(--btn-color) 18%, var(--surface-2)); }
   .btn--ghost { background: transparent; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -322,7 +317,7 @@ button:disabled { cursor: not-allowed; }
 .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .chip { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.5rem 1.25rem; color: var(--fg-2); font-size: var(--fs-small); font-weight: 500; }
 .chip:hover { color: var(--fg); }
-.chip[aria-current='true'], .chip[aria-pressed='true'] { background: color-mix(in srgb, var(--btn-color) 94%, transparent); border-color: color-mix(in srgb, var(--white) 35%, var(--btn-color)); color: var(--accent-contrast); }
+.chip[aria-current='true'], .chip[aria-pressed='true'] { background: color-mix(in srgb, var(--btn-color) 16%, transparent); border-color: var(--btn-color); color: var(--fg); }
 
 /* ===================================================================== */
 /* 6. Cabeçalho e navegação                                               */
@@ -823,6 +818,7 @@ button:disabled { cursor: not-allowed; }
 .claim-badge { display: inline-flex; vertical-align: middle; margin-left: 0.5rem; padding: 0.125rem 0.5rem; border: 1px dashed var(--danger); border-radius: 9999px; font-family: var(--font-body, inherit); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--danger); }
 
 /* 2. Problema */
+.platform-problem { overflow-x: clip; }
 .platform-problem__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 @media (min-width: 64rem) { .platform-problem__grid { grid-template-columns: 1fr 1fr; } }
 .platform-problem__text { display: grid; gap: 1.25rem; }
@@ -884,7 +880,7 @@ button:disabled { cursor: not-allowed; }
 .scene__nav { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .selector__tab { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.5rem 1.25rem; color: var(--fg-2); font-size: var(--fs-small); font-weight: 600; }
 .selector__tab:hover { color: var(--fg); }
-.scene__tab[aria-current='step'] { background: color-mix(in srgb, var(--product) 94%, transparent); border-color: color-mix(in srgb, var(--white) 35%, var(--product)); color: var(--product-ink); }
+.scene__tab[aria-current='step'] { background: color-mix(in srgb, var(--product) 16%, transparent); border-color: var(--product); color: var(--fg); }
 .scene__progress { height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
 .scene__progress span { display: block; height: 100%; background: var(--product); transform-origin: left; transform: scaleX(var(--p, 0)); }
 .scene.is-static .scene__progress { display: none; }

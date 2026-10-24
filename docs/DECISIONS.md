@@ -42,8 +42,8 @@
 
 ## ADR-010 — Botões em vidro (glassmorphism)
 - Todos os botões (primário, secundário, terciário, ícone, filtros, abas de seleção, compartilhar, menu) são cápsulas (`border-radius: 9999px`) de vidro translúcido: `backdrop-filter: blur(12px)`, borda fina semitransparente, reflexo no topo e sombra discreta.
-- A cor vem de `--btn-color`: ciano da marca por padrão e cor oficial do produto dentro de `[data-product]`. Ela aparece no contorno, no brilho do hover e no tingimento do primário.
-- O primário usa vidro tingido a 94% para manter o contraste AA do texto (verificado com axe).
+- A cor vem de `--btn-color`: ciano da marca por padrão e cor oficial do produto dentro de `[data-product]`. Ela aparece só no contorno e num leve tom do vidro.
+- **Revisão (24/10/2026, pedido do cliente):** sem preenchimento colorido nem brilho. Todos os botões são vidro transparente. O primário se diferencia por um contorno na cor da área e um leve tom (12%), com o texto na cor do tema; o reflexo interno ficou mais discreto.
 - Sem suporte a desfoque, o vidro fica mais denso. Com movimento reduzido, não há compressão ao clicar nem deslocamento da seta.
 - Só tokens existentes: nenhuma cor nova.
 

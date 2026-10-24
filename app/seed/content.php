@@ -506,7 +506,7 @@ function fck_seed_content(): array {
 		'partners'   => array(
 			// Cargos informados pelo cliente. Bio e retrato ainda pendentes (ficam em rascunho).
 			'rita-frare'     => array( 'title' => 'Rita Frare', 'order' => 1, 'meta' => array( 'details' => array( 'role' => 'Sócia e CFO' ) ) ),
-			'emerson-aguiar' => array( 'title' => 'Emerson Aguiar', 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Sócio e CEO' ) ) ),
+			'emerson-aguiar' => array( 'title' => 'Emerson Aguiar', 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Sócio e CEO', 'bio' => 'Engenheiro, 10 anos em gestão comercial na distribuição industrial. Na publicidade desde 2004, com Casas Bahia, Burger King e Hershey’s. Fundou a Full em 2009.' ) ) ),
 			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Sócio e CTO' ) ) ),
 		),
 
