@@ -94,3 +94,10 @@
 ## ADR-016 — Sem item "Sócios" no menu
 - Pedido do cliente (24/10/2026): os sócios existem só como seção da Home, sem item próprio no menu. Esta decisão revoga o ADR-013.
 - O item saiu do menu principal e do rodapé no seed. Em sites já instalados, o seed remove o item `/#socios` uma única vez (`menu-socios-removido-2026-10`). A seção Os Sócios da Home continua igual.
+
+## ADR-017 — Cabeçalho C: barra flutuante de vidro com o logo completo
+- Proposta C aprovada (protótipos em `docs/prototipos-cabecalho/`). O cabeçalho vira uma barra arredondada e transparente, a 0,75rem do topo, alinhada à largura do conteúdo (1200 px + 1,5rem de cada lado). Usa o mesmo vidro dos botões.
+- Logo: a versão completa para fundo escuro (Marca › Logo para fundo escuro), com 3,75rem no desktop e 2,75rem no celular. Se esse logo faltar, entra o compacto.
+- Menu centralizado a partir de 64rem e botão "Vamos conversar" à direita. Ao rolar, a barra fica mais densa (grafite 88%) para manter a leitura sobre seções claras. O comportamento de esconder ao descer e mostrar ao subir não mudou.
+- O submenu ganhou cantos arredondados e uma ponte invisível para o hover não se perder no espaço entre o item e o painel.
+- Altura reservada (`--header-h`): 5rem no celular e 6rem no desktop.

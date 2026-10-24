@@ -36,7 +36,7 @@ $skip     = ui( 'a11y', 'skip_to_content' );
 	<div class="site-header__bg" aria-hidden="true"></div>
 	<div class="container site-header__inner">
 		<a class="site-header__brand" href="<?php echo e( url( '/' ) ); ?>" aria-label="<?php echo e( ui( 'a11y', 'home_link' ) ?: $name ); ?>">
-			<?php echo wordmark( $name, (int) ( ( $brand['logo_compact_dark'] ?? 0 ) ?: ( $brand['logo_dark'] ?? 0 ) ), 'wordmark--compact' ); // phpcs:ignore -- escapado. ?>
+			<?php echo wordmark( $name, (int) ( ( $brand['logo_dark'] ?? 0 ) ?: ( $brand['logo_compact_dark'] ?? 0 ) ), 'wordmark--full' ); // phpcs:ignore -- escapado. ?>
 		</a>
 
 		<?php if ( $items ) : ?>
