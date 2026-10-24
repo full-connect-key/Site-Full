@@ -48,3 +48,11 @@ O que ficou de fora, como manda a sprint:
 - As setas (→) dos botões já são desenhadas pelo próprio botão, por isso não fazem parte do texto.
 
 Ajuste técnico: o texto de apoio das seções passa a respeitar quebras de linha digitadas no painel, como os demais campos de texto.
+
+## FullHub (24/10/2026)
+
+| Onde | Antes | Agora |
+|---|---|---|
+| FullHub › 2. Problema › título | "Aprovação por WhatsApp não é processo. É sorte." | "Sua operação não precisa de mais mensagens. Precisa de conexão." |
+
+Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-2026-10`) e preserva edições feitas no painel.

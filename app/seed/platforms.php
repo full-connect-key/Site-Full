@@ -347,7 +347,7 @@ function fck_seed_platforms(): array {
 				),
 				'problem'     => array(
 					'enabled' => true,
-					'title'   => 'Aprovação por WhatsApp não é processo. É sorte.',
+					'title'   => 'Sua operação não precisa de mais mensagens. Precisa de conexão.',
 					'text'    => 'Solicitações espalhadas, mensagens perdidas e prazos difíceis de acompanhar não precisam fazer parte da rotina.',
 				),
 				'how'         => array(

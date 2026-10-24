@@ -80,6 +80,7 @@ final class Seeder
 		$this->migrateEco($c);
 		$this->removePartnersMenuOnce();
 		$this->migrateHomeCopy($c);
+		$this->migrateHubProblemOnce($c);
 		$this->log[] = 'Concluído.';
 		return $this->log;
 	}
@@ -465,6 +466,21 @@ final class Seeder
 		}
 		setting_set('seed_migrations', $done + ['home-copy-2026-10' => now()]);
 		$this->log[] = 'Textos da Home atualizados' . ($conflicts ? ' (' . count($conflicts) . ' edição(ões) do painel preservada(s): ' . implode(', ', $conflicts) . ')' : '') . '.';
+	}
+
+	/** Novo título do bloco Problema do FullHub (pedido do cliente, 24/10/2026), uma única vez. */
+	private function migrateHubProblemOnce(array $c): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done['hub-problem-2026-10'])) {
+			return;
+		}
+		$conflicts = [];
+		if (($id = $this->ids['platform']['hub'] ?? null) && !isset($this->created[$id])) {
+			$this->migrateEntry($id, ['problem' => ['title' => $c['platforms']['hub']['meta']['problem']['title']]], ['problem' => ['title' => 'Aprovação por WhatsApp não é processo. É sorte.']], 'platform:hub', $conflicts, tag: 'hub-problem');
+		}
+		setting_set('seed_migrations', $done + ['hub-problem-2026-10' => now()]);
+		$this->log[] = 'FullHub: título do bloco Problema atualizado' . ($conflicts ? ' (edição do painel preservada)' : '') . '.';
 	}
 
 	private function mergeEco(array $current, array $new, array $old, string $path, array &$conflicts): array
