@@ -27,7 +27,7 @@ function fck_seed_platforms(): array {
 				'identity'    => array(
 					'product'    => 'mix',
 					'verb'       => 'Planejar',
-					'home_line'  => 'Inteligência estratégica para descobrir onde e como investir.',
+					'home_line'  => 'Descubra onde investir com inteligência estratégica.',
 					'card_title' => 'Inteligência que direciona resultados.',
 					'card_text'  => 'Conecte dados, entenda o impacto dos seus investimentos e descubra onde a próxima decisão pode gerar mais resultado. Com Marketing Mix Modeling e simulação de cenários, o FullMix transforma informação em estratégia.',
 					'connects'   => 'Orienta as decisões estratégicas de investimento.',
@@ -113,7 +113,7 @@ function fck_seed_platforms(): array {
 				'identity'    => array(
 					'product'    => 'dash',
 					'verb'       => 'Otimizar',
-					'home_line'  => 'Gestão e performance para fazer cada investimento em mídia render melhor.',
+					'home_line'  => 'Controle seus investimentos e melhore a performance da mídia diariamente.',
 					'card_title' => 'Inteligência que acompanha. Performance que evolui.',
 					'card_text'  => 'Conecte planejamento, investimento e resultados em uma gestão de mídia mais inteligente. Com acompanhamento diário e otimização contínua, o FullDash ajuda a direcionar cada investimento para os resultados que importam.',
 					'connects'   => 'Acompanha e otimiza a execução dos investimentos em mídia.',
@@ -190,7 +190,7 @@ function fck_seed_platforms(): array {
 				'identity'    => array(
 					'product'    => 'leads',
 					'verb'       => 'Converter',
-					'home_line'  => 'Atração, nutrição e qualificação de oportunidades para o time comercial.',
+					'home_line'  => 'Transforme contatos em oportunidades comerciais qualificadas.',
 					'card_title' => 'Oportunidades que se conectam. Negócios que se multiplicam.',
 					'card_text'  => 'Da atração à conversão, conectamos marketing e vendas para transformar contatos em oportunidades qualificadas, acompanhando cada etapa do funil e aproximando sua equipe comercial das oportunidades com mais potencial.',
 					'connects'   => 'Transforma campanhas e conteúdos em oportunidades comerciais qualificadas.',
@@ -257,7 +257,7 @@ function fck_seed_platforms(): array {
 				'identity'    => array(
 					'product'    => 'match',
 					'verb'       => 'Fidelizar',
-					'home_line'  => 'Inteligência de relacionamento para personalizar ofertas, estimular novas compras e reativar clientes.',
+					'home_line'  => 'Personalize ofertas, estimule a recorrência e fortaleça o relacionamento com seus clientes.',
 					'card_title' => 'Conexões personalizadas. Resultados multiplicados.',
 					'card_text'  => 'Transforme dados de comportamento em ofertas relevantes para cada consumidor. O FullMatch ajuda a identificar momentos e canais mais adequados para estimular novas compras, aumentar a recorrência e reativar clientes.',
 					'connects'   => 'Desenvolve o relacionamento com consumidores, estimulando recorrência e novas oportunidades de compra.',
@@ -334,7 +334,7 @@ function fck_seed_platforms(): array {
 				'identity'    => array(
 					'product'    => 'hub',
 					'verb'       => 'Organizar',
-					'home_line'  => 'Gestão integrada para conectar agência, clientes, equipes e entregas em um só lugar.',
+					'home_line'  => 'Conecte clientes, equipes e entregas em uma gestão integrada.',
 					'card_title' => 'Sua operação inteira, em um só lugar.',
 					'card_text'  => 'Centralize solicitações, acompanhe entregas e aprove materiais em uma plataforma que conecta você à nossa operação, com mais transparência, agilidade e organização.',
 					'connects'   => 'Sustenta a organização operacional, conectando pessoas, demandas e entregas ao longo de todo o processo.',

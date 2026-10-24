@@ -79,6 +79,7 @@ final class Seeder
 		$this->logos($c['logos']);
 		$this->migrateEco($c);
 		$this->addPartnersMenuOnce();
+		$this->migrateHomeCopy($c);
 		$this->log[] = 'Concluído.';
 		return $this->log;
 	}
@@ -373,7 +374,7 @@ final class Seeder
 		$this->log[] = 'Migração do Ecossistema aplicada' . ($conflicts ? ' (' . count($conflicts) . ' edição(ões) do painel preservada(s))' : '') . '.';
 	}
 
-	private function migrateEntry(int $id, array $new, array $old, string $key, array &$conflicts, ?string $title = null, ?string $old_title = null, ?string $slug = null, ?string $old_slug = null, ?int $order = null, ?int $old_order = null): void
+	private function migrateEntry(int $id, array $new, array $old, string $key, array &$conflicts, ?string $title = null, ?string $old_title = null, ?string $slug = null, ?string $old_slug = null, ?int $order = null, ?int $old_order = null, string $tag = 'eco'): void
 	{
 		$row = entry_raw($id);
 		if (!$row) {
@@ -398,12 +399,72 @@ final class Seeder
 		if (!$changes) {
 			return;
 		}
-		revision_add($id, (string) $row['title'], (string) $row['slug'], (string) $row['draft'], 'antes-eco');
-		entry_save_draft($id, $changes, 'migracao-eco');
+		revision_add($id, (string) $row['title'], (string) $row['slug'], (string) $row['draft'], 'antes-' . $tag);
+		entry_save_draft($id, $changes, 'migracao-' . $tag);
 		if ($clean) {
 			entry_publish($id);
 		}
 		$this->log[] = 'Migrado: ' . ($changes['title'] ?? $row['title']) . ($clean ? ' (publicado)' : ' (rascunho)');
+	}
+
+	/**
+	 * Sprint de conteúdo da Home (24/10/2026): troca os textos aprovados pelo
+	 * cliente uma única vez (home-copy-2026-10), com a mesma regra da migração
+	 * do Ecossistema: campo vazio ou ainda igual ao texto anterior é trocado;
+	 * edição feita no painel é preservada e registrada. O hero não é tocado.
+	 */
+	private function migrateHomeCopy(array $c): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done['home-copy-2026-10'])) {
+			return;
+		}
+		$talk  = ['label' => 'Vamos conversar', 'to' => 'page:contact'];
+		$home  = $c['pages']['home']['meta'];
+		$new   = ['essence' => ['intro' => $home['essence']['intro'], 'pillars' => $home['essence']['pillars']], 'ecosystem' => ['title' => $home['ecosystem']['title'], 'text' => $home['ecosystem']['text']], 'partners' => ['title' => $home['partners']['title'], 'text' => $home['partners']['text']], 'footer_cta' => ['text' => $home['footer_cta']['text'], 'cta' => $home['footer_cta']['cta']]];
+		$old   = [
+			'essence'    => [
+				'intro'   => 'Acreditamos que grandes resultados não acontecem de maneira isolada. Eles surgem quando ideias, pessoas, estratégias e tecnologias trabalham em sintonia. É assim que enxergamos cada negócio: um universo de possibilidades que ganha força quando suas conexões são compreendidas, aprimoradas e potencializadas.',
+				'pillars' => [
+					['name' => 'Conecta', 'text' => 'Aproximamos marcas, pessoas, ideias e oportunidades. Porque entender as relações é o primeiro passo para transformá-las.'],
+					['name' => 'Organiza', 'text' => 'Integramos conhecimento, processos e estratégias para que cada ação tenha propósito e cada decisão tenha direção.'],
+					['name' => 'Multiplica', 'text' => 'Testamos, aprendemos e aprimoramos continuamente para transformar boas conexões em resultados cada vez mais relevantes.'],
+				],
+			],
+			'ecosystem'  => ['title' => 'Quem se conecta, evolui.', 'text' => 'Cinco plataformas proprietárias, cada uma resolvendo um desafio específico. Juntas, conectam diferentes etapas do crescimento do seu negócio.'],
+			'partners'   => ['title' => 'Visões diferentes. Um propósito conectado.', 'text' => 'À frente da Full, diferentes experiências e perspectivas se encontram para construir uma visão integrada de comunicação, marketing e negócios.'],
+			'footer_cta' => ['text' => 'Seu próximo desafio pode ser o ponto de partida para algo extraordinário. Vamos descobrir juntos?', 'cta' => $talk],
+		];
+		$conflicts = [];
+		if (($id = $this->ids['page']['home'] ?? null) && !isset($this->created[$id])) {
+			$this->migrateEntry($id, $this->links($new), $this->links($old), 'page:home', $conflicts, tag: 'home-copy');
+		}
+		$lines = [
+			'mix'   => 'Inteligência estratégica para descobrir onde e como investir.',
+			'dash'  => 'Gestão e performance para fazer cada investimento em mídia render melhor.',
+			'leads' => 'Atração, nutrição e qualificação de oportunidades para o time comercial.',
+			'match' => 'Inteligência de relacionamento para personalizar ofertas, estimular novas compras e reativar clientes.',
+			'hub'   => 'Gestão integrada para conectar agência, clientes, equipes e entregas em um só lugar.',
+		];
+		foreach ($lines as $key => $was) {
+			$id = $this->ids['platform'][$key] ?? null;
+			if ($id && !isset($this->created[$id])) {
+				$this->migrateEntry($id, ['identity' => ['home_line' => $c['platforms'][$key]['meta']['identity']['home_line']]], ['identity' => ['home_line' => $was]], "platform:$key", $conflicts, tag: 'home-copy');
+			}
+		}
+		$sectors = [
+			'varejo'           => 'Do posicionamento à experiência de compra, conectamos comunicação, pontos de contato e estratégias comerciais para aproximar marcas e consumidores.',
+			'imobiliario'      => 'Da construção de uma marca imobiliária à geração de oportunidades comerciais, criamos estratégias que valorizam empreendimentos e acompanham diferentes momentos da jornada de compra.',
+			'feiras-e-eventos' => 'Conectamos estratégia, comunicação e experiência para atrair públicos, fortalecer marcas e ampliar as oportunidades de negócio antes, durante e depois de cada evento.',
+		];
+		foreach ($sectors as $slug => $was) {
+			$id = $this->find('sector:' . $slug);
+			if ($id && !isset($this->created[$id])) {
+				$this->migrateEntry($id, ['details' => ['text' => $c['sectors'][$slug]['meta']['details']['text']]], ['details' => ['text' => $was]], "sector:$slug", $conflicts, tag: 'home-copy');
+			}
+		}
+		setting_set('seed_migrations', $done + ['home-copy-2026-10' => now()]);
+		$this->log[] = 'Textos da Home atualizados' . ($conflicts ? ' (' . count($conflicts) . ' edição(ões) do painel preservada(s): ' . implode(', ', $conflicts) . ')' : '') . '.';
 	}
 
 	private function mergeEco(array $current, array $new, array $old, string $path, array &$conflicts): array

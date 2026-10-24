@@ -27,3 +27,24 @@ A migração mantém qualquer texto editado no painel e lista o campo em Pendên
 | Biblioteca de mídia › texto alternativo dos retratos | "Retrato de Rita Frare", "Retrato de Emerson Aguiar", "Retrato de Felipe Pelá" | Descrição mínima para leitores de tela; editável na Biblioteca de mídia |
 
 Cargos e bios são exatamente os textos enviados pelo cliente.
+
+## Sprint de conteúdo da Home (24/10/2026)
+
+Textos enviados pelo cliente, que substituem os da v1.1 (seção 6) nos pontos abaixo. O hero não foi alterado. O site no ar recebe as trocas uma única vez (`home-copy-2026-10`), seguindo a mesma regra da migração do Ecossistema: edições feitas no painel são preservadas.
+
+| Onde | Antes | Agora |
+|---|---|---|
+| Home › Método (Nossa Essência) › introdução | "Acreditamos que grandes resultados não acontecem de maneira isolada…" | "Não acreditamos em marketing e vendas trabalhando em caminhos separados. / Na Full, estratégia, criatividade, tecnologia e inteligência comercial…" (dois parágrafos) |
+| Home › Método › pilares Conecta, Organiza, Multiplica | Textos v1.1 | Novos textos dos três pilares |
+| Home › Ecossistema › título e texto | "Quem se conecta, evolui." | "Tecnologia própria. Possibilidades reais." + nova descrição |
+| Plataformas › Identidade › linha da Home (as 5) | Linhas v1.1 | "Descubra onde investir com inteligência estratégica." etc. |
+| Setores › texto (Varejo, Imobiliário, Feiras e Eventos) | Textos v1.1 | Novos textos |
+| Home › Sócios › título e texto | "Visões diferentes. Um propósito conectado." | "Experiências diferentes. Uma visão de futuro." + texto em dois parágrafos |
+| Home › CTA final › texto e botão | "Seu próximo desafio…" / "Vamos conversar" | "Toda transformação começa com uma boa conversa…" / "Vamos conversar?" (o botão continua levando a Contato; o botão do cabeçalho continua "Vamos conversar") |
+
+O que ficou de fora, como manda a sprint:
+- **Título da faixa de logos** ("Marcas que fazem parte da nossa história."): não entrou, porque a faixa não tem espaço de texto previsto (o briefing define o marquee sem título). Para incluir, é preciso adicionar um campo de título à seção.
+- **CTA "Conheça nosso método"**: a seção Método da Home não tem CTA, então nada foi criado.
+- As setas (→) dos botões já são desenhadas pelo próprio botão, por isso não fazem parte do texto.
+
+Ajuste técnico: o texto de apoio das seções passa a respeitar quebras de linha digitadas no painel, como os demais campos de texto.

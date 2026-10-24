@@ -155,17 +155,17 @@ function fck_seed_content(): array {
 					'essence'      => array(
 						'enabled' => true,
 						'title'   => 'Conexões que fazem negócios evoluírem.',
-						'intro'   => 'Acreditamos que grandes resultados não acontecem de maneira isolada. Eles surgem quando ideias, pessoas, estratégias e tecnologias trabalham em sintonia. É assim que enxergamos cada negócio: um universo de possibilidades que ganha força quando suas conexões são compreendidas, aprimoradas e potencializadas.',
+						'intro'   => "Não acreditamos em marketing e vendas trabalhando em caminhos separados.\n\nNa Full, estratégia, criatividade, tecnologia e inteligência comercial fazem parte de um mesmo processo. Nosso método Sales Marketing conecta o que sua marca precisa comunicar ao que seu negócio precisa conquistar.",
 						'pillars' => array(
-							array( 'name' => 'Conecta', 'text' => 'Aproximamos marcas, pessoas, ideias e oportunidades. Porque entender as relações é o primeiro passo para transformá-las.' ),
-							array( 'name' => 'Organiza', 'text' => 'Integramos conhecimento, processos e estratégias para que cada ação tenha propósito e cada decisão tenha direção.' ),
-							array( 'name' => 'Multiplica', 'text' => 'Testamos, aprendemos e aprimoramos continuamente para transformar boas conexões em resultados cada vez mais relevantes.' ),
+							array( 'name' => 'Conecta', 'text' => 'Entendemos os desafios do negócio e aproximamos marcas, pessoas e oportunidades por meio de estratégias relevantes.' ),
+							array( 'name' => 'Organiza', 'text' => 'Integramos planejamento, equipes, processos e tecnologia para transformar estratégia em execução.' ),
+							array( 'name' => 'Multiplica', 'text' => 'Acompanhamos resultados, identificamos oportunidades e evoluímos continuamente cada ação para impulsionar o crescimento.' ),
 						),
 					),
 					'ecosystem'    => array(
 						'enabled' => true,
-						'title'   => 'Quem se conecta, evolui.',
-						'text'    => 'Cinco plataformas proprietárias, cada uma resolvendo um desafio específico. Juntas, conectam diferentes etapas do crescimento do seu negócio.',
+						'title'   => 'Tecnologia própria. Possibilidades reais.',
+						'text'    => 'Cinco plataformas que conectam inteligência, operação, performance e relacionamento. Soluções desenvolvidas para desafios diferentes, com um mesmo propósito: fazer seu negócio crescer.',
 						'cta'     => array( 'label' => 'Conheça o ecossistema Full', 'to' => 'page:ecosystem' ),
 					),
 					'sectors'      => array(
@@ -181,8 +181,8 @@ function fck_seed_content(): array {
 					),
 					'partners'     => array(
 						'enabled' => true,
-						'title'   => 'Visões diferentes. Um propósito conectado.',
-						'text'    => 'À frente da Full, diferentes experiências e perspectivas se encontram para construir uma visão integrada de comunicação, marketing e negócios.',
+						'title'   => 'Experiências diferentes. Uma visão de futuro.',
+						'text'    => "Grandes ideias surgem do encontro de diferentes perspectivas.\n\nÀ frente da Full Connect Key, três profissionais que unem experiência em comunicação, marketing e negócios para transformar desafios em estratégias e estratégias em oportunidades de crescimento.",
 					),
 					'testimonials' => array(
 						'enabled' => true,
@@ -203,8 +203,8 @@ function fck_seed_content(): array {
 					'footer_cta'   => array(
 						'enabled' => true,
 						'title'   => 'Grandes resultados começam com uma conexão.',
-						'text'    => 'Seu próximo desafio pode ser o ponto de partida para algo extraordinário. Vamos descobrir juntos?',
-						'cta'     => $talk,
+						'text'    => 'Toda transformação começa com uma boa conversa. Conte para a gente quais são os desafios do seu negócio e descubra como podemos conectar estratégia, criatividade e tecnologia para ir além.',
+						'cta'     => array( 'label' => 'Vamos conversar?', 'to' => 'page:contact' ),
 					),
 					'seo'          => array(
 						'title'       => 'Full Connect Key | Estratégia, Criatividade e Resultados',
@@ -475,9 +475,9 @@ function fck_seed_content(): array {
 
 		// ------------------------------------------------------------------
 		'sectors'    => array(
-			'varejo'      => array( 'title' => 'Varejo', 'order' => 1, 'meta' => array( 'details' => array( 'title' => 'Marcas presentes em cada escolha.', 'text' => 'Do posicionamento à experiência de compra, conectamos comunicação, pontos de contato e estratégias comerciais para aproximar marcas e consumidores.' ) ) ),
-			'imobiliario' => array( 'title' => 'Imobiliário', 'order' => 2, 'meta' => array( 'details' => array( 'title' => 'Conexões que transformam espaços em desejos.', 'text' => 'Da construção de uma marca imobiliária à geração de oportunidades comerciais, criamos estratégias que valorizam empreendimentos e acompanham diferentes momentos da jornada de compra.' ) ) ),
-			'feiras-e-eventos' => array( 'title' => 'Feiras e Eventos', 'order' => 3, 'meta' => array( 'details' => array( 'title' => 'Experiências que continuam além do evento.', 'text' => 'Conectamos estratégia, comunicação e experiência para atrair públicos, fortalecer marcas e ampliar as oportunidades de negócio antes, durante e depois de cada evento.' ) ) ),
+			'varejo'      => array( 'title' => 'Varejo', 'order' => 1, 'meta' => array( 'details' => array( 'title' => 'Marcas presentes em cada escolha.', 'text' => 'Da construção de marca à experiência no ponto de venda. Conectamos comunicação, campanhas e estratégias comerciais para aproximar marcas de consumidores.' ) ) ),
+			'imobiliario' => array( 'title' => 'Imobiliário', 'order' => 2, 'meta' => array( 'details' => array( 'title' => 'Conexões que transformam espaços em desejos.', 'text' => 'Do posicionamento do empreendimento à geração de oportunidades. Criamos estratégias para acompanhar cada etapa da jornada de compra.' ) ) ),
+			'feiras-e-eventos' => array( 'title' => 'Feiras e Eventos', 'order' => 3, 'meta' => array( 'details' => array( 'title' => 'Experiências que continuam além do evento.', 'text' => 'Da campanha de divulgação à experiência presencial. Conectamos marcas, públicos e oportunidades em projetos que vão além do evento.' ) ) ),
 		),
 
 		// Logos oficiais (arquivos em seed/logos/): "escuro" = texto branco,

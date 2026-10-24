@@ -137,7 +137,7 @@ function section_head(array $a): void
 		printf('<h%1$d%2$s class="%3$s section-head__title">%4$s</h%1$d>', $level, !empty($a['id']) ? ' id="' . e($a['id']) . '"' : '', e($a['size'] ?? 'display-m'), e($title));
 	}
 	if (has_text($text)) {
-		echo '<p class="lead section-head__text">' . e($text) . '</p>';
+		echo '<p class="lead section-head__text">' . nl2br(e($text), false) . '</p>';
 	}
 	echo '</div>';
 }
