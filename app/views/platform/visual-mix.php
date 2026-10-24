@@ -11,7 +11,7 @@ $flows    = array_slice( ( $args['lines'] )( (string) ( $in['flows'] ?? '' ) ), 
 $channels = array_slice( array_values( array_filter( (array) ( $in['channels'] ?? array() ), fn( $c ) => has_text( $c['name'] ?? '' ) ) ), 0, 6 );
 $half     = (int) ceil( count( $flows ) / 2 );
 ?>
-<svg class="viz viz-mix" viewBox="0 0 420 270">
+<svg class="viz viz-mix" viewBox="0 0 420 300">
 	<g class="mix-flows">
 		<?php foreach ( $flows as $i => $f ) : ?>
 			<?php
@@ -41,7 +41,8 @@ $half     = (int) ceil( count( $flows ) / 2 );
 			$b = array( 0.35, 0.3, 0.45, 0.6, 0.9, 0.7 )[ $i % 6 ];
 			?>
 			<rect class="mix-bar" style="--i:<?php echo (int) $i; ?>;--a:<?php echo e( (string) $a ); ?>;--b:<?php echo e( (string) $b ); ?>" x="<?php echo e( (string) round( 40 + $i * $w + $w * 0.18, 1 ) ); ?>" y="40" width="<?php echo e( (string) round( $w * 0.64, 1 ) ); ?>" height="180" rx="6"/>
-			<text class="viz-label mix-bar__label" x="<?php echo e( (string) round( 40 + $i * $w + $w / 2, 1 ) ); ?>" y="240" text-anchor="middle"><?php echo e( $c['name'] ); ?></text>
+			<?php $lx = round( 40 + $i * $w + $w / 2 + 4, 1 ); // nomes inclinados: canais longos não se sobrepõem ?>
+			<text class="viz-label mix-bar__label" x="<?php echo e( (string) $lx ); ?>" y="236" text-anchor="end" transform="rotate(-35 <?php echo e( (string) $lx ); ?> 236)"><?php echo e( $c['name'] ); ?></text>
 		<?php endforeach; ?>
 	</g>
 </svg>
