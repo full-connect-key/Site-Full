@@ -633,11 +633,13 @@ button:disabled { cursor: not-allowed; }
 @media (min-width: 64rem) {
   .partners__row { display: flex; height: min(80vh, 46rem); gap: 0.5rem; }
   .partner { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; transition: flex-grow 0.8s var(--ease-out); }
-  .partner.is-active { flex-grow: 2.4; }
-  .partner__media { position: absolute; inset: 0; }
-  .partner__media img { filter: grayscale(1); transition: filter 0.6s; }
+  .partner.is-active { flex-grow: 1.7; }
+  /* Todas as fotos encaixadas pela altura, na mesma escala: o topo das cabeças fica alinhado
+     entre as colunas (aberta ou fechada). As laterais sobram ou são recortadas. */
+  .partner__media { position: absolute; inset: 0; background: var(--light-border); }
+  .partner__media > img { left: 50%; right: auto; width: auto; height: 100%; max-width: none; aspect-ratio: 2 / 3; object-fit: cover; transform: translateX(-50%); filter: grayscale(1); transition: filter 0.6s; }
   .partner.is-active .partner__media img { filter: none; }
-  .partner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgb(5 8 10 / 0.85)); pointer-events: none; }
+  .partner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(color-mix(in srgb, var(--hero-black) 55%, transparent), transparent 22%, transparent 45%, color-mix(in srgb, var(--hero-black) 85%, transparent)); pointer-events: none; }
   .partner__heading, .partner__bio { position: absolute; left: 0; right: 0; z-index: 1; padding-inline: 1.5rem; color: var(--paper); }
   .partner__heading { bottom: 1.5rem; }
   .partner.is-active .partner__heading { bottom: auto; top: 1.5rem; }

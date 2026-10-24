@@ -35,9 +35,15 @@ function migrate(): array
 	return $done;
 }
 
-function setting(string $name, mixed $default = null): mixed
+function &settings_cache(): array
 {
 	static $cache = [];
+	return $cache;
+}
+
+function setting(string $name, mixed $default = null): mixed
+{
+	$cache = &settings_cache();
 	if (!array_key_exists($name, $cache)) {
 		$row            = db_one('SELECT value FROM settings WHERE name = ?', [$name]);
 		$cache[$name] = $row ? json_decode((string) $row['value'], true) : null;
@@ -48,4 +54,6 @@ function setting(string $name, mixed $default = null): mixed
 function setting_set(string $name, mixed $value): void
 {
 	db_query('REPLACE INTO settings (name, value) VALUES (?, ?)', [$name, json_encode($value, JSON_UNESCAPED_UNICODE)]);
+	$cache        = &settings_cache();
+	$cache[$name] = json_decode((string) json_encode($value, JSON_UNESCAPED_UNICODE), true);
 }

@@ -19,3 +19,11 @@ Registro exigido pelo adendo (`docs/BRIEFING_ECOSSISTEMA.md`, E4). Nenhuma afirm
 ## Conflitos de migração
 
 A migração mantém qualquer texto editado no painel e lista o campo em Pendências de conteúdo ("Edição do painel preservada…"). No banco de revisão local e no banco de teste não houve conflito. Os conflitos do site no ar aparecem no painel depois do primeiro login após o deploy.
+
+## Sócios (24/10/2026)
+
+| Onde | Texto | Origem / motivo |
+|---|---|---|
+| Biblioteca de mídia › texto alternativo dos retratos | "Retrato de Rita Frare", "Retrato de Emerson Aguiar", "Retrato de Felipe Pelá" | Descrição mínima para leitores de tela; editável na Biblioteca de mídia |
+
+Cargos e bios são exatamente os textos enviados pelo cliente.

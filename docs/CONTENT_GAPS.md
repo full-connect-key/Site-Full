@@ -11,7 +11,6 @@ Sem dados fictícios: enquanto um item não chega, a seção correspondente fica
 | **P0** | Decisão sobre o banner de cookies (ADR-007) | Site todo | Lançamento | Modo automático (oculto) |
 | P1 | KVs e imagens de cases com autorização | Home › Cases, página Cases | Seções ocultas | Seção omitida |
 | P1 | Logos de clientes autorizados | Home › faixa de logos | Seção oculta | Seção omitida |
-| P1 | Sócios — **nomes e cargos recebidos** (Rita Frare, Sócia e CFO; Emerson Aguiar, Sócio e CEO; Felipe Pelá, Sócio e CTO); bios recebidas; falta só o retrato vertical dos três | Home › Os Sócios | Seção oculta | Cadastrados como rascunho no painel |
 | P1 | Time: fotos e frases "Conecta X a Y." | Home › O Time | Seção oculta | Seção omitida |
 | P1 | Depoimentos reais com autorização registrada | Home › Depoimentos | Seção oculta | Seção omitida |
 | P1 | Imagens dos setores (Varejo, Imobiliário, Feiras e Eventos) | Home › Setores | Sem imagem | Só texto |
@@ -27,4 +26,4 @@ Sem dados fictícios: enquanto um item não chega, a seção correspondente fica
 | P2 | Escolher entre o título principal e os títulos alternativos de cada plataforma (opcional) | Hero das plataformas | — | Título principal do adendo |
 | Revisar | Microtextos de interface criados no desenvolvimento (marcados com `(*)` em `app/seed/content.php`, ex.: "Pular para o conteúdo", "(abre em nova aba)") | Acessibilidade e rótulos | — | Editáveis em Configurações › Textos de interface |
 
-**Recebido:** assinatura "powered by 4REAL" no logo do FullMatch confirmada pelo cliente (mantida); logos oficiais da Full (completo e compacto, versões para fundo escuro e claro) e das 5 plataformas (escuro e claro), e a tipografia Google Sans.
+**Recebido:** sócios completos (nomes, cargos, bios e retratos de Rita Frare, Emerson Aguiar e Felipe Pelá — publicados); assinatura "powered by 4REAL" no logo do FullMatch confirmada pelo cliente (mantida); logos oficiais da Full (completo e compacto, versões para fundo escuro e claro) e das 5 plataformas (escuro e claro), e a tipografia Google Sans.

@@ -95,7 +95,10 @@ $menu = (string) entry_raw($site)['published'];
 $check(!str_contains($menu, '"Full Hub"') && strpos($menu, '"FullMix"') < strpos($menu, '"FullHub"'), 'menus renomeados e na ordem da jornada');
 
 $before = (int) db_value('SELECT COUNT(*) FROM revisions');
-run_seed();
+$second = run_seed();
+if ((int) db_value('SELECT COUNT(*) FROM revisions') !== $before) {
+	echo '  (segunda execução: ' . implode(' | ', $second) . ")\n";
+}
 $check((int) db_value('SELECT COUNT(*) FROM revisions') === $before, 'segunda execução não altera nada');
 
 echo $fails ? "$fails falha(s).\n" : "Migração ok.\n";

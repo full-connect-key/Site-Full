@@ -39,10 +39,17 @@ final class Seeder
 		foreach ($c['sectors'] as $slug => $p) {
 			$this->ensure('sector', 'sector:' . $slug, $p + ['slug' => $slug, 'status' => 'publish']);
 		}
+		$partners = [];
 		foreach ($c['partners'] ?? [] as $slug => $p) {
-			$id = $this->ensure('partner', 'partner:' . $slug, $p + ['slug' => $slug, 'status' => 'draft']);
-			$this->complete($id, $p['meta'] ?? []);
+			$id   = $this->ensure('partner', 'partner:' . $slug, $p + ['slug' => $slug, 'status' => 'draft']);
+			$meta = $p['meta'] ?? [];
+			if (!empty($p['photo']['file']) && ($mid = $this->photo('photo:' . $slug, $p['photo']))) {
+				$meta['details']['photo'] = $mid;
+			}
+			$this->complete($id, $meta);
+			$partners[] = $id;
 		}
+		$this->publishPartnersOnce($partners);
 		$order = 0;
 		foreach ($c['categories'] as $slug => $name) {
 			$this->ensure('category', 'category:' . $slug, ['title' => $name, 'slug' => $slug, 'status' => 'publish', 'order' => ++$order]);
@@ -101,6 +108,50 @@ final class Seeder
 		return $id;
 	}
 
+	/** Importa uma foto do seed para a biblioteca (uma vez) com alt, ponto focal e direito de uso. */
+	private function photo(string $key, array $def): ?int
+	{
+		$mid = (int) db_value('SELECT id FROM media WHERE seed_key = ?', [$key]);
+		if ($mid) {
+			return $mid;
+		}
+		[$mid, $err] = media_import(FCK_APP . '/seed/' . $def['file'], basename($def['file']), ['alt' => $def['alt'] ?? '', 'rights_confirmed' => true, 'license' => 'Retrato enviado pela Full Connect Key', 'seed_key' => $key]);
+		if (!$mid) {
+			$this->log[] = "Foto não importada ({$def['file']}): $err";
+			return null;
+		}
+		if (!empty($def['focal'])) {
+			db_update('media', ['focal' => $def['focal']], ['id' => $mid]);
+		}
+		$this->log[] = 'Mídia importada: ' . ($def['alt'] ?? $def['file']);
+		return (int) $mid;
+	}
+
+	/**
+	 * Publica os sócios uma única vez, quando os três estão completos (cargo,
+	 * bio e retrato) e nunca foram publicados. Se forem despublicados no
+	 * painel depois disso, o seed não os republica.
+	 */
+	private function publishPartnersOnce(array $ids): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done['partners-2026-10']) || count($ids) < 3) {
+			return;
+		}
+		foreach ($ids as $id) {
+			$row = entry_raw($id);
+			$d   = json_dec($row['draft'])['details'] ?? [];
+			if ($row['published'] !== null || !has_text($d['role'] ?? '') || !has_text($d['bio'] ?? '') || !media_ok($d['photo'] ?? 0)) {
+				return;
+			}
+		}
+		foreach ($ids as $id) {
+			entry_publish($id);
+		}
+		setting_set('seed_migrations', $done + ['partners-2026-10' => now()]);
+		$this->log[] = 'Sócios publicados (cargo, bio e retrato completos).';
+	}
+
 	/**
 	 * Completa no rascunho só os campos vazios (nunca sobrescreve o que foi
 	 * editado no painel e não publica). Usado para dados que chegaram depois
@@ -115,7 +166,8 @@ final class Seeder
 		$changed = false;
 		foreach ($meta as $group => $fields) {
 			foreach ((array) $fields as $k => $v) {
-				if (!has_text($draft[$group][$k] ?? '')) {
+				$cur = $draft[$group][$k] ?? null;
+				if ($cur === null || $cur === '' || $cur === [] || (is_string($cur) && trim($cur) === '')) {
 					$draft[$group][$k] = $v;
 					$changed           = true;
 				}

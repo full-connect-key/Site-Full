@@ -504,10 +504,10 @@ function fck_seed_content(): array {
 		// cargo, bio e retrato ainda pendentes — a seção só aparece com os três
 		// publicados e com retrato.
 		'partners'   => array(
-			// Cargos informados pelo cliente. Bio e retrato ainda pendentes (ficam em rascunho).
-			'rita-frare'     => array( 'title' => 'Rita Frare', 'order' => 1, 'meta' => array( 'details' => array( 'role' => 'Sócia e CFO', 'bio' => 'Mais de 25 anos liderando marketing, comercial e finanças. MBA em Gestão e Marketing Global (USP). Atendeu Unilever, P&G, ABF, Petrobras e SURA.' ) ) ),
-			'emerson-aguiar' => array( 'title' => 'Emerson Aguiar', 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Sócio e CEO', 'bio' => 'Engenheiro, 10 anos em gestão comercial na distribuição industrial. Na publicidade desde 2004, com Casas Bahia, Burger King e Hershey’s. Fundou a Full em 2009.' ) ) ),
-			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Sócio e CTO', 'bio' => 'Cientista da computação, fazendo sites desde 1999. Mais de 15 anos em marketing digital e centenas de campanhas em varejo, eventos, feiras e imobiliário.' ) ) ),
+			// Cargo, bio e retrato enviados pelo cliente (fotos em app/seed/people/, convertidas dos RAW originais).
+			'rita-frare'     => array( 'title' => 'Rita Frare', 'photo' => array( 'file' => 'people/rita-frare.jpg', 'alt' => 'Retrato de Rita Frare', 'focal' => '50% 30%' ), 'order' => 1, 'meta' => array( 'details' => array( 'role' => 'Sócia e CFO', 'bio' => 'Mais de 25 anos liderando marketing, comercial e finanças. MBA em Gestão e Marketing Global (USP). Atendeu Unilever, P&G, ABF, Petrobras e SURA.' ) ) ),
+			'emerson-aguiar' => array( 'title' => 'Emerson Aguiar', 'photo' => array( 'file' => 'people/emerson-aguiar.jpg', 'alt' => 'Retrato de Emerson Aguiar', 'focal' => '50% 30%' ), 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Sócio e CEO', 'bio' => 'Engenheiro, 10 anos em gestão comercial na distribuição industrial. Na publicidade desde 2004, com Casas Bahia, Burger King e Hershey’s. Fundou a Full em 2009.' ) ) ),
+			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'photo' => array( 'file' => 'people/felipe-pela.jpg', 'alt' => 'Retrato de Felipe Pelá', 'focal' => '50% 30%' ), 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Sócio e CTO', 'bio' => 'Cientista da computação, fazendo sites desde 1999. Mais de 15 anos em marketing digital e centenas de campanhas em varejo, eventos, feiras e imobiliário.' ) ) ),
 		),
 
 		'categories' => array(
