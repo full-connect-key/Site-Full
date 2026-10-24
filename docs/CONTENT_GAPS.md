@@ -10,7 +10,7 @@ Sem dados fictícios: enquanto um item não chega, a seção correspondente fica
 | **P0** | Domínio, SSL e `app/config.php` de produção | Site todo | Lançamento | Ambiente de staging (noindex) |
 | **P0** | Decisão sobre o banner de cookies (ADR-007) | Site todo | Lançamento | Modo automático (oculto) |
 | P1 | KVs e imagens de cases com autorização | Home › Cases, página Cases | Seções ocultas | Seção omitida |
-| P1 | Logos de clientes autorizados | Home › faixa de logos | Seção oculta | Seção omitida |
+| — | ~~Logos de clientes autorizados~~ (recebidos: 10 logos, publicados em 24/10/2026) | Home › faixa de logos | Publicada | — |
 | P1 | Time: fotos e frases "Conecta X a Y." | Home › O Time | Seção oculta | Seção omitida |
 | P1 | Depoimentos reais com autorização registrada | Home › Depoimentos | Seção oculta | Seção omitida |
 | P1 | Imagens dos setores (Varejo, Imobiliário, Feiras e Eventos) | Home › Setores | Sem imagem | Só texto |

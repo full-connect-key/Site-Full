@@ -16,8 +16,11 @@ if ( ! $clients ) {
 $render = static function ( bool $clone ) use ( $clients ): void {
 	foreach ( $clients as $c ) {
 		$logo = (int) g( $c, 'details' )['logo'];
-		echo '<li class="marquee__item"' . ( $clone ? ' aria-hidden="true"' : '' ) . '>';
-		echo media_html( $logo, array( 'size' => 'thumb', 'alt' => $clone ? '' : $c['title'], 'class' => 'marquee__logo' ) );
+		$m    = media_get( $logo );
+		// Mesma área visual para todos: logos largos ficam mais baixos, compactos mais altos.
+		$h = $m && $m['width'] && $m['height'] ? min( 1, sqrt( $m['height'] / $m['width'] ) ) : 0.6;
+		echo '<li class="marquee__item"' . ( $clone ? ' aria-hidden="true"' : '' ) . ' style="--logo-h:' . round( $h, 3 ) . '">';
+		echo media_html( $logo, array( 'size' => 'thumb', 'sizes' => '16rem', 'alt' => $clone ? '' : $c['title'], 'class' => 'marquee__logo' ) );
 		echo '</li>';
 	}
 };

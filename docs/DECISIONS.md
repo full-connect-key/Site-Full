@@ -83,3 +83,8 @@
 - Desempenho e acessibilidade: a animação pausa fora da tela e com a aba oculta. Com movimento reduzido, o símbolo aparece completo e parado. No desktop os pontos se dissolvem atrás do título (máscara); no celular o símbolo fica acima do texto, mais suave.
 - O título continua alternando entre o título principal e o alternativo (ou a assinatura). Quando o texto alternativo tem duas frases ou mais, a última vira destaque menor, em azul e na linha de baixo. É regra de formatação, sem texto fixo no código: hoje, "Ative o modo Full.".
 - Medição (1366×768): quadros p50 16,7 ms / p95 18,3 ms, nenhuma tarefa longa.
+
+## ADR-015 — Faixa de logos de clientes
+- Em 24/10/2026, a Full enviou 10 logos brancos (SURA, Shell Select, Paraíso Saudável, OXXO, Mundo Verde, Luxo & Design, Intermodal South America, Fispal Tecnologia, Tecnocarne e Dinner in the Sky) e confirmou a autorização de exibição de todos. A autorização fica registrada em cada cliente (Autorização registrada + Registro da autorização).
+- Os arquivos ficam em `app/seed/clients/`, recortados e com 240 px de altura. O seed importa os logos com direito de uso confirmado e publica os clientes uma única vez (`clients-2026-10`). Quem for despublicado no painel depois disso não volta.
+- Tamanho: todos os logos ocupam a mesma área visual. A altura é proporcional a 1/√(proporção), então logos largos ficam mais baixos e logos compactos, mais altos.

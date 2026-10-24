@@ -510,6 +510,22 @@ function fck_seed_content(): array {
 			'felipe-pela'    => array( 'title' => 'Felipe Pelá', 'photo' => array( 'file' => 'people/felipe-pela.jpg', 'alt' => 'Retrato de Felipe Pelá', 'focal' => '50% 30%' ), 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Sócio e CTO', 'bio' => 'Cientista da computação, fazendo sites desde 1999. Mais de 15 anos em marketing digital e centenas de campanhas em varejo, eventos, feiras e imobiliário.' ) ) ),
 		),
 
+		// Clientes da faixa de logos (logos brancos enviados pela Full em 24/10/2026,
+		// em app/seed/clients/). Autorização de exibição de todos confirmada pela Full
+		// na mesma data. Ordem = ordem de exibição.
+		'clients'    => array(
+			'sura' => array( 'title' => 'SURA', 'logo' => 'clients/sura.png', 'order' => 1 ),
+			'shell-select' => array( 'title' => 'Shell Select', 'logo' => 'clients/shell-select.png', 'order' => 2 ),
+			'paraiso-saudavel' => array( 'title' => 'Paraíso Saudável', 'logo' => 'clients/paraiso-saudavel.png', 'order' => 3 ),
+			'oxxo' => array( 'title' => 'OXXO', 'logo' => 'clients/oxxo.png', 'order' => 4 ),
+			'mundo-verde' => array( 'title' => 'Mundo Verde', 'logo' => 'clients/mundo-verde.png', 'order' => 5 ),
+			'luxo-design' => array( 'title' => 'Luxo & Design', 'logo' => 'clients/luxo-design.png', 'order' => 6 ),
+			'intermodal' => array( 'title' => 'Intermodal South America', 'logo' => 'clients/intermodal.png', 'order' => 7 ),
+			'fispal-tecnologia' => array( 'title' => 'Fispal Tecnologia', 'logo' => 'clients/fispal-tecnologia.png', 'order' => 8 ),
+			'tecnocarne' => array( 'title' => 'Tecnocarne', 'logo' => 'clients/tecnocarne.png', 'order' => 9 ),
+			'dinner-in-the-sky' => array( 'title' => 'Dinner in the Sky', 'logo' => 'clients/dinner-in-the-sky.png', 'order' => 10 ),
+		),
+
 		'categories' => array(
 			'estrategia'    => 'Estratégia',
 			'branding'      => 'Branding',

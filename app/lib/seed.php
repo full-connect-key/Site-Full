@@ -50,6 +50,7 @@ final class Seeder
 			$partners[] = $id;
 		}
 		$this->publishPartnersOnce($partners);
+		$this->clients($c['clients'] ?? []);
 		$order = 0;
 		foreach ($c['categories'] as $slug => $name) {
 			$this->ensure('category', 'category:' . $slug, ['title' => $name, 'slug' => $slug, 'status' => 'publish', 'order' => ++$order]);
@@ -110,13 +111,13 @@ final class Seeder
 	}
 
 	/** Importa uma foto do seed para a biblioteca (uma vez) com alt, ponto focal e direito de uso. */
-	private function photo(string $key, array $def): ?int
+	private function photo(string $key, array $def, string $license = 'Retrato enviado pela Full Connect Key'): ?int
 	{
 		$mid = (int) db_value('SELECT id FROM media WHERE seed_key = ?', [$key]);
 		if ($mid) {
 			return $mid;
 		}
-		[$mid, $err] = media_import(FCK_APP . '/seed/' . $def['file'], basename($def['file']), ['alt' => $def['alt'] ?? '', 'rights_confirmed' => true, 'license' => 'Retrato enviado pela Full Connect Key', 'seed_key' => $key]);
+		[$mid, $err] = media_import(FCK_APP . '/seed/' . $def['file'], basename($def['file']), ['alt' => $def['alt'] ?? '', 'rights_confirmed' => true, 'license' => $license, 'seed_key' => $key]);
 		if (!$mid) {
 			$this->log[] = "Foto não importada ({$def['file']}): $err";
 			return null;
@@ -126,6 +127,36 @@ final class Seeder
 		}
 		$this->log[] = 'Mídia importada: ' . ($def['alt'] ?? $def['file']);
 		return (int) $mid;
+	}
+
+	/**
+	 * Clientes da faixa de logos: cria, importa o logo e registra a
+	 * autorização. Publica uma única vez (clients-2026-10); quem for
+	 * despublicado no painel depois disso não volta.
+	 */
+	private function clients(array $clients): void
+	{
+		$ids = [];
+		foreach ($clients as $slug => $p) {
+			$id  = $this->ensure('client', 'client:' . $slug, $p + ['slug' => $slug]);
+			$mid = $this->photo('client-logo:' . $slug, ['file' => $p['logo'], 'alt' => $p['title']], 'Logo do cliente — exibição autorizada (confirmado pela Full em 24/10/2026)');
+			if (!$mid) {
+				continue;
+			}
+			$this->complete($id, ['details' => ['logo' => $mid, 'authorized' => true, 'authorization_note' => 'Autorização de exibição confirmada pela Full Connect Key em 24/10/2026.']]);
+			$ids[] = $id;
+		}
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done['clients-2026-10']) || !$ids) {
+			return;
+		}
+		foreach ($ids as $id) {
+			if (entry_raw($id)['published'] === null) {
+				entry_publish($id);
+			}
+		}
+		setting_set('seed_migrations', $done + ['clients-2026-10' => now()]);
+		$this->log[] = 'Clientes publicados na faixa de logos (' . count($ids) . ').';
 	}
 
 	/**
