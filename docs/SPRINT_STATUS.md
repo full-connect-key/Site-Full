@@ -6,7 +6,7 @@ Status: `TODO` / `IN_PROGRESS` / `DONE` / `BLOCKED` / `DONE_WITH_GAPS`
 
 ## Ponto de retomada
 
-**Todas as 14 sprints e a Sprint ECO (adendo `docs/BRIEFING_ECOSSISTEMA.md`) foram executadas.** Conteúdo limitado a 1080 px centralizados (token `--content`). O lançamento depende só de conteúdo e decisões do cliente (seção "Decisões" abaixo e `docs/CONTENT_GAPS.md`). Nada foi publicado em produção.
+**Todas as 14 sprints e a Sprint ECO (adendo `docs/BRIEFING_ECOSSISTEMA.md`) foram executadas.** Conteúdo limitado a 1200 px centralizados (token `--content`); a faixa de logos ocupa a largura toda. O lançamento depende só de conteúdo e decisões do cliente (seção "Decisões" abaixo e `docs/CONTENT_GAPS.md`). Nada foi publicado em produção.
 
 Possíveis próximos passos:
 - receber os conteúdos P0 e P1;

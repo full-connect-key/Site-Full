@@ -25,16 +25,11 @@ $render = static function ( bool $clone ) use ( $clients ): void {
 	}
 };
 ?>
-<section class="marquee" data-theme="dark" aria-label="<?php echo e( ui( 'a11y', 'logos_region' ) ); ?>" data-module="marquee">
+<section class="marquee" data-theme="dark" aria-label="<?php echo e( ui( 'a11y', 'logos_region' ) ); ?>">
 	<div class="marquee__viewport">
 		<ul class="marquee__track" data-marquee-track>
 			<?php $render( false ); ?>
 			<?php $render( true ); ?>
 		</ul>
-	</div>
-	<div class="container marquee__controls">
-		<button class="icon-btn" type="button" data-marquee-toggle aria-pressed="false" data-label-pause="<?php echo e( ui( 'a11y', 'pause' ) ); ?>" data-label-play="<?php echo e( ui( 'a11y', 'play' ) ); ?>" aria-label="<?php echo e( ui( 'a11y', 'pause' ) ); ?>">
-			<?php echo icon( 'pause' ); // phpcs:ignore ?>
-		</button>
 	</div>
 </section>

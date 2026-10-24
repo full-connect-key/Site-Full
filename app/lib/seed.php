@@ -131,12 +131,13 @@ final class Seeder
 
 	/**
 	 * Clientes da faixa de logos: cria, importa o logo e registra a
-	 * autorização. Publica uma única vez (clients-2026-10); quem for
-	 * despublicado no painel depois disso não volta.
+	 * autorização. Cada cliente é publicado uma única vez (client:<slug> em
+	 * seed_migrations); quem for despublicado no painel depois não volta.
 	 */
 	private function clients(array $clients): void
 	{
-		$ids = [];
+		$done = (array) setting('seed_migrations', []);
+		$new  = [];
 		foreach ($clients as $slug => $p) {
 			$id  = $this->ensure('client', 'client:' . $slug, $p + ['slug' => $slug]);
 			$mid = $this->photo('client-logo:' . $slug, ['file' => $p['logo'], 'alt' => $p['title']], 'Logo do cliente — exibição autorizada (confirmado pela Full em 24/10/2026)');
@@ -144,19 +145,18 @@ final class Seeder
 				continue;
 			}
 			$this->complete($id, ['details' => ['logo' => $mid, 'authorized' => true, 'authorization_note' => 'Autorização de exibição confirmada pela Full Connect Key em 24/10/2026.']]);
-			$ids[] = $id;
-		}
-		$done = (array) setting('seed_migrations', []);
-		if (!empty($done['clients-2026-10']) || !$ids) {
-			return;
-		}
-		foreach ($ids as $id) {
-			if (entry_raw($id)['published'] === null) {
-				entry_publish($id);
+			if (empty($done['client:' . $slug])) {
+				if (entry_raw($id)['published'] === null) {
+					entry_publish($id);
+				}
+				$new['client:' . $slug] = now();
 			}
 		}
-		setting_set('seed_migrations', $done + ['clients-2026-10' => now()]);
-		$this->log[] = 'Clientes publicados na faixa de logos (' . count($ids) . ').';
+		if (!$new) {
+			return;
+		}
+		setting_set('seed_migrations', $done + $new);
+		$this->log[] = 'Clientes publicados na faixa de logos (' . count($new) . ').';
 	}
 
 	/**

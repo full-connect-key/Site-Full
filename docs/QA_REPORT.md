@@ -42,7 +42,7 @@ Coberto por testes:
 - menu mobile com trap de foco e Esc;
 - submenu por teclado;
 - abas com setas;
-- carrossel com pausa;
+- carrossel de depoimentos com pausa (a faixa de logos não pausa, por decisão do cliente; com movimento reduzido ela fica parada);
 - movimento reduzido com versão estática;
 - formulário com foco gerenciado e erros por `aria-invalid` + `aria-describedby`;
 - alvos de toque ≥ 44 px em 375 px (links dentro de texto corrido são exceção permitida pelo critério 2.5.8).
