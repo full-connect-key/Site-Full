@@ -487,7 +487,8 @@ button:disabled { cursor: not-allowed; }
   position: absolute; inset: auto -20% -40% auto; width: 70vmax; height: 70vmax; z-index: -2; pointer-events: none;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--brand-cyan) 14%, transparent), transparent 70%);
 }
-.hero__inner { display: grid; gap: clamp(2.5rem, 6vw, 5rem); }
+/* Ritmo único: título → linha = linha → texto (--hero-gap). */
+.hero__inner { --hero-gap: clamp(2rem, 1.25rem + 2.4vw, 3.5rem); display: grid; gap: var(--hero-gap); }
 .hero__title { max-width: 15ch; }
 .hero__accent { display: block; margin-top: 0.3em; font-size: 0.55em; line-height: 1.05; color: var(--accent); }
 @media (min-width: 64rem) { .hero__title { max-width: 11ch; font-size: clamp(3.5rem, 1.5rem + 3.6vw, 6.25rem); } }
@@ -495,7 +496,7 @@ button:disabled { cursor: not-allowed; }
 .hero__swap-item + .hero__swap-item { margin-top: 0.4em; font-size: 0.5em; line-height: 1.05; color: var(--fg-2); }
 /* Com JS e movimento liberado, o layout final (títulos sobrepostos) vale desde o primeiro quadro: sem deslocamento (CLS). */
 @media (prefers-reduced-motion: no-preference) {
-  .js .hero__title:not(.is-static) { display: grid; }
+  .js .hero__title:not(.is-static) { display: grid; align-items: end; } /* títulos de alturas diferentes ficam colados na linha: o espaço não muda na troca */
   .js .hero__title:not(.is-static) .hero__swap-item {
     grid-area: 1 / 1; margin: 0; font-size: inherit; line-height: inherit; color: inherit;
     opacity: 0; transform: translateY(0.35em); clip-path: inset(0 0 100% 0);
@@ -504,7 +505,7 @@ button:disabled { cursor: not-allowed; }
   .js .hero__title.is-animated .hero__swap-item.is-current,
   .js .hero__title:not(.is-animated):not(.is-static) .hero__swap-item:first-child { opacity: 1; transform: none; clip-path: inset(0 0 -0.2em 0); }
 }
-.hero__bottom { display: grid; gap: 2rem; align-items: end; padding-top: 2rem; border-top: 1px solid var(--line); }
+.hero__bottom { display: grid; gap: var(--hero-gap); align-items: center; padding-top: var(--hero-gap); border-top: 1px solid var(--line); }
 @media (min-width: 64rem) { .hero__bottom { grid-template-columns: minmax(0, 36rem) auto; justify-content: space-between; } }
 .hero__scroll { position: absolute; left: 50%; bottom: 0; width: 1px; height: clamp(2rem, 5vw, 4rem); background: linear-gradient(var(--accent), transparent); }
 
