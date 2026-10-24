@@ -22,6 +22,7 @@ function fck_dispatch(): void
 		echo '<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><title>Em instalação</title><p style="font-family:sans-serif;padding:2rem">Site em instalação. Acesse <a href="/admin/install">/admin/install</a>.</p>';
 		return;
 	}
+	site_auto_update();
 	session_resume(); // preview: identifica o usuário do painel
 
 	match (true) {
@@ -30,6 +31,38 @@ function fck_dispatch(): void
 		$path === '/contato/enviar' && $method === 'POST' => contact_handle(),
 		default                                        => route_public($path),
 	};
+}
+
+/**
+ * Depois de um deploy, a primeira visita aplica as migrations e o conteúdo
+ * inicial novo (seed idempotente: nunca sobrescreve edições do painel), sem
+ * precisar entrar no /admin. Uma trava no MySQL evita execuções simultâneas;
+ * qualquer erro fica no log e não derruba a página.
+ */
+function site_auto_update(): void
+{
+	try {
+		if (!migrations_pending() && setting('seed_version') === seed_version()) {
+			return;
+		}
+		if ((int) db_value("SELECT GET_LOCK('fck_auto_update', 0)") !== 1) {
+			return;
+		}
+		try {
+			if (migrations_pending()) {
+				migrate();
+			}
+			$current = db_value("SELECT value FROM settings WHERE name = 'seed_version'");
+			if ($current === null || json_decode((string) $current, true) !== seed_version()) {
+				run_seed();
+				setting_set('seed_version', seed_version());
+			}
+		} finally {
+			db_value("SELECT RELEASE_LOCK('fck_auto_update')");
+		}
+	} catch (Throwable $e) {
+		error_log('[fck] atualização automática: ' . $e->getMessage());
+	}
 }
 
 /** Instalado = banco acessível e tabelas criadas. */
