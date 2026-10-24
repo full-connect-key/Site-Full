@@ -11,7 +11,7 @@ Sem dados fictícios: enquanto um item não chega, a seção correspondente fica
 | **P0** | Decisão sobre o banner de cookies (ADR-007) | Site todo | Lançamento | Modo automático (oculto) |
 | P1 | KVs e imagens de cases com autorização | Home › Cases, página Cases | Seções ocultas | Seção omitida |
 | P1 | Logos de clientes autorizados | Home › faixa de logos | Seção oculta | Seção omitida |
-| P1 | Sócios — **nomes e cargos recebidos** (Rita Frare, Sócia e CFO; Emerson Aguiar, Sócio e CEO; Felipe Pelá, Sócio e CTO); faltam retrato vertical de todos e bio de Rita e Felipe (bio do Emerson recebida) | Home › Os Sócios | Seção oculta | Cadastrados como rascunho no painel |
+| P1 | Sócios — **nomes e cargos recebidos** (Rita Frare, Sócia e CFO; Emerson Aguiar, Sócio e CEO; Felipe Pelá, Sócio e CTO); faltam retrato vertical de todos e bio do Felipe (bios de Rita e Emerson recebidas) | Home › Os Sócios | Seção oculta | Cadastrados como rascunho no painel |
 | P1 | Time: fotos e frases "Conecta X a Y." | Home › O Time | Seção oculta | Seção omitida |
 | P1 | Depoimentos reais com autorização registrada | Home › Depoimentos | Seção oculta | Seção omitida |
 | P1 | Imagens dos setores (Varejo, Imobiliário, Feiras e Eventos) | Home › Setores | Sem imagem | Só texto |
