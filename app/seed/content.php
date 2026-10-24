@@ -529,6 +529,11 @@ function fck_seed_content(): array {
 			'ambev' => array( 'title' => 'Ambev', 'logo' => 'clients/ambev.png', 'order' => 13 ),
 			'abf-franchising-expo' => array( 'title' => 'ABF Franchising Expo', 'logo' => 'clients/abf-franchising-expo.png', 'order' => 14 ),
 			'4real' => array( 'title' => '4REAL', 'logo' => 'clients/4real.png', 'order' => 15 ),
+			'ribeiro-caram' => array( 'title' => 'Ribeiro Caram', 'logo' => 'clients/ribeiro-caram.png', 'order' => 16 ),
+			'qblz' => array( 'title' => 'QBLZ!', 'logo' => 'clients/qblz.png', 'order' => 17 ),
+			'plastico-brasil' => array( 'title' => 'Plástico Brasil', 'logo' => 'clients/plastico-brasil.png', 'order' => 18 ),
+			'catarinense-implantes' => array( 'title' => 'Catarinense Implantes', 'logo' => 'clients/catarinense-implantes.png', 'order' => 19 ),
+			'nt-expo' => array( 'title' => 'NT Expo', 'logo' => 'clients/nt-expo.png', 'order' => 20 ),
 		),
 
 		'categories' => array(

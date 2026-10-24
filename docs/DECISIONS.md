@@ -85,7 +85,7 @@
 - Medição (1366×768): quadros p50 16,7 ms / p95 18,3 ms, nenhuma tarefa longa.
 
 ## ADR-015 — Faixa de logos de clientes
-- Em 24/10/2026, a Full enviou 15 logos brancos (SURA, Shell Select, Paraíso Saudável, OXXO, Mundo Verde, Luxo & Design, Intermodal South America, Fispal Tecnologia, Tecnocarne, Dinner in the Sky, Brentwood, AVIMA, Ambev, ABF Franchising Expo e 4REAL) e confirmou a autorização de exibição de todos. A autorização fica registrada em cada cliente (Autorização registrada + Registro da autorização).
+- Em 24/10/2026, a Full enviou 20 logos brancos (SURA, Shell Select, Paraíso Saudável, OXXO, Mundo Verde, Luxo & Design, Intermodal South America, Fispal Tecnologia, Tecnocarne, Dinner in the Sky, Brentwood, AVIMA, Ambev, ABF Franchising Expo, 4REAL, Ribeiro Caram, QBLZ!, Plástico Brasil, Catarinense Implantes e NT Expo) e confirmou a autorização de exibição de todos. A autorização fica registrada em cada cliente (Autorização registrada + Registro da autorização).
 - Os arquivos ficam em `app/seed/clients/`, recortados e com 240 px de altura. O seed importa os logos com direito de uso confirmado e publica cada cliente uma única vez (`client:<slug>` em seed_migrations). Quem for despublicado no painel depois disso não volta.
 - Tamanho: todos os logos ocupam a mesma área visual. A altura é proporcional a 1/√(proporção), então logos largos ficam mais baixos e logos compactos, mais altos.
 - Layout (pedido do cliente, 24/10/2026): a faixa ocupa a largura toda da página, em contraponto ao conteúdo, que passou de 1080 para **1200 px** centralizados (token `--content`). A faixa ficou mais fina e os logos, maiores.
