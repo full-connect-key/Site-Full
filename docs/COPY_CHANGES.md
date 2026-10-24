@@ -62,5 +62,6 @@ Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-
 | Pessoa | Cargo | Frase |
 |---|---|---|
 | Gabriela Oliveira | Gerente de Projetos | "Conecta estratégia a execução." (ponto final acrescentado, no padrão "Conecta X a Y.") |
+| Victor Fávaro | Diretor de Arte | "Conecta conceitos a soluções criativas." |
 
-A foto foi convertida do RAW (IMG_9927.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/gabriela-oliveira.jpg`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). A seção usa a grade de retratos do ADR-018.
+As fotos foram convertidas do RAW (IMG_9927.CR2 e IMG_9980_1.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). A seção usa a grade de retratos do ADR-018.
