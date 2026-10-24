@@ -77,6 +77,7 @@ final class Seeder
 		$this->globals($site, $c['ui']);
 		$this->logos($c['logos']);
 		$this->migrateEco($c);
+		$this->addPartnersMenuOnce();
 		$this->log[] = 'Concluído.';
 		return $this->log;
 	}
@@ -389,6 +390,52 @@ final class Seeder
 			}
 		}
 		return $current;
+	}
+
+	/**
+	 * Uma vez só: adiciona "Sócios" (→ /#socios) ao menu principal, depois de
+	 * "Ecossistema Full", e ao grupo do rodapé, depois de "S&M", em sites já
+	 * instalados. Se o item for removido no painel depois, não volta.
+	 */
+	private function addPartnersMenuOnce(): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$id   = $this->find('global:site');
+		if (!empty($done['menu-socios-2026-10']) || !$id) {
+			return;
+		}
+		$row   = entry_raw($id);
+		$draft = json_dec($row['draft']);
+		$json  = (string) $row['draft'];
+		if (!str_contains($json, '#socios')) {
+			$item = ['link' => $this->link('Sócios', 'url:/#socios')];
+			$eco  = $this->ids['page']['ecosystem'] ?? 0;
+			$sm   = $this->ids['page']['sm'] ?? 0;
+			$main = (array) ($draft['menu']['main'] ?? []);
+			$pos  = count($main);
+			foreach ($main as $i => $it) {
+				if ((int) ($it['link']['post'] ?? 0) === (int) $eco) {
+					$pos = $i + 1;
+				}
+			}
+			array_splice($main, $pos, 0, [$item + ['children' => []]]);
+			$draft['menu']['main'] = $main;
+			if (isset($draft['menu']['footer_groups'][0]['links'])) {
+				$links = (array) $draft['menu']['footer_groups'][0]['links'];
+				$pos   = count($links);
+				foreach ($links as $i => $it) {
+					if ((int) ($it['link']['post'] ?? 0) === (int) $sm) {
+						$pos = $i + 1;
+					}
+				}
+				array_splice($links, $pos, 0, [$item]);
+				$draft['menu']['footer_groups'][0]['links'] = $links;
+			}
+			entry_save_draft($id, ['draft' => json_enc($draft)], 'seed');
+			entry_publish($id);
+			$this->log[] = 'Menu: item "Sócios" adicionado.';
+		}
+		setting_set('seed_migrations', $done + ['menu-socios-2026-10' => now()]);
 	}
 
 	/** Menus: renomeia itens de plataforma ainda com o nome antigo e segue a nova ordem. */

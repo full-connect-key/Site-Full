@@ -12,7 +12,7 @@ if ( count( $partners ) < 3 ) {
 }
 $partners = array_slice( $partners, 0, 3 );
 ?>
-<section class="section partners" data-theme="light" aria-labelledby="partners-title">
+<section class="section partners" id="socios" data-theme="light" aria-labelledby="partners-title">
 	<div class="container">
 		<?php section_head( array( 'title' => $d['title'] ?? '', 'text' => $d['text'] ?? '', 'id' => 'partners-title', 'size' => 'display-l' ) ); ?>
 		<div class="partners__row" data-module="partners">

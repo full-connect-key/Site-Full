@@ -72,3 +72,7 @@
 - **Enquadramento:** recorte 2:3 com o topo da cabeça a ~11% da altura e a cabeça na mesma proporção do quadro nas três, detectado automaticamente pela transição cabelo/parede. Saída: 1400×2100 JPEG em `app/seed/people/`.
 - **Seção Os Sócios no desktop:** as fotos são sempre encaixadas pela altura da coluna (aberta ou fechada), na mesma escala, para manter as cabeças alinhadas. Há também um sombreado no topo para o nome ficar legível sobre a parede clara.
 - **Publicação:** o seed importa os retratos (direito de uso confirmado, ponto focal 50% 30%) e publica os três uma única vez, quando cargo, bio e retrato estão completos. Se forem despublicados no painel depois, o seed não os republica.
+
+## ADR-013 — Item "Sócios" no menu
+- Pedido do cliente (24/10/2026): "Sócios" no menu principal, depois de "Ecossistema Full", e no grupo do rodapé, depois de "S&M". Leva à seção Os Sócios da Home (`/#socios`). O briefing v1.1 não previa esse item.
+- Em sites já instalados, o seed adiciona o item uma única vez. Ele pode ser renomeado, movido ou removido em Configurações › Menus, e não volta se for removido.
