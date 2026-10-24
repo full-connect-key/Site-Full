@@ -35,6 +35,7 @@ function contact_validate(array $raw): array
 		'company' => clean_line((string) ($raw['company'] ?? '')),
 		'message' => clean_multiline((string) ($raw['message'] ?? '')),
 		'consent' => !empty($raw['consent']),
+		'platform' => contact_platform_name((string) ($raw['plataforma'] ?? '')),
 	];
 	$errors = [];
 	if (!array_key_exists($data['subject'], fck_contact_subjects())) {
@@ -59,6 +60,20 @@ function contact_validate(array $raw): array
 		$errors['consent'] = ui('form', 'consent_required');
 	}
 	return [$data, $errors];
+}
+
+/** Nome da plataforma a partir do slug (?plataforma=); vazio se não existir. */
+function contact_platform_name(string $slug): string
+{
+	if ($slug === '' || !preg_match('/^[a-z0-9-]{1,80}$/', $slug)) {
+		return '';
+	}
+	foreach (entries_of('platform') as $p) {
+		if ($p['slug'] === $slug) {
+			return (string) $p['title'];
+		}
+	}
+	return '';
 }
 
 /** Token do formulário (CSRF sem sessão): HMAC do horário de renderização. */
@@ -127,6 +142,7 @@ function contact_store_and_send(array $data): void
 {
 	$id = db_insert('submissions', [
 		'subject'    => $data['subject'],
+		'platform'   => $data['platform'] !== '' ? $data['platform'] : null,
 		'name'       => $data['name'],
 		'email'      => $data['email'],
 		'company'    => $data['company'],
@@ -142,7 +158,7 @@ function contact_store_and_send(array $data): void
 	}
 	$subjects = fck_contact_subjects();
 	$body     = implode("\n", [
-		'Assunto: ' . $subjects[$data['subject']],
+		'Assunto: ' . $subjects[$data['subject']] . ($data['platform'] !== '' ? ' — ' . $data['platform'] : ''),
 		'Nome: ' . $data['name'],
 		'E-mail: ' . $data['email'],
 		'Empresa: ' . ($data['company'] ?: '—'),

@@ -1,5 +1,5 @@
 <?php
-/** Home 4 — Ecossistema: cinco plataformas com cor oficial, resumo e link. */
+/** Home 4 — Ecossistema: cinco plataformas na ordem da jornada — nome, verbo e uma linha — com cor oficial e link. */
 defined( 'FCK_ROOT' ) || exit;
 $d         = $args['data'];
 $platforms = entries_of( 'platform' );
@@ -24,7 +24,10 @@ if ( ! $platforms ) {
 						<span class="eco-home__name">
 							<?php echo wordmark( $p['title'], (int) ( $id['logo'] ?? 0 ) ); // phpcs:ignore ?>
 						</span>
-						<?php text_el( $id['summary'] ?? '', 'span', 'eco-home__summary' ); ?>
+						<span class="eco-home__summary">
+							<?php text_el( $id['verb'] ?? '', 'span', 'eco-home__verb' ); ?>
+							<?php text_el( $id['home_line'] ?? '', 'span', 'eco-home__line' ); ?>
+						</span>
 						<span class="eco-home__arrow" aria-hidden="true"><?php echo icon( 'arrow' ); // phpcs:ignore ?></span>
 					</a>
 				</li>

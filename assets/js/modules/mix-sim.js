@@ -1,7 +1,12 @@
 /**
  * Simulador ILUSTRATIVO do FullMix: ao mover um canal, os demais se ajustam
  * proporcionalmente para manter 100%. Não calcula vendas, ROI nem recomenda.
+ * Demonstração automática: enquanto a pessoa rola, a distribuição oscila
+ * entre duas composições fixas. Pegar um slider (mouse, toque ou teclado)
+ * para a demonstração; ela só volta quando o simulador sai e reentra na tela.
  */
+import { reducedMotion } from './motion.js'
+
 export default function mixSim(el) {
   const inputs = [...el.querySelectorAll('input[type=range]')]
   const outs = [...el.querySelectorAll('[data-out]')]
@@ -49,4 +54,47 @@ export default function mixSim(el) {
   const diff = 100 - inputs.reduce((s, i) => s + Number(i.value), 0)
   if (diff) inputs[0].value = String(Number(inputs[0].value) + diff)
   render()
+
+  if (reducedMotion() || el.dataset.demo !== 'on' || inputs.length < 2) {
+    el.dataset.demo = 'off'
+    return
+  }
+  const base = inputs.map((i) => Number(i.value))
+  const alt = [...base].reverse()
+  let visible = false
+  let left = false
+  let ticking = false
+  const demo = () => {
+    ticking = false
+    if (el.dataset.demo !== 'on' || !visible) return
+    const r = el.getBoundingClientRect()
+    const q = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight + r.height)))
+    const t = (1 - Math.cos(q * Math.PI * 2)) / 2 // vai e volta
+    const raw = base.map((b, k) => b + (alt[k] - b) * t)
+    const sum = raw.reduce((a, b) => a + b, 0) || 1
+    const vals = raw.map((v) => Math.round((v * 100) / sum))
+    vals[vals.length - 1] += 100 - vals.reduce((a, b) => a + b, 0)
+    inputs.forEach((inp, k) => (inp.value = String(vals[k])))
+    render()
+  }
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true
+      requestAnimationFrame(demo)
+    }
+  }
+  const stop = () => {
+    el.dataset.demo = 'off'
+  }
+  inputs.forEach((inp) => ['pointerdown', 'keydown', 'touchstart'].forEach((ev) => inp.addEventListener(ev, stop, { passive: true })))
+  new IntersectionObserver(([e]) => {
+    visible = e.isIntersecting
+    if (!visible) left = true
+    else if (left && el.dataset.demo === 'off') {
+      el.dataset.demo = 'on'
+      left = false
+    }
+    if (visible) onScroll()
+  }).observe(el)
+  addEventListener('scroll', onScroll, { passive: true })
 }

@@ -1,30 +1,21 @@
 <?php
 /**
- * FullMix — blocos Mensurar / Comparar / Orientar + simulador ILUSTRATIVO de
- * distribuição de orçamento entre canais. Aviso obrigatório sempre visível
- * junto ao simulador; sem projeção de vendas, ROI ou recomendação.
+ * FullMix — simulador ILUSTRATIVO de distribuição de orçamento entre canais.
+ * Em demonstração automática enquanto a pessoa rola (os sliders se movem
+ * sozinhos); ao pegar um slider, a demonstração para e ela assume o
+ * controle. Aviso obrigatório sempre visível; sem projeção de vendas.
  */
 defined( 'FCK_ROOT' ) || exit;
-$items    = $args['items'];
 $inter    = $args['inter'];
 $channels = array_values( array_filter( (array) ( $inter['channels'] ?? array() ), fn( $c ) => has_text( $c['name'] ?? '' ) ) );
 $note     = (string) ( $inter['illustrative_note'] ?? '' );
 ?>
-<ol class="mix-blocks">
-	<?php foreach ( $items as $i => $item ) : ?>
-		<li class="mix-block reveal" style="--delay:<?php echo e( (string) ( 0.1 * $i ) ); ?>s">
-			<p class="eyebrow"><?php echo e( $item['label'] ); ?></p>
-			<?php text_el( $item['headline'] ?? '', 'h3', 'display-xs' ); ?>
-			<?php text_el( $item['text'] ?? '', 'p', 'muted' ); ?>
-		</li>
-	<?php endforeach; ?>
-</ol>
 
 <?php if ( count( $channels ) >= 2 && has_text( $note ) ) : // sem o aviso obrigatório, o simulador não é exibido ?>
 	<?php
 	$total = array_sum( array_map( fn( $c ) => max( 0, (int) ( $c['share'] ?? 0 ) ), $channels ) ) ?: 1;
 	?>
-	<div class="mix-sim" data-module="mix-sim" aria-labelledby="mix-sim-intro">
+	<div class="mix-sim" data-module="mix-sim" data-demo="on" aria-labelledby="mix-sim-intro">
 		<div class="mix-sim__head">
 			<?php text_el( $inter['simulator_intro'] ?? '', 'p', 'lead', array( 'id' => 'mix-sim-intro' ) ); ?>
 			<p class="mix-sim__note badge-illustrative" role="note"><?php echo e( $note ); ?></p>

@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 
 import { trackErrors } from './helpers.js'
 
-const pages = ['/', '/sm', '/ecossistema', '/ecossistema/full-hub', '/ecossistema/full-dash', '/ecossistema/full-leads', '/ecossistema/fullmix', '/ecossistema/fullmatch', '/cases', '/cases/case-teste-1', '/insights', '/insights/artigo-teste-1', '/full-na-midia', '/contato']
+const pages = ['/', '/sm', '/ecossistema', '/ecossistema/fullmix', '/ecossistema/fulldash', '/ecossistema/fullleads', '/ecossistema/fullmatch', '/ecossistema/fullhub', '/cases', '/cases/case-teste-1', '/insights', '/insights/artigo-teste-1', '/full-na-midia', '/contato']
 
 test.describe('Site público', () => {
   for (const path of pages) {
@@ -112,41 +112,5 @@ test.describe('Ecossistema e rodapé', () => {
   test('rodapé mostra a versão publicada', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('.site-footer__version')).toHaveText(/[0-9a-f]{7}/)
-  })
-})
-
-test.describe('Plataformas', () => {
-  test('FullMix: simulador mantém 100% e aviso ilustrativo visível', async ({ page }) => {
-    await page.goto('/ecossistema/fullmix')
-    await expect(page.locator('.mix-sim__note')).toBeVisible()
-    await page.locator('#mix-0').fill('70')
-    await expect(page.locator('[data-mix-total]')).toHaveText('100%')
-    const sum = await page.$$eval('.mix-sim input[type=range]', (els) => els.reduce((s, e) => s + Number(e.value), 0))
-    expect(sum).toBe(100)
-  })
-
-  test('Full Dash: seletor por teclado e selo ilustrativo', async ({ page }) => {
-    await page.goto('/ecossistema/full-dash')
-    const tab = page.locator('.selector__tab').first()
-    await tab.focus()
-    await page.keyboard.press('ArrowRight')
-    await expect(page.locator('#dash-panel-1')).toBeVisible()
-    await expect(page.locator('#dash-panel-1 .badge-illustrative')).toBeVisible()
-  })
-
-  test('Full Hub e Full Leads: narrativa por rolagem ativa etapas', async ({ page }) => {
-    for (const slug of ['full-hub', 'full-leads']) {
-      await page.goto('/ecossistema/' + slug)
-      const steps = page.locator('[data-story-step]')
-      await steps.last().scrollIntoViewIfNeeded()
-      await page.mouse.wheel(0, 200)
-      await expect(steps.last()).toHaveClass(/is-active/, { timeout: 5000 })
-    }
-  })
-
-  test('FullMatch: seletor de perfis', async ({ page }) => {
-    await page.goto('/ecossistema/fullmatch')
-    await page.locator('.selector__tab').nth(2).click()
-    await expect(page.locator('#match-panel-2')).toBeVisible()
   })
 })

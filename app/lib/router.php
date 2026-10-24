@@ -105,7 +105,7 @@ function render_entry(array $entry): void
 			render_page('pages/' . $entry['type'], ['entry' => $entry, 'base' => $base, 'body_class' => 'single-' . $entry['type']], [
 				'entry'       => $entry,
 				'title'       => $entry['title'],
-				'description' => (string) ($details['summary'] ?? $details['excerpt'] ?? ''),
+				'description' => (string) ($entry['type'] === 'platform' ? (g($entry, 'hero')['lead'] ?? '') : ($details['summary'] ?? $details['excerpt'] ?? '')),
 				'image'       => (int) ($details['kv'] ?? $details['cover'] ?? 0),
 				'type'        => $entry['type'] === 'article' ? 'article' : 'website',
 				'path'        => path_for($entry),

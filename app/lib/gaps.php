@@ -23,6 +23,12 @@ function content_gaps(): array
 			$add('P0', 'Logo oficial (escuro e claro) — ' . $p['title'], 'Páginas do ecossistema');
 		}
 	}
+	foreach (pending_claims() as $c) {
+		$add('P0', 'Afirmação a validar — ' . $c['platform'] . ' › ' . $c['where'] . ': "' . mb_strimwidth($c['text'], 0, 80, '…') . '"' . ($c['note'] !== '' ? ' (' . $c['note'] . ')' : ''), 'Página da plataforma (oculta em produção)');
+	}
+	foreach ((array) setting('eco_migration_conflicts', []) as $path) {
+		$add('Revisar', 'Edição do painel preservada na migração do Ecossistema: ' . $path, 'Comparar com docs/BRIEFING_ECOSSISTEMA.md');
+	}
 	foreach (['privacy' => 'Política de Privacidade', 'cookies' => 'Política de Cookies'] as $k => $label) {
 		if (!db_value('SELECT id FROM entries WHERE seed_key = ? AND published IS NOT NULL', ['page:' . $k])) {
 			$add('P0', $label . ' (texto jurídico aprovado)', 'Rodapé e consentimento do formulário');
@@ -60,4 +66,35 @@ function content_gaps(): array
 		$add('P2', 'Canais oficiais de contato e redes', 'Rodapé');
 	}
 	return $gaps;
+}
+
+/**
+ * Afirmações "a validar" publicadas nas plataformas (docs/CLAIMS_REGISTER.md).
+ * @return list<array{platform:string,where:string,text:string,note:string}>
+ */
+function pending_claims(): array
+{
+	$out = [];
+	foreach (db_all("SELECT title, published FROM entries WHERE type = 'platform' AND published IS NOT NULL ORDER BY menu_order") as $p) {
+		$d    = json_dec($p['published']);
+		$name = (string) $p['title'];
+		$push = function (string $where, array $item, string $text, string $status = 'claim_status', string $note = 'claim_note') use (&$out, $name): void {
+			if (($item[$status] ?? '') === 'validar') {
+				$out[] = ['platform' => $name, 'where' => $where, 'text' => str_replace('{platform}', $name, $text), 'note' => (string) ($item[$note] ?? '')];
+			}
+		};
+		foreach ((array) ($d['how']['steps'] ?? []) as $s) {
+			$push('Como funciona', (array) $s, (string) ($s['title'] ?? '') . ': ' . ($s['text'] ?? ''));
+		}
+		foreach ((array) ($d['benefits']['items'] ?? []) as $b) {
+			$push('Benefícios', (array) $b, (string) ($b['title'] ?? '') . ': ' . ($b['text'] ?? ''));
+		}
+		if (!empty($d['benefits']['note'])) {
+			$push('Nota dos benefícios', (array) $d['benefits'], (string) $d['benefits']['note'], 'note_claim_status', 'note_claim_note');
+		}
+		foreach ((array) ($d['connections']['items'] ?? []) as $c) {
+			$push('Conexões', (array) $c, (string) ($c['text'] ?? ''));
+		}
+	}
+	return $out;
 }

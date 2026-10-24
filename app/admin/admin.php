@@ -349,7 +349,7 @@ function admin_submissions(int $id, string $method): void
 		$s ? admin_view('submission', ['title' => 'Mensagem de contato', 's' => $s]) : admin_404();
 		return;
 	}
-	admin_view('submissions', ['title' => 'Mensagens de contato', 'rows' => db_all('SELECT id, subject, name, email, delivery, created_at FROM submissions ORDER BY id DESC LIMIT 500')]);
+	admin_view('submissions', ['title' => 'Mensagens de contato', 'rows' => db_all('SELECT id, subject, platform, name, email, delivery, created_at FROM submissions ORDER BY id DESC LIMIT 500')]);
 }
 
 function admin_contact_settings(string $method): void

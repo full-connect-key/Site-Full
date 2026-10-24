@@ -57,6 +57,9 @@ view( 'parts/page-hero', array( 'args' => array( 'data' => g( $entry, 'hero' ) )
 
 		<form class="contact-form" action="<?php echo e( url( '/contato/enviar' ) ); ?>" method="post" novalidate data-module="contact-form" data-msg-required="<?php echo e( ui( 'form', 'required' ) ); ?>" data-msg-email="<?php echo e( ui( 'form', 'invalid_email' ) ); ?>" data-msg-consent="<?php echo e( ui( 'form', 'consent_required' ) ); ?>" data-msg-too-long="<?php echo e( ui( 'form', 'too_long' ) ); ?>" data-msg-error="<?php echo e( ui( 'form', 'send_error' ) ); ?>" data-msg-sending="<?php echo e( ui( 'form', 'sending' ) ); ?>"<?php echo 'sucesso' === $status ? ' hidden' : ''; ?>>
 			<input type="hidden" name="_token" value="<?php echo e( contact_token() ); ?>">
+			<?php if ( '' !== contact_platform_name( query( 'plataforma' ) ) ) : ?>
+				<input type="hidden" name="plataforma" value="<?php echo e( query( 'plataforma' ) ); ?>">
+			<?php endif; ?>
 			<div class="contact-form__hp" aria-hidden="true"><input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
 
 			<p class="contact-form__alert" role="alert" data-alert<?php echo 'erro' === $status ? '' : ' hidden'; ?>><?php echo 'erro' === $status ? e( ui( 'form', 'send_error' ) ) : ''; ?></p>

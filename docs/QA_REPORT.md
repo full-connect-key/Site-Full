@@ -69,6 +69,28 @@ Coberto por testes:
 - `npm run check:strings`: nenhum texto fixo em `app/views` (blocos `<script>` ignorados, por serem código).
 - Microtextos criados no desenvolvimento estão marcados com `(*)` em `app/seed/content.php` e listados em CONTENT_GAPS para revisão.
 
-## 5. Suíte de testes
+## 5. Sprint ECO — motion e desempenho das plataformas
 
-`npm run check` ok. Playwright: **109/109** (desktop-1280, mobile-375, tablet-768, desktop-1440).
+Rolagem contínua da página inteira em 1366×768 (Chromium headless, banco de teste):
+
+| Página | Quadros medidos | Tempo por quadro p50 / p95 | Tarefas longas na carga / na rolagem | CLS |
+|---|---|---|---|---|
+| FullDash | 121 | 16,7 / 17,1 ms | 0 / 0 | 0,000 |
+| FullMix | 136 | 16,7 / 17,8 ms | 0 / 0 | 0,001 |
+| FullMatch | 122 | 16,7 / 17,4 ms | 0 / 0 | 0,000 |
+
+- Só transform, opacity, stroke-dashoffset e clip-path são animados.
+- Os listeners de rolagem só agem com a seção na tela (IntersectionObserver) e uma vez por quadro (requestAnimationFrame).
+- O espaço dos visuais é reservado, por isso o CLS fica em 0.
+
+Coberto por `tests/e2e/ecosystem.spec.js`:
+- só rolando, as etapas 1 → 3 acontecem em FullDash, FullMix e FullMatch, em 1280 e 375 px, e o seletor acompanha;
+- clicar no seletor leva até a etapa;
+- "Pular animação" funciona por teclado;
+- a demonstração do simulador para ao pegar um slider;
+- movimento reduzido: sem pin e com o estado final completo;
+- tocar num perfil o fixa.
+
+## 6. Suíte de testes
+
+`npm run check` ok. Playwright: **131/131** (desktop-1280, mobile-375, tablet-768, desktop-1440). `npm run test:migration`: 11/11.

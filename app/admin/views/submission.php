@@ -3,6 +3,7 @@
 <h1>Mensagem de <?= e($s['name']) ?></h1>
 <table class="adm-table adm-table--kv"><tbody>
 	<tr><th>Assunto</th><td><?= e(fck_contact_subjects()[$s['subject']] ?? $s['subject']) ?></td></tr>
+	<?php if (!empty($s['platform'])) : ?><tr><th>Plataforma de origem</th><td><?= e($s['platform']) ?></td></tr><?php endif; ?>
 	<tr><th>E-mail</th><td><a href="mailto:<?= e($s['email']) ?>"><?= e($s['email']) ?></a></td></tr>
 	<tr><th>Empresa</th><td><?= e($s['company'] ?: '—') ?></td></tr>
 	<tr><th>Consentimento</th><td><?= e(date('d/m/Y H:i', strtotime($s['consent_at']))) ?></td></tr>

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const routes = ['/', '/sm', '/ecossistema', '/ecossistema/full-hub', '/ecossistema/fullmix', '/cases', '/cases/case-teste-1', '/insights', '/insights/artigo-teste-1', '/full-na-midia', '/contato']
+const routes = ['/', '/sm', '/ecossistema', '/ecossistema/fullhub', '/ecossistema/fullmix', '/ecossistema/fulldash', '/ecossistema/fullmatch', '/cases', '/cases/case-teste-1', '/insights', '/insights/artigo-teste-1', '/full-na-midia', '/contato']
 
 test.describe('Responsivo e toque', () => {
   for (const width of [320, 1920]) {

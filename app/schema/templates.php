@@ -66,7 +66,7 @@ function fck_template_schemas(): array {
 			array(
 				'id'          => 'ecosystem',
 				'title'       => '4. Ecossistema',
-				'description' => 'Os resumos de cada plataforma são editados no menu Plataformas.',
+				'description' => 'Nome, verbo e linha de cada plataforma são editados no menu Plataformas (ordem = campo Ordem).',
 				'fields'      => array( fck_enabled(), fck_text( 'title', 'Título', 120 ), fck_textarea( 'text', 'Texto de apoio', 500 ), fck_link_field() ),
 			),
 			array(
@@ -150,10 +150,13 @@ function fck_template_schemas(): array {
 				'id'     => 'solutions',
 				'title'  => 'Soluções (navegação interativa)',
 				'fields' => array(
-					fck_text( 'title', 'Título', 120 ),
-					fck_textarea( 'intro', 'Introdução', 600 ),
+					fck_text( 'title', 'Destaque (título da seção)', 200 ),
+					fck_textarea( 'intro', 'Jornada (texto de transição)', 600 ),
 					fck_text( 'center_label', 'Rótulo do centro do diagrama', 30, array( 'help' => 'Ex.: Seu negócio.' ) ),
-					fck_text( 'link_label', 'Texto do link para a página da plataforma', 40 ),
+					fck_text( 'link_label', 'Link de cada card', 40, array( 'help' => 'Use {platform} para o nome da plataforma. Ex.: Explore o {platform}' ) ),
+					fck_text( 'connects_label', 'Rótulo "Como se conecta"', 40 ),
+					fck_textarea( 'independence', 'Nota de independência (abaixo da navegação)', 300 ),
+					fck_textarea( 'method_note', 'Linha do método S&M', 300 ),
 					fck_f( 'posts', 'platforms', 'Plataformas (ordem)', array( 'post_type' => 'platform', 'help' => 'Vazio = todas as plataformas publicadas, na ordem do menu Plataformas.' ) ),
 				),
 			),

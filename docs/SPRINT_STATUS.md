@@ -6,7 +6,7 @@ Status: `TODO` / `IN_PROGRESS` / `DONE` / `BLOCKED` / `DONE_WITH_GAPS`
 
 ## Ponto de retomada
 
-**Todas as 14 sprints foram executadas.** Conteúdo limitado a 1080 px centralizados (token `--content`). O lançamento depende só de conteúdo e decisões do cliente (seção "Decisões" abaixo e `docs/CONTENT_GAPS.md`). Nada foi publicado em produção.
+**Todas as 14 sprints e a Sprint ECO (adendo `docs/BRIEFING_ECOSSISTEMA.md`) foram executadas.** Conteúdo limitado a 1080 px centralizados (token `--content`). O lançamento depende só de conteúdo e decisões do cliente (seção "Decisões" abaixo e `docs/CONTENT_GAPS.md`). Nada foi publicado em produção.
 
 Possíveis próximos passos:
 - receber os conteúdos P0 e P1;
@@ -30,6 +30,13 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 05 S&M | DONE | Hero; narrativa Entender/Conectar/Amplificar fixa com progresso e diagrama; empilhada com movimento reduzido; CTA | — |
 | 06 Ecossistema | DONE | Hero (título + alternativo); navegação entre as soluções (abas acessíveis: clique, toque, setas) com diagrama "Seu negócio" no centro, linha e nó na cor oficial da ativa, logo, frase, texto, imagem opcional e link para a página; S&M só no texto; CTA | — |
 | 07 Plataformas | DONE | Template comum (hero com logo oficial, assinatura e cor do produto; solução; CTA) e 5 interações: Hub (cards em caos que se organizam em colunas pela rolagem), Dash (seletor com 3 gráficos ilustrativos e selo), Leads (rede de pontos que converge em oportunidades), FullMix (blocos + simulador de distribuição que mantém 100%, com aviso obrigatório sempre visível e sem projeções), FullMatch (seletor de perfis, detalhes de oferta/ciclo quando preenchidos) | Imagens/vídeos de produto (P2) |
+| ECO Ecossistema (adendo) | DONE_WITH_GAPS | Executada como refinamento depois das Sprints 06/07:
+- **Conteúdo e estrutura:** conteúdo de E3 (Home, Ecossistema e as 5 plataformas) com ordem e verbos novos; páginas de plataforma com 7 blocos e omissão automática; nome único com token `{platform}` (D1); assinatura global (D2).
+- **Claims:** "a validar" fica fora de produção, com selo no preview, `CLAIMS_STRICT` e o comando `claims` (D3).
+- **Contato e endereços:** CTA leva ao contato com a plataforma, que fica salva na mensagem (D4); novos slugs com 301.
+- **Motion:** guiado pela rolagem nas 5 páginas — cena fixa por passos, seletor sincronizado, "Pular animação", hover como segunda camada, demonstração do simulador.
+- **Migração:** não destrutiva, preserva edições.
+- **Documentação:** CLAIMS_REGISTER, COPY_CHANGES, CONTENT_MODEL, PROJECT_RULES, DECISIONS (ADR-011), EDITOR_GUIDE. | Validar 15 claims (P0); confirmar D1/D2 (P0); capturas reais da interface (P1); demonstração comercial (P1) |
 | 08 Cases | DONE | Listagem: hero, filtros por setor (só setores com case) refletidos na URL (`?setor=`, funcionam sem JS e com voltar/avançar), grid editorial assimétrico em blocos de 7 (7/5 · 4/4/4 · 5/7) sem buracos, cantos retos e gaps pequenos, nome/categoria no hover/foco (visíveis no mobile), reflow suave (FLIP, desligado com movimento reduzido), "Carregar mais" (`page_size`, link `?mostrar=` sem JS), estado vazio, CTA. Página do case: KV full-bleed com parallax leve, cliente · categoria, headline e resumo; O desafio / A ideia / Nossa atuação; galeria mista (imagem/vídeo com poster, sem autoplay) com tamanhos do painel; resultados só se preenchidos; próximo case manual ou cíclico; CTA da página Cases | KVs e imagens reais com autorização (P1) |
 | 09 Insights | DONE | Listagem: destaque editorial (artigo grande + manchetes como abas; marcados como destaque primeiro), grid sem repetir o destaque, filtro por categoria na URL (`?categoria=`, também sem JS), carregar mais, estado vazio, CTA. Artigo: categoria (link para o filtro), título, subtítulo, autor e cargo, data, leitura estimada, capa, corpo em texto rico sanitizado (títulos, listas, citações, imagens, vídeos YouTube/Vimeo), compartilhar (LinkedIn, WhatsApp, e-mail, copiar link), relacionados (manuais → mesma categoria → recentes), JSON-LD Article com autor | Artigos reais (P2) |
 | 10 Full na Mídia | DONE | Hero; faixa horizontal imersiva (matéria sob o cursor/foco se expande e revela a capa por máscara, manchete acompanha o cursor, setas ← → e botões anterior/próximo; no toque, rolagem com snap); veículo (logo só com direito de uso), manchete original, data, tipo, resumo próprio e link externo `noopener noreferrer` com aviso de nova aba; arquivo com filtros por tipo (`?tipo=`) e "Ver mais" **só acima do limiar do painel**; sem matérias: hero, estado vazio e CTA; CTA para `/contato/?assunto=imprensa` | Matérias reais (P2) |
@@ -38,6 +45,17 @@ Para retomar: ler `CLAUDE.md`; `php scripts/fck.php migrate && php scripts/fck.p
 | 13 QA e entrega | DONE | Revisão de segredos (nenhum no repositório nem no histórico; `app/config.php` nunca versionado), `npm audit` sem vulnerabilidades, PHPMailer 6.12.0, headers de segurança e CSRF testados; backup e restauração **testados localmente** (contagens e checksum idênticos, site no ar a partir do banco restaurado); checklist de pré-lançamento ampliado; `EDITOR_GUIDE.md` final; relatório final (abaixo) | Deploy de produção só com autorização |
 
 ## Testes executados (23/10/2026)
+
+- Sprint ECO (24/10/2026): `tests/e2e/ecosystem.spec.js` cobre:
+  - 7 blocos e Interface omitida, nas 5 plataformas;
+  - Home e Ecossistema;
+  - sem `[VALIDAR`, `[PENDENTE` ou `{platform}` no HTML;
+  - troca de nome no painel;
+  - CTA → contato com plataforma, salva na mensagem;
+  - claims fora de produção, com `CLAIMS_STRICT` e pelo comando `claims`;
+  - motion só com rolagem, seletor, pular animação, demonstração do simulador, movimento reduzido e toque.
+
+  `npm run test:migration` 11/11 (301 dos slugs antigos, edição preservada, histórico, idempotência). Suíte completa **131/131**.
 
 - Sprints 12–13: `tests/e2e/responsive.spec.js` (320 e 1920 px sem overflow, alvos de toque ≥ 44 px), Lighthouse (ver `docs/QA_REPORT.md`), `npm audit` (0 vulnerabilidades), varredura de segredos no histórico (nada encontrado), backup → restauração → site no ar a partir do banco restaurado. **Suíte completa: 109/109** em 1280, 375, 768 e 1440 px; `npm run check` ok.
 

@@ -3,6 +3,7 @@
 Site em **PHP 8.1+ puro + MySQL**, com painel próprio em `/admin`. Hospedagem: Hostinger compartilhada, deploy via Git (o repositório inteiro é o `public_html`). **Não usar WordPress nem Node.js em produção.**
 
 - Fonte de verdade do escopo: `docs/BRIEFING.md`. A seção 6 não pode ser alterada.
+- Adendo do Ecossistema (substitui a v1.1 nas plataformas e no Ecossistema): `docs/BRIEFING_ECOSSISTEMA.md`. Claims: `docs/CLAIMS_REGISTER.md`. Regras: `docs/PROJECT_RULES.md`.
 - Onde parou: **`docs/SPRINT_STATUS.md` › Ponto de retomada**.
 - Decisões: `docs/DECISIONS.md`. Pendências de conteúdo: `docs/CONTENT_GAPS.md`. Deploy: `docs/DEPLOYMENT.md`.
 
@@ -16,10 +17,11 @@ Site em **PHP 8.1+ puro + MySQL**, com painel próprio em `/admin`. Hospedagem: 
 
 ## Comandos
 ```bash
-php scripts/fck.php migrate|seed|create-admin email senha|gaps
+php scripts/fck.php migrate|seed|create-admin email senha|gaps|claims
 npm run serve            # http://localhost:8080
 npm run check            # check:colors + check:strings + test:unit
 npm run test:db && npx playwright test
+npm run test:migration   # migração da Sprint ECO num banco descartável
 ```
 
 ## Regras inegociáveis (resumo)

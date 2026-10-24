@@ -46,3 +46,22 @@
 - O primário usa vidro tingido a 94% para manter o contraste AA do texto (verificado com axe).
 - Sem suporte a desfoque, o vidro fica mais denso. Com movimento reduzido, não há compressão ao clicar nem deslocamento da seta.
 - Só tokens existentes: nenhuma cor nova.
+
+## ADR-011 — Sprint ECO: decisões D1–D4 e implementação do motion
+- **D1, grafia:** FullHub, FullDash, FullLeads, FullMix, FullMatch. O nome é o título do registro, e `{platform}` é trocado em todos os textos da plataforma (`platform_tokens()` em `app/lib/content.php`). Novos slugs `/ecossistema/fullhub|fulldash|fullleads`. Os antigos redirecionam com 301, criado automaticamente na publicação. *A confirmar pelos logos oficiais.*
+- **D2, assinatura:** "Vire a chave dos seus resultados. Ative o modo Full." em Marca › Assinatura. O hero da Home usa esse texto quando o título alternativo da Home está vazio.
+- **D3, claims:** *A validar* aparece fora de produção (com selo no preview) e é omitido em produção ou com `FCK_CLAIMS_STRICT=1`. Não há etapa de build: a trava de lançamento é `php scripts/fck.php claims`, que sai com erro, mais a lista de pendências no painel.
+- **D4, CTA:** "Conversar sobre o {platform}" → `/contato?assunto=projeto&plataforma={slug}`. O formulário guarda a plataforma de origem. Não há CTA de demonstração.
+- **Motion sem GSAP nem Motion:** o adendo cita GSAP ScrollTrigger e primitives `src/animations/use*`. Como o site é PHP + JS puro, sem build e na hospedagem compartilhada (ADR-001 e ADR-005), as primitives são módulos em `assets/js/modules/`:
+  - `scene.js`: linha do tempo e pin por `position: sticky`, passos, seletor sincronizado e `data-at`;
+  - `progress.js`: progresso de entrada das seções;
+  - `mix-sim.js`: demonstração automática que pausa ao pegar um slider;
+  - o canvas `connections.js`, já existente, faz o ambiente do hero que reage ao cursor.
+
+  O "scrub" é feito por variáveis CSS (`--p` e `--sp`) ligadas à rolagem, animando só transform, opacity, stroke-dashoffset e clip-path. Tudo pausa fora da tela e respeita `prefers-reduced-motion`.
+- **Migração não destrutiva:**
+  - `Seeder::migrateEco()` roda uma vez, no próximo login de um administrador depois do deploy;
+  - um campo vazio, ou ainda igual ao seed v1.1 (`app/seed/legacy-eco.php`), recebe o texto novo; um campo editado é mantido e listado nas pendências;
+  - o estado anterior vira uma versão no histórico, e registros publicados sem alterações pendentes são republicados.
+
+  Testado com `npm run test:migration`.

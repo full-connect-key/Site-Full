@@ -5,6 +5,7 @@
  *   php scripts/fck.php seed [--reset]
  *   php scripts/fck.php create-admin email senha
  *   php scripts/fck.php gaps
+ *   php scripts/fck.php claims        (sai com erro se houver afirmação "a validar" publicada)
  *   php scripts/fck.php fixtures      (somente banco de teste)
  */
 
@@ -41,9 +42,16 @@ switch ($cmd) {
 			echo "{$g['priority']}\t{$g['item']}\t({$g['where']})\n";
 		}
 		break;
+	case 'claims':
+		$claims = pending_claims();
+		foreach ($claims as $c) {
+			echo "A validar\t{$c['platform']} › {$c['where']}\t{$c['text']}" . ($c['note'] !== '' ? "\t({$c['note']})" : '') . "\n";
+		}
+		echo $claims ? count($claims) . " afirmação(ões) a validar. Não publique em produção sem validar (docs/CLAIMS_REGISTER.md).\n" : "Nenhuma afirmação a validar.\n";
+		exit($claims ? 1 : 0);
 	case 'fixtures':
 		require __DIR__ . '/../tests/fixtures/fixtures.php';
 		break;
 	default:
-		echo "Comandos: migrate | seed [--reset] | create-admin email senha | gaps | fixtures\n";
+		echo "Comandos: migrate | seed [--reset] | create-admin email senha | gaps | claims | fixtures\n";
 }

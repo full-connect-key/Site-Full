@@ -19,9 +19,12 @@ Sem dados fictícios: enquanto um item não chega, a seção correspondente fica
 | P2 | Artigos reais | Home › Insights, página Insights | Seção oculta | Omitida |
 | P2 | Matérias de imprensa reais, com links | Full na Mídia | Estado vazio | Texto de estado vazio |
 | P2 | Canais oficiais de contato e redes sociais | Rodapé | Sem contatos | Omitidos |
-| P2 | Imagens ou vídeos das páginas de produto | Plataformas | Sem mídia | Só texto e interação |
-| P2 | FullMatch: rótulos "tipo de oferta" / "ciclo de recompra" e detalhes por perfil | Página FullMatch | Interação mais simples | Só headline e texto por perfil |
 | P2 | Revisão dos canais ilustrativos do simulador FullMix (ADR-009) | Página FullMix | — | Canais genéricos |
+| **P0** | Confirmar a grafia oficial dos nomes das plataformas (D1: FullHub, FullDash, FullLeads) e a assinatura "Vire a chave dos seus resultados. Ative o modo Full." (D2) | Site todo, Home | Lançamento | Padrão do adendo aplicado |
+| **P0** | Validar as 15 afirmações de `docs/CLAIMS_REGISTER.md` com o time de produto (e a nota de LGPD do FullMatch com o jurídico) | Páginas das plataformas | Itens omitidos em produção | Aparecem só em staging/preview |
+| P1 | Capturas ou vídeos **reais** da interface de cada plataforma | Plataformas › bloco Interface | Bloco oculto | Omitido |
+| P1 | Confirmar se a Full oferece demonstração comercial (D4) | CTAs das plataformas | — | "Conversar sobre o {plataforma}" |
+| P2 | Escolher entre o título principal e os títulos alternativos de cada plataforma (opcional) | Hero das plataformas | — | Título principal do adendo |
 | Revisar | Microtextos de interface criados no desenvolvimento (marcados com `(*)` em `app/seed/content.php`, ex.: "Pular para o conteúdo", "(abre em nova aba)") | Acessibilidade e rótulos | — | Editáveis em Configurações › Textos de interface |
 
 **Recebido:** assinatura "powered by 4REAL" no logo do FullMatch confirmada pelo cliente (mantida); logos oficiais da Full (completo e compacto, versões para fundo escuro e claro) e das 5 plataformas (escuro e claro), e a tipografia Google Sans.

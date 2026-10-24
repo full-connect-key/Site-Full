@@ -25,6 +25,7 @@ Site em **PHP 8.1+ e MySQL**, com painel próprio em `/admin`. Não usa WordPres
 ## 2. Deploys seguintes
 
 - Envie os commits para a branch configurada e clique em **Implantar** no hPanel. Para automatizar, cadastre a URL de *webhook* que a Hostinger mostra em GitHub › Settings › Webhooks.
+- **Ecossistema (Sprint ECO):** no primeiro login de um administrador depois do deploy, o conteúdo das plataformas, da Home e do Ecossistema é atualizado para o adendo. Textos editados no painel são mantidos e listados em Pendências. Os endereços `/ecossistema/full-hub`, `full-dash` e `full-leads` passam a redirecionar para `fullhub`, `fulldash` e `fullleads`.
 - Se uma versão trouxer **migrations** (arquivos novos em `app/migrations/`), elas são aplicadas sozinhas no próximo login de um administrador. Também dá para aplicá-las em Painel › Ferramentas › *Aplicar atualizações*. Elas só criam ou acrescentam, nunca apagam dados.
 
 **Qual versão está no ar?** O rodapé mostra *Versão abc1234 · data/hora do deploy*. O código é o commit publicado, igual ao do GitHub. Esse texto é editável em Configurações › Textos de interface › "Rótulo da versão publicada"; deixe o campo vazio para ocultá-lo. Se o deploy não mantiver a pasta `.git`, crie na raiz um arquivo `VERSION` com o identificador.
@@ -88,6 +89,8 @@ Os testes usam um banco separado (`fck_site_test`) e a pasta `uploads-test/`. As
 
 Conteúdo P0 (ver `docs/CONTENT_GAPS.md`):
 
+- [ ] `php scripts/fck.php claims` sem pendências (ou Início › Pendências sem "Afirmação a validar"); ver `docs/CLAIMS_REGISTER.md`
+- [ ] Grafia dos nomes das plataformas e assinatura confirmadas (D1/D2 do adendo do Ecossistema)
 - [ ] `env` = `production` e `url` com o domínio final em `app/config.php`
 - [ ] SSL ativo e http redirecionando para https
 - [ ] Textos jurídicos aprovados e páginas de Privacidade e Cookies publicadas

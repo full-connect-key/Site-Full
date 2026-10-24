@@ -26,6 +26,18 @@ function fck_link_field( string $name = 'cta', string $label = 'Botão (CTA)', a
 	return fck_f( 'link', $name, $label, $extra );
 }
 
+/** Status de uma afirmação de funcionalidade (docs/CLAIMS_REGISTER.md). */
+function fck_claim_statuses(): array {
+	return array( 'confirmado' => 'Confirmado', 'validar' => 'A validar (não vai para produção)' );
+}
+
+function fck_claim_fields(): array {
+	return array(
+		fck_f( 'select', 'claim_status', 'Status da afirmação', array( 'options' => fck_claim_statuses(), 'no_empty' => true, 'width' => 'half', 'help' => '"A validar" aparece só no preview e no staging, com selo; em produção o item é omitido.' ) ),
+		fck_text( 'claim_note', 'O que precisa ser validado (só no painel)', 200, array( 'width' => 'half' ) ),
+	);
+}
+
 function fck_enabled(): array {
 	return fck_f( 'checkbox', 'enabled', 'Exibir esta seção', array( 'default' => true ) );
 }

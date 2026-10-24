@@ -51,10 +51,35 @@ Acesse **`/admin`** (ex.: `https://fullconnectkey.com.br/admin`) com seu e-mail 
 - **Matéria**: Imprensa › Adicionar › manchete original (título), veículo, data, tipo (entrevista, reportagem ou artigo), link original e resumo próprio. Capa e logo do veículo são opcionais; o logo só aparece com direito de uso confirmado.
   - Na página Full na Mídia, "Mínimo de matérias para exibir arquivo e filtros" define quando aparecem a lista completa e os filtros por tipo. Abaixo disso, só a faixa de destaque.
 
+## Plataformas do Ecossistema
+Cada plataforma (Ecossistema › Plataformas) tem 7 blocos, na ordem em que aparecem no site:
+1. Hero
+2. Problema
+3. Como funciona
+4. Benefícios
+5. Interface
+6. Conexões
+7. CTA final
+
+Todo bloco tem "Exibir esta seção", e um bloco vazio some sozinho.
+
+- **Trocar o nome de uma plataforma:** mude o título do registro e publique. Nos textos, o nome aparece como `{platform}`, então tudo acompanha: chamada do hero, botões, SEO, cards da Home e do Ecossistema. O endereço só muda se você trocar o slug; o antigo passa a redirecionar sozinho.
+- **Ordem:** campo "Ordem" na lista de plataformas (vale para a Home, o Ecossistema e a navegação entre as soluções). Para os menus, ajuste em Configurações › Menus.
+- **Hero:** a chamada "nome · verbo" é montada sozinha a partir do campo "Verbo". O botão principal leva ao contato com o assunto "projeto" e a plataforma já marcados.
+- **Títulos alternativos:** ficam só no painel, para testar copy. Para usar um deles, copie-o para o "Título principal" e publique.
+- **Como funciona:** cada passo vira uma etapa da animação, que acontece conforme a pessoa rola a página. "Animação guiada pela rolagem" desligado mostra os passos empilhados. Os rótulos dos visuais ficam em "3a. Ajustes do visual" e são sempre conceituais, sem números.
+- **Interface:** só capturas ou vídeos reais, com "Confirmo que é a interface real" marcado. Sem isso, o bloco não aparece.
+- **Conexões:** escolha a plataforma relacionada e escreva como elas se complementam. O site lembra que cada solução pode ser contratada sozinha.
+- **Validar uma afirmação ("claim"):** passos, benefícios, nota e conexões têm "Status da afirmação".
+  - *A validar*: aparece só no preview e no staging, com o selo "A validar", e **some em produção**.
+  - Depois de confirmar com o time de produto, mude para *Confirmado* e publique (ou reescreva o texto).
+  - A lista atualizada fica em Início › Pendências de conteúdo e em `docs/CLAIMS_REGISTER.md`.
+- **Assinatura da Home:** Configurações › Marca › Assinatura (usada quando o título alternativo da Home está vazio).
+
 ## Formulário de contato
 - **Textos e opções**: Páginas › Contato. As opções de assunto ficam em "Opções de assunto". Links como `/contato?assunto=imprensa` já abrem com o assunto marcado (assuntos: `projeto`, `imprensa`, `parceria`, `outro`).
 - **Consentimento**: o trecho indicado em "Trecho do consentimento que vira link" vira link para a Política de Privacidade quando ela estiver publicada.
-- **Mensagens recebidas**: Configurações › Mensagens de contato (só administradores). Toda mensagem fica salva no painel, mesmo se o e-mail falhar.
+- **Mensagens recebidas**: Configurações › Mensagens de contato (só administradores). Toda mensagem fica salva no painel, mesmo se o e-mail falhar. Quando o contato vem de uma página de plataforma, a mensagem mostra a plataforma de origem.
 - **Destinatários por assunto e prazo de retenção**: Configurações › Formulário: destinatários.
 
 ## Papéis

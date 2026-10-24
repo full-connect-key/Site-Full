@@ -105,7 +105,20 @@ function fck_ui_definition(): array {
 			'share_whatsapp' => array( 'Compartilhar no WhatsApp', 60 ),
 			'share_email'    => array( 'Compartilhar por e-mail', 60 ),
 			'filter_by'      => array( 'Nome do grupo de filtros', 60 ),
+			'filter_by_sector' => array( 'Nome do grupo de filtros por setor (Cases)', 60 ),
 			'results_count'  => array( 'Quantidade de resultados', 60, 'Use {n}.' ),
+		),
+		'platform' => array(
+			'_title'            => 'Páginas de plataforma',
+			'how_link'          => array( 'Botão "Ver como funciona" (hero)', 40 ),
+			'how_title'         => array( 'Rótulo do bloco "Como funciona"', 40 ),
+			'benefits_title'    => array( 'Rótulo do bloco "Benefícios e diferenciais"', 60 ),
+			'interface_title'   => array( 'Rótulo do bloco "Interface"', 40 ),
+			'connections_title' => array( 'Rótulo do bloco "Conexões no ecossistema"', 60 ),
+			'connection_link'   => array( 'Link para a plataforma relacionada', 60, 'Use {platform} para o nome.' ),
+			'independence'      => array( 'Nota de independência (bloco Conexões)', 300 ),
+			'skip_animation'    => array( 'Link "Pular animação"', 40 ),
+			'claim_badge'       => array( 'Selo interno "A validar" (só no preview)', 30 ),
 		),
 	);
 }
@@ -131,6 +144,7 @@ function fck_global_schemas(): array {
 				'description' => 'Enquanto não houver logo oficial, o site exibe o nome em texto (wordmark neutro). Nunca use logo recriado.',
 				'fields'      => array(
 					fck_text( 'site_name', 'Nome do site', 80, array( 'required' => true ) ),
+					fck_text( 'signature', 'Assinatura institucional', 120, array( 'help' => 'Usada no hero da Home quando o título alternativo da Home estiver vazio.' ) ),
 					fck_image( 'logo_dark', 'Logo para fundo escuro (SVG oficial)', array( 'width' => 'half' ) ),
 					fck_image( 'logo_light', 'Logo para fundo claro (SVG oficial)', array( 'width' => 'half' ) ),
 					fck_image( 'logo_compact_dark', 'Logo compacto para fundo escuro (SVG oficial)', array( 'width' => 'half', 'help' => 'Versão curta usada no cabeçalho. Vazio = usa o logo completo.' ) ),

@@ -70,15 +70,58 @@ function entry_view(?array $row): ?array
 	}
 	if (is_preview()) {
 		$row['data'] = json_dec($row['draft']);
-		return $row;
-	}
-	if ($row['published'] === null) {
+	} elseif ($row['published'] === null) {
 		return null;
+	} else {
+		$row['data']  = json_dec($row['published']);
+		$row['slug']  = (string) $row['published_slug'];
+		$row['title'] = (string) $row['published_title'];
 	}
-	$row['data']  = json_dec($row['published']);
-	$row['slug']  = (string) $row['published_slug'];
-	$row['title'] = (string) $row['published_title'];
+	if ($row['type'] === 'platform') {
+		$row['data'] = platform_tokens($row['data'], (string) $row['title']);
+	}
 	return $row;
+}
+
+/** Troca {platform} pelo nome da plataforma (título do registro) em todos os textos. */
+function platform_tokens(array $data, string $name): array
+{
+	array_walk_recursive($data, function (&$v) use ($name) {
+		if (is_string($v) && str_contains($v, '{platform}')) {
+			$v = str_replace('{platform}', $name, $v);
+		}
+	});
+	return $data;
+}
+
+/**
+ * Afirmações de funcionalidade (docs/CLAIMS_REGISTER.md): "validar" aparece
+ * fora de produção (com selo no preview) e some em produção — ou sempre que
+ * FCK_CLAIMS_STRICT=1 / 'claims_strict' => true em app/config.php.
+ */
+function claims_strict(): bool
+{
+	$env = getenv('FCK_CLAIMS_STRICT');
+	if ($env !== false && $env !== '') {
+		return in_array(strtolower($env), ['1', 'true', 'yes'], true);
+	}
+	return (bool) fck_config('claims_strict', fck_is_production());
+}
+
+function claim_visible(array $item, string $key = 'claim_status'): bool
+{
+	return ($item[$key] ?? 'confirmado') !== 'validar' || !claims_strict();
+}
+
+function claim_pending(array $item, string $key = 'claim_status'): bool
+{
+	return ($item[$key] ?? 'confirmado') === 'validar';
+}
+
+/** Contato com assunto e plataforma pré-preenchidos (D4). */
+function platform_contact_url(array $platform): string
+{
+	return url('/contato') . '?' . http_build_query(['assunto' => 'projeto', 'plataforma' => (string) $platform['slug']]);
 }
 
 function entry_find(int $id): ?array

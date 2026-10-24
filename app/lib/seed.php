@@ -9,12 +9,15 @@
 declare(strict_types=1);
 
 require_once FCK_APP . '/seed/content.php';
+require_once FCK_APP . '/seed/legacy-eco.php';
 
 final class Seeder
 {
 	private array $ids = ['page' => [], 'platform' => []];
 	public array $log = [];
 	private array $fresh = [];
+	/** Registros criados nesta execução (já nascem com o conteúdo atual). */
+	private array $created = [];
 
 	public function __construct(private bool $reset = false)
 	{
@@ -66,6 +69,7 @@ final class Seeder
 		unset($site['header']);
 		$this->globals($site, $c['ui']);
 		$this->logos($c['logos']);
+		$this->migrateEco($c);
 		$this->log[] = 'Concluído.';
 		return $this->log;
 	}
@@ -91,8 +95,9 @@ final class Seeder
 			'menu_order' => (int) ($def['order'] ?? 0),
 			'seed_key'   => $key,
 		]);
-		$this->fresh[$id] = true;
-		$this->log[]      = "Criado: {$def['title']} ($type)";
+		$this->fresh[$id]   = true;
+		$this->created[$id] = true;
+		$this->log[]        = "Criado: {$def['title']} ($type)";
 		return $id;
 	}
 
@@ -140,7 +145,9 @@ final class Seeder
 	private function links(array $values): array
 	{
 		foreach ($values as $k => $v) {
-			if (is_array($v) && array_key_exists('to', $v) && array_key_exists('label', $v)) {
+			if (is_string($v) && str_starts_with($v, '@platform:')) {
+				$values[$k] = $this->ids['platform'][substr($v, 10)] ?? null;
+			} elseif (is_array($v) && array_key_exists('to', $v) && array_key_exists('label', $v)) {
 				$values[$k] = $this->link((string) $v['label'], (string) $v['to']);
 			} elseif (is_array($v)) {
 				$values[$k] = $this->links($v);
@@ -241,12 +248,161 @@ final class Seeder
 		}
 		$this->log[] = "Logo aplicado: $group.$field (#$id)";
 	}
+
+	// ------------------------------------------------------------------
+	// Migração da Sprint ECO (docs/BRIEFING_ECOSSISTEMA.md, E5), uma vez só.
+	// Regra: campo vazio ou ainda igual ao seed v1.1 (app/seed/legacy-eco.php)
+	// recebe o texto novo; campo diferente é edição do painel e fica como
+	// está (conflito registrado). O estado anterior vira uma versão no
+	// histórico. Registros publicados e sem alterações pendentes são
+	// republicados (troca de slug gera redirect 301 automático).
+	// ------------------------------------------------------------------
+	private function migrateEco(array $c): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done['eco-2026-10'])) {
+			return;
+		}
+		$legacy    = fck_seed_legacy_eco();
+		$conflicts = [];
+		foreach ($c['platforms'] as $key => $p) {
+			$id = $this->ids['platform'][$key] ?? null;
+			if (!$id || isset($this->created[$id]) || !isset($legacy['platforms'][$key])) {
+				continue;
+			}
+			$old = $legacy['platforms'][$key];
+			$this->migrateEntry($id, $this->links($p['meta']), $this->links($old['meta']), "platform:$key", $conflicts, $p['title'], $old['title'], $p['slug'], $old['slug'], (int) $p['order'], (int) $old['order']);
+		}
+		$pages = [
+			'home'      => ['hero' => ['headline_alt' => $c['pages']['home']['meta']['hero']['headline_alt']], 'ecosystem' => $c['pages']['home']['meta']['ecosystem']],
+			'ecosystem' => $c['pages']['ecosystem']['meta'],
+		];
+		foreach ($pages as $key => $meta) {
+			$id = $this->ids['page'][$key] ?? null;
+			if ($id && !isset($this->created[$id])) {
+				$this->migrateEntry($id, $this->links($meta), $this->links($legacy['pages'][$key]), "page:$key", $conflicts);
+			}
+		}
+		$this->migrateMenus($c, $legacy);
+		setting_set('seed_migrations', $done + ['eco-2026-10' => now()]);
+		setting_set('eco_migration_conflicts', $conflicts);
+		$this->log[] = 'Migração do Ecossistema aplicada' . ($conflicts ? ' (' . count($conflicts) . ' edição(ões) do painel preservada(s))' : '') . '.';
+	}
+
+	private function migrateEntry(int $id, array $new, array $old, string $key, array &$conflicts, ?string $title = null, ?string $old_title = null, ?string $slug = null, ?string $old_slug = null, ?int $order = null, ?int $old_order = null): void
+	{
+		$row = entry_raw($id);
+		if (!$row) {
+			return;
+		}
+		$clean   = $row['status'] === 'published';
+		$current = json_dec($row['draft']);
+		$merged  = $this->mergeEco($current, $new, $old, $key, $conflicts);
+		$changes = [];
+		if ($merged !== $current) {
+			$changes['draft'] = json_enc($merged);
+		}
+		if ($title !== null && $row['title'] !== $title && $row['title'] === $old_title) {
+			$changes['title'] = $title;
+		}
+		if ($slug !== null && $row['slug'] !== $slug && $row['slug'] === $old_slug) {
+			$changes['slug'] = $slug;
+		}
+		if ($order !== null && (int) $row['menu_order'] !== $order && (int) $row['menu_order'] === $old_order) {
+			db_update('entries', ['menu_order' => $order], ['id' => $id]);
+		}
+		if (!$changes) {
+			return;
+		}
+		revision_add($id, (string) $row['title'], (string) $row['slug'], (string) $row['draft'], 'antes-eco');
+		entry_save_draft($id, $changes, 'migracao-eco');
+		if ($clean) {
+			entry_publish($id);
+		}
+		$this->log[] = 'Migrado: ' . ($changes['title'] ?? $row['title']) . ($clean ? ' (publicado)' : ' (rascunho)');
+	}
+
+	private function mergeEco(array $current, array $new, array $old, string $path, array &$conflicts): array
+	{
+		$blank = static fn($v) => $v === null || $v === '' || $v === [];
+		foreach ($new as $k => $v) {
+			$cur = $current[$k] ?? null;
+			$was = $old[$k] ?? null;
+			if (is_array($v) && !array_is_list($v)) {
+				$current[$k] = $this->mergeEco(is_array($cur) ? $cur : [], $v, is_array($was) ? $was : [], "$path.$k", $conflicts);
+			} elseif ($blank($cur) || $cur === $was) {
+				$current[$k] = $v;
+			} elseif ($cur !== $v) {
+				$conflicts[] = "$path.$k";
+			}
+		}
+		return $current;
+	}
+
+	/** Menus: renomeia itens de plataforma ainda com o nome antigo e segue a nova ordem. */
+	private function migrateMenus(array $c, array $legacy): void
+	{
+		$id = $this->find('global:site');
+		if (!$id) {
+			return;
+		}
+		$names = $order = [];
+		foreach ($c['platforms'] as $key => $p) {
+			$pid = $this->ids['platform'][$key] ?? null;
+			if ($pid) {
+				$names[$pid] = [$legacy['platforms'][$key]['title'] ?? null, $p['title']];
+				$order[$pid] = (int) $p['order'];
+			}
+		}
+		$row   = entry_raw($id);
+		$draft = json_dec($row['draft']);
+		$walk  = function (array $list) use (&$walk, $names, $order): array {
+			$slots = [];
+			foreach ($list as $i => $item) {
+				if (!is_array($item)) {
+					continue;
+				}
+				foreach (['children', 'links'] as $sub) {
+					if (isset($item[$sub]) && is_array($item[$sub])) {
+						$list[$i][$sub] = $walk($item[$sub]);
+					}
+				}
+				$pid = (int) ($item['link']['post'] ?? 0);
+				if (($item['link']['type'] ?? '') === 'post' && isset($names[$pid])) {
+					if (($item['link']['label'] ?? '') === $names[$pid][0]) {
+						$list[$i]['link']['label'] = $names[$pid][1];
+					}
+					$slots[] = $i;
+				}
+			}
+			if (count($slots) > 1) {
+				$items = array_map(fn($i) => $list[$i], $slots);
+				usort($items, fn($a, $b) => $order[(int) $a['link']['post']] <=> $order[(int) $b['link']['post']]);
+				foreach ($slots as $n => $i) {
+					$list[$i] = $items[$n];
+				}
+			}
+			return $list;
+		};
+		$menu = (array) ($draft['menu'] ?? []);
+		foreach (['main', 'footer_groups'] as $k) {
+			if (isset($menu[$k]) && is_array($menu[$k])) {
+				$menu[$k] = $walk($menu[$k]);
+			}
+		}
+		if ($menu !== ($draft['menu'] ?? [])) {
+			$draft['menu'] = $menu;
+			entry_save_draft($id, ['draft' => json_enc($draft)], 'migracao-eco');
+			entry_publish($id);
+			$this->log[] = 'Menus: plataformas renomeadas e reordenadas.';
+		}
+	}
 }
 
 /** Impressão digital do conteúdo inicial: muda quando app/seed/content.php muda. */
 function seed_version(): string
 {
-	return substr(md5_file(FCK_APP . '/seed/content.php') ?: '', 0, 12);
+	return substr(md5((string) md5_file(FCK_APP . '/seed/content.php') . md5_file(FCK_APP . '/seed/platforms.php')), 0, 12);
 }
 
 function run_seed(bool $reset = false): array
