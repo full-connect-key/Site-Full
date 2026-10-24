@@ -9,9 +9,14 @@ export default function dragScroll(el) {
   const behavior = () => (reducedMotion() ? 'auto' : 'smooth')
   const scrollBy = (dir) => el.scrollBy({ left: dir * step(), behavior: behavior() })
 
-  document.querySelectorAll(`[aria-controls="${el.id}"]`).forEach((btn) => {
+  const buttons = [...document.querySelectorAll(`[aria-controls="${el.id}"]`)]
+  buttons.forEach((btn) => {
     btn.addEventListener('click', () => scrollBy(btn.matches('[data-scroll-prev]') ? -1 : 1))
   })
+  // Sem nada para rolar (ex.: uma pessoa só), os botões somem.
+  const sync = () => buttons.forEach((btn) => { btn.hidden = el.scrollWidth <= el.clientWidth + 1 })
+  sync()
+  new ResizeObserver(sync).observe(el)
   el.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') { e.preventDefault(); scrollBy(1) }
     if (e.key === 'ArrowLeft') { e.preventDefault(); scrollBy(-1) }

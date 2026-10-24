@@ -536,6 +536,12 @@ function fck_seed_content(): array {
 			'nt-expo' => array( 'title' => 'NT Expo', 'logo' => 'clients/nt-expo.png', 'order' => 20 ),
 		),
 
+		// Time (enviado pela Full em 24/10/2026; foto em app/seed/people/, convertida do RAW
+		// com a mesma luz e enquadramento dos sócios). Ordem = ordem de exibição.
+		'team'       => array(
+			'gabriela-oliveira' => array( 'title' => 'Gabriela Oliveira', 'photo' => array( 'file' => 'people/gabriela-oliveira.jpg', 'alt' => 'Retrato de Gabriela Oliveira', 'focal' => '50% 30%' ), 'order' => 1, 'meta' => array( 'details' => array( 'role' => 'Gerente de Projetos', 'connects' => 'Conecta estratégia a execução.' ) ) ),
+		),
+
 		'categories' => array(
 			'estrategia'    => 'Estratégia',
 			'branding'      => 'Branding',

@@ -51,6 +51,7 @@ final class Seeder
 		}
 		$this->publishPartnersOnce($partners);
 		$this->clients($c['clients'] ?? []);
+		$this->team($c['team'] ?? []);
 		$order = 0;
 		foreach ($c['categories'] as $slug => $name) {
 			$this->ensure('category', 'category:' . $slug, ['title' => $name, 'slug' => $slug, 'status' => 'publish', 'order' => ++$order]);
@@ -129,6 +130,35 @@ final class Seeder
 		}
 		$this->log[] = 'Mídia importada: ' . ($def['alt'] ?? $def['file']);
 		return (int) $mid;
+	}
+
+	/**
+	 * Pessoas do time: cria, importa a foto e completa cargo e frase. Cada
+	 * pessoa é publicada uma única vez (team:<slug> em seed_migrations), só
+	 * com foto; quem for despublicado no painel depois não volta.
+	 */
+	private function team(array $people): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$new  = [];
+		foreach ($people as $slug => $p) {
+			$id   = $this->ensure('team', 'team:' . $slug, $p + ['slug' => $slug]);
+			$meta = $p['meta'] ?? [];
+			if (!empty($p['photo']['file']) && ($mid = $this->photo('photo:' . $slug, $p['photo']))) {
+				$meta['details']['photo'] = $mid;
+			}
+			$this->complete($id, $meta);
+			if (empty($done['team:' . $slug]) && !empty($meta['details']['photo'])) {
+				if (entry_raw($id)['published'] === null) {
+					entry_publish($id);
+				}
+				$new['team:' . $slug] = now();
+			}
+		}
+		if ($new) {
+			setting_set('seed_migrations', $done + $new);
+			$this->log[] = 'Time publicado (' . count($new) . ').';
+		}
 	}
 
 	/**

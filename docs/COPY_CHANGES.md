@@ -56,3 +56,11 @@ Ajuste técnico: o texto de apoio das seções passa a respeitar quebras de linh
 | FullHub › 2. Problema › título | "Aprovação por WhatsApp não é processo. É sorte." | "Sua operação não precisa de mais mensagens. Precisa de conexão." |
 
 Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-2026-10`) e preserva edições feitas no painel.
+
+## Time (24/10/2026)
+
+| Pessoa | Cargo | Frase |
+|---|---|---|
+| Gabriela Oliveira | Gerente de Projetos | "Conecta estratégia a execução." (ponto final acrescentado, no padrão "Conecta X a Y.") |
+
+A foto foi convertida do RAW (IMG_9927.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/gabriela-oliveira.jpg`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). Com uma pessoa só, as setas da galeria somem e voltam quando houver mais gente para rolar.
