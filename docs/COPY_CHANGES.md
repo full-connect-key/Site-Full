@@ -63,4 +63,4 @@ Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-
 |---|---|---|
 | Gabriela Oliveira | Gerente de Projetos | "Conecta estratégia a execução." (ponto final acrescentado, no padrão "Conecta X a Y.") |
 
-A foto foi convertida do RAW (IMG_9927.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/gabriela-oliveira.jpg`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). Com uma pessoa só, as setas da galeria somem e voltam quando houver mais gente para rolar.
+A foto foi convertida do RAW (IMG_9927.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/gabriela-oliveira.jpg`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). A seção usa a grade de retratos do ADR-018.

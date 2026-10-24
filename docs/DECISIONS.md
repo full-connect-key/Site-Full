@@ -101,3 +101,9 @@
 - Menu centralizado a partir de 64rem e botão "Vamos conversar" à direita. Ao rolar, a barra fica mais densa (grafite 88%) para manter a leitura sobre seções claras. O comportamento de esconder ao descer e mostrar ao subir não mudou.
 - O submenu ganhou cantos arredondados e uma ponte invisível para o hover não se perder no espaço entre o item e o painel.
 - Altura reservada (`--header-h`): 5rem no celular e 6rem no desktop.
+
+## ADR-018 — O Time em grade de retratos (proposta A)
+- Proposta A aprovada (protótipos e vídeos em `docs/prototipos-time/`). A galeria arrastável deu lugar a uma grade: 2 colunas no celular, 3 no tablet e 4 no desktop. As setas e o módulo `drag-scroll.js` saíram.
+- Animação: os cards entram em sequência (o `.reveal` do site, com 0,12 s de atraso entre um e outro). Com hover ou foco de teclado, o card sobe 0,5rem com brilho e contorno azuis, a foto sai do preto e branco com leve zoom e a frase "Conecta X a Y." se abre sob o cargo.
+- Acessibilidade: cada card recebe foco pelo teclado e mostra o mesmo estado do hover. Em telas de toque, foto colorida e frase sempre visíveis. Com movimento reduzido, nada se move e a frase fica sempre visível.
+- Só pessoas reais com foto aparecem. Não há espaços vazios no site; os tracejados existem só nos protótipos.

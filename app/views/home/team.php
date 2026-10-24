@@ -1,7 +1,8 @@
 <?php
 /**
- * Home 9 — O Time: galeria horizontal arrastável, rolável por teclado e por
- * botões. Hover/foco revela "Conecta X a Y."; no toque a frase fica visível.
+ * Home 9 — O Time: grade de retratos (proposta A, ADR-018). Os cards entram em
+ * sequência; hover/foco dá cor à foto e revela "Conecta X a Y."; no toque e com
+ * movimento reduzido tudo fica visível.
  */
 defined( 'FCK_ROOT' ) || exit;
 $d    = $args['data'];
@@ -12,23 +13,21 @@ if ( ! $team ) {
 ?>
 <section class="section team" data-theme="dark" aria-labelledby="team-title">
 	<div class="container">
-		<div class="team__head">
-			<?php section_head( array( 'title' => $d['title'] ?? '', 'text' => $d['text'] ?? '', 'id' => 'team-title', 'size' => 'display-l' ) ); ?>
-			<div class="team__buttons">
-				<button class="icon-btn" type="button" data-scroll-prev aria-controls="team-track" aria-label="<?php echo e( ui( 'a11y', 'previous' ) ); ?>"><?php echo icon( 'arrow-left' ); // phpcs:ignore ?></button>
-				<button class="icon-btn" type="button" data-scroll-next aria-controls="team-track" aria-label="<?php echo e( ui( 'a11y', 'next' ) ); ?>"><?php echo icon( 'arrow' ); // phpcs:ignore ?></button>
-			</div>
-		</div>
-	</div>
-	<div class="team__scroller no-scrollbar" id="team-track" data-module="drag-scroll" tabindex="0" role="region" aria-label="<?php echo e( ui( 'a11y', 'scroll_hint' ) ); ?>">
-		<ul class="team__list">
-			<?php foreach ( $team as $p ) : ?>
+		<?php section_head( array( 'title' => $d['title'] ?? '', 'text' => $d['text'] ?? '', 'id' => 'team-title', 'size' => 'display-l', 'class' => 'team__head' ) ); ?>
+		<ul class="team__grid">
+			<?php foreach ( $team as $i => $p ) : ?>
 				<?php $pd = g( $p, 'details' ); ?>
-				<li class="team-card" tabindex="-1">
-					<div class="media-frame team-card__media"><?php echo media_html( $pd['photo'], array( 'size' => 'card', 'sizes' => '(min-width: 64rem) 22vw, 70vw' ) ); // phpcs:ignore ?></div>
-					<p class="team-card__name"><?php echo e( $p['title'] ); ?></p>
-					<?php text_el( $pd['role'] ?? '', 'p', 'team-card__role small subtle' ); ?>
-					<?php text_el( $pd['connects'] ?? '', 'p', 'team-card__connects' ); ?>
+				<li class="team-card reveal" style="--delay:<?php echo e( (string) ( 0.12 * ( $i % 4 ) ) ); ?>s">
+					<div class="team-card__inner" tabindex="0">
+						<div class="team-card__media"><?php echo media_html( $pd['photo'], array( 'size' => 'card', 'sizes' => '(min-width: 64rem) 22vw, 45vw' ) ); // phpcs:ignore ?></div>
+						<div class="team-card__caption">
+							<p class="team-card__name"><?php echo e( $p['title'] ); ?></p>
+							<?php text_el( $pd['role'] ?? '', 'p', 'team-card__role small' ); ?>
+							<?php if ( has_text( $pd['connects'] ?? '' ) ) : ?>
+								<div class="team-card__more"><div><?php text_el( $pd['connects'], 'p', 'team-card__connects' ); ?></div></div>
+							<?php endif; ?>
+						</div>
+					</div>
 				</li>
 			<?php endforeach; ?>
 		</ul>
