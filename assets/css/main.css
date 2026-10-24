@@ -628,35 +628,32 @@ button:disabled { cursor: not-allowed; }
 .metrics__label { color: var(--fg-2); }
 .metrics__source { margin: 0; order: -1; }
 
-/* Sócios */
-.partners__row { display: grid; gap: 1rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
-@media (min-width: 64rem) {
-  .partners__row { display: flex; height: min(80vh, 46rem); gap: 0.5rem; }
-  .partner { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; transition: flex-grow 0.8s var(--ease-out); }
-  .partner.is-active { flex-grow: 1.7; }
-  /* Todas as fotos encaixadas pela altura, na mesma escala: o topo das cabeças fica alinhado
-     entre as colunas (aberta ou fechada). As laterais sobram ou são recortadas. */
-  .partner__media { position: absolute; inset: 0; background: var(--light-border); }
-  .partner__media > img { left: 50%; right: auto; width: auto; height: 100%; max-width: none; aspect-ratio: 2 / 3; object-fit: cover; transform: translateX(-50%); filter: grayscale(1); transition: filter 0.6s; }
-  .partner.is-active .partner__media img { filter: none; }
-  .partner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(color-mix(in srgb, var(--hero-black) 55%, transparent), transparent 22%, transparent 45%, color-mix(in srgb, var(--hero-black) 85%, transparent)); pointer-events: none; }
-  .partner__heading, .partner__bio { position: absolute; left: 0; right: 0; z-index: 1; padding-inline: 1.5rem; color: var(--paper); }
-  .partner__heading { bottom: 1.5rem; }
-  .partner.is-active .partner__heading { bottom: auto; top: 1.5rem; }
-  .partner__bio { bottom: 1.5rem; max-width: 34rem; opacity: 0; transform: translateY(1rem); transition: opacity 0.5s 0.2s, transform 0.6s 0.2s var(--ease-out); color: var(--dark-text-2); }
-  .partner.is-active .partner__bio { opacity: 1; transform: none; }
-  .partner__toggle { width: 100%; text-align: left; color: inherit; }
-  .partner__toggle::before { content: ''; position: absolute; inset: 0; }
+/* Sócios — proposta B: colunas iguais, nome e cargo sobre a foto; o selecionado ganha cor e revela a bio */
+.partners__row { display: grid; gap: 0.75rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
+@media (min-width: 40rem) { .partners__row { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.partner { position: relative; aspect-ratio: 4 / 5; border-radius: 22px; overflow: hidden; background: var(--dark-card); isolation: isolate; }
+@media (min-width: 40rem) { .partner { aspect-ratio: 2 / 3; } }
+.partner__media { position: absolute; inset: 0; }
+.partner__media > img { object-position: 50% 0; transition: filter 0.5s var(--ease-out), transform 0.8s var(--ease-out); }
+.partner::after { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(transparent 45%, color-mix(in srgb, var(--hero-black) 90%, transparent)); pointer-events: none; }
+.partner.is-active::after { background: linear-gradient(transparent 25%, color-mix(in srgb, var(--hero-black) 92%, transparent) 75%); }
+@media (max-width: 39.99rem) { .partner::after { background: linear-gradient(transparent 30%, color-mix(in srgb, var(--hero-black) 92%, transparent) 78%); } }
+.partner__body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; padding: clamp(1rem, 2vw, 1.5rem); color: var(--paper); }
+.partner__heading { margin: 0; }
+.partner__toggle { display: grid; gap: 0.125rem; width: 100%; text-align: left; color: inherit; }
+.partner__toggle::before { content: ''; position: absolute; inset: 0; }
+.partner__name { color: var(--paper); }
+.partner__role { color: var(--brand-cyan); font-weight: 600; }
+.partner__bio { color: var(--dark-text-2); }
+.partner__bio p { margin: 0.75rem 0 0; }
+@media (min-width: 40rem) {
+  .partner__media > img { filter: grayscale(1) brightness(0.92); }
+  .partner.is-active .partner__media > img { filter: none; transform: scale(1.03); }
+  .partner__bio { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.5s var(--ease-out), opacity 0.4s; }
+  .partner__bio > * { overflow: hidden; }
+  .partner.is-active .partner__bio, .no-js .partner__bio { grid-template-rows: 1fr; opacity: 1; }
 }
-@media (max-width: 63.99rem) {
-  .partner { border-top: 1px solid var(--line); padding-top: 1rem; }
-  .partner__media { aspect-ratio: 4 / 5; max-height: 70vh; }
-  .partner__toggle { display: grid; width: 100%; text-align: left; padding-block: 0.75rem; min-height: 2.75rem; }
-  .partner__bio { display: none; padding-bottom: 1rem; color: var(--fg-2); }
-  .partner.is-active .partner__bio { display: block; }
-  .no-js .partner__bio { display: block; }
-}
-.partner__role { color: inherit; opacity: 0.8; }
+@media (prefers-reduced-motion: reduce) { .partner__media > img, .partner__bio { transition: none; } .partner.is-active .partner__media > img { transform: none; } }
 
 /* Depoimentos / carrossel */
 .slider { margin-top: clamp(2.5rem, 5vw, 4rem); }

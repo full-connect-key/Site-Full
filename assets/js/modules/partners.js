@@ -1,6 +1,7 @@
 /**
- * Sócios: o retrato selecionado expande e revela a bio. Funciona com hover
- * (desktop), foco e clique/toque. Um sempre aberto.
+ * Sócios (proposta B): o retrato selecionado ganha cor e revela a bio.
+ * Funciona com hover (desktop), foco e clique/toque. Um sempre aberto.
+ * No celular (uma coluna) todas as bios ficam visíveis.
  */
 export default function partners(el) {
   const items = [...el.querySelectorAll('[data-partner]')]
@@ -11,7 +12,7 @@ export default function partners(el) {
       it.querySelector('.partner__toggle').setAttribute('aria-expanded', String(on))
     })
   }
-  const canHover = window.matchMedia('(hover: hover) and (min-width: 64rem)').matches
+  const canHover = window.matchMedia('(hover: hover) and (min-width: 40rem)').matches
   items.forEach((item) => {
     const btn = item.querySelector('.partner__toggle')
     btn.addEventListener('click', () => activate(item))

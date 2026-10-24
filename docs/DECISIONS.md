@@ -70,7 +70,7 @@
 - **Origem:** os originais vieram em RAW Canon (.CR2). Não há conversor de RAW no ambiente, então usei a prévia JPEG em tamanho cheio que a câmera grava dentro do arquivo (5184×3456), com a rotação registrada pela câmera aplicada. Os originais RAW não vão para o repositório.
 - **Luz e branco:** ganho linear por canal calculado a partir da parede de fundo, para que a parede fique com o mesmo cinza neutro claro nas três fotos (≈ 220/255), com compressão suave dos realces para não estourar os brancos.
 - **Enquadramento:** recorte 2:3 com o topo da cabeça a ~11% da altura e a cabeça na mesma proporção do quadro nas três, detectado automaticamente pela transição cabelo/parede. Saída: 1400×2100 JPEG em `app/seed/people/`.
-- **Seção Os Sócios no desktop:** as fotos são sempre encaixadas pela altura da coluna (aberta ou fechada), na mesma escala, para manter as cabeças alinhadas. Há também um sombreado no topo para o nome ficar legível sobre a parede clara.
+- **Seção Os Sócios:** layout B aprovado pelo cliente (protótipos em `docs/prototipos-socios/`): três colunas iguais 2:3 com cantos arredondados, nome e cargo sobre a foto; o selecionado (hover, foco ou toque) ganha cor e revela a bio. No celular ficam um abaixo do outro, com a bio visível. Como as colunas não mudam de largura, não sobram faixas nas laterais e as cabeças continuam alinhadas.
 - **Publicação:** o seed importa os retratos (direito de uso confirmado, ponto focal 50% 30%) e publica os três uma única vez, quando cargo, bio e retrato estão completos. Se forem despublicados no painel depois, o seed não os republica.
 
 ## ADR-013 — Item "Sócios" no menu
