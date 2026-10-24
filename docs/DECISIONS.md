@@ -73,7 +73,7 @@
 - **Seção Os Sócios:** layout B aprovado pelo cliente (protótipos em `docs/prototipos-socios/`): três colunas iguais 2:3 com cantos arredondados, nome e cargo sobre a foto; o selecionado (hover, foco ou toque) ganha cor e revela a bio. No celular ficam um abaixo do outro, com a bio visível. Como as colunas não mudam de largura, não sobram faixas nas laterais e as cabeças continuam alinhadas.
 - **Publicação:** o seed importa os retratos (direito de uso confirmado, ponto focal 50% 30%) e publica os três uma única vez, quando cargo, bio e retrato estão completos. Se forem despublicados no painel depois, o seed não os republica.
 
-## ADR-013 — Item "Sócios" no menu
+## ADR-013 — Item "Sócios" no menu (revogado em 24/10/2026)
 - Pedido do cliente (24/10/2026): "Sócios" no menu principal, depois de "Ecossistema Full", e no grupo do rodapé, depois de "S&M". Leva à seção Os Sócios da Home (`/#socios`). O briefing v1.1 não previa esse item.
 - Em sites já instalados, o seed adiciona o item uma única vez. Ele pode ser renomeado, movido ou removido em Configurações › Menus, e não volta se for removido.
 
@@ -90,3 +90,7 @@
 - Tamanho: todos os logos ocupam a mesma área visual. A altura é proporcional a 1/√(proporção), então logos largos ficam mais baixos e logos compactos, mais altos.
 - Layout (pedido do cliente, 24/10/2026): a faixa ocupa a largura toda da página, em contraponto ao conteúdo, que passou de 1080 para **1200 px** centralizados (token `--content`). A faixa ficou mais fina e os logos, maiores.
 - **Sem pausa** (pedido do cliente): o botão de pausa e a pausa no hover foram removidos. Atenção: o critério WCAG 2.2.2 (Pausar, parar, ocultar) pede um meio de pausar movimento automático que dure mais de 5 s. A mitigação é que, com "reduzir movimento" ativo no sistema, a faixa aparece parada, em grade. Para voltar a atender o critério por completo, basta restaurar o botão.
+
+## ADR-016 — Sem item "Sócios" no menu
+- Pedido do cliente (24/10/2026): os sócios existem só como seção da Home, sem item próprio no menu. Esta decisão revoga o ADR-013.
+- O item saiu do menu principal e do rodapé no seed. Em sites já instalados, o seed remove o item `/#socios` uma única vez (`menu-socios-removido-2026-10`). A seção Os Sócios da Home continua igual.

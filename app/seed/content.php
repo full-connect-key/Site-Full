@@ -559,7 +559,6 @@ function fck_seed_content(): array {
 							array( 'label' => 'FullHub', 'to' => 'platform:hub' ),
 						),
 					),
-					array( 'label' => 'Sócios', 'to' => 'url:/#socios' ), // pedido do cliente: leva à seção Os Sócios da Home
 					array( 'label' => 'Cases', 'to' => 'page:cases' ),
 					array( 'label' => 'Insights Full', 'to' => 'page:insights' ),
 					array( 'label' => 'Full na Mídia', 'to' => 'page:press' ),
@@ -573,7 +572,6 @@ function fck_seed_content(): array {
 						'to'       => 'group',
 						'children' => array(
 							array( 'label' => 'S&M', 'to' => 'page:sm' ),
-							array( 'label' => 'Sócios', 'to' => 'url:/#socios' ),
 							array( 'label' => 'Cases', 'to' => 'page:cases' ),
 							array( 'label' => 'Insights Full', 'to' => 'page:insights' ),
 							array( 'label' => 'Full na Mídia', 'to' => 'page:press' ),

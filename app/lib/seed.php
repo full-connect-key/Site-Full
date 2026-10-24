@@ -78,7 +78,7 @@ final class Seeder
 		$this->globals($site, $c['ui']);
 		$this->logos($c['logos']);
 		$this->migrateEco($c);
-		$this->addPartnersMenuOnce();
+		$this->removePartnersMenuOnce();
 		$this->migrateHomeCopy($c);
 		$this->log[] = 'Concluído.';
 		return $this->log;
@@ -485,49 +485,33 @@ final class Seeder
 	}
 
 	/**
-	 * Uma vez só: adiciona "Sócios" (→ /#socios) ao menu principal, depois de
-	 * "Ecossistema Full", e ao grupo do rodapé, depois de "S&M", em sites já
-	 * instalados. Se o item for removido no painel depois, não volta.
+	 * Remove do menu principal e do rodapé o item "Sócios" (/#socios), uma
+	 * única vez (menu-socios-removido-2026-10). Os sócios ficam só como
+	 * seção da Home (pedido do cliente, 24/10/2026; revoga o ADR-013).
 	 */
-	private function addPartnersMenuOnce(): void
+	private function removePartnersMenuOnce(): void
 	{
 		$done = (array) setting('seed_migrations', []);
 		$id   = $this->find('global:site');
-		if (!empty($done['menu-socios-2026-10']) || !$id) {
+		if (!empty($done['menu-socios-removido-2026-10']) || !$id) {
 			return;
 		}
-		$row   = entry_raw($id);
-		$draft = json_dec($row['draft']);
-		$json  = (string) $row['draft'];
-		if (!str_contains($json, '#socios')) {
-			$item = ['link' => $this->link('Sócios', 'url:/#socios')];
-			$eco  = $this->ids['page']['ecosystem'] ?? 0;
-			$sm   = $this->ids['page']['sm'] ?? 0;
-			$main = (array) ($draft['menu']['main'] ?? []);
-			$pos  = count($main);
-			foreach ($main as $i => $it) {
-				if ((int) ($it['link']['post'] ?? 0) === (int) $eco) {
-					$pos = $i + 1;
-				}
+		$row = entry_raw($id);
+		if (str_contains((string) $row['draft'], '#socios')) {
+			$draft = json_dec($row['draft']);
+			$keep  = static fn($it) => !str_contains(json_enc($it['link'] ?? []), '#socios');
+			$draft['menu']['main'] = array_values(array_filter((array) ($draft['menu']['main'] ?? []), $keep));
+			foreach ((array) ($draft['menu']['footer_groups'] ?? []) as $g => $group) {
+				$draft['menu']['footer_groups'][$g]['links'] = array_values(array_filter((array) ($group['links'] ?? []), $keep));
 			}
-			array_splice($main, $pos, 0, [$item + ['children' => []]]);
-			$draft['menu']['main'] = $main;
-			if (isset($draft['menu']['footer_groups'][0]['links'])) {
-				$links = (array) $draft['menu']['footer_groups'][0]['links'];
-				$pos   = count($links);
-				foreach ($links as $i => $it) {
-					if ((int) ($it['link']['post'] ?? 0) === (int) $sm) {
-						$pos = $i + 1;
-					}
-				}
-				array_splice($links, $pos, 0, [$item]);
-				$draft['menu']['footer_groups'][0]['links'] = $links;
-			}
+			$clean = $row['status'] === 'published';
 			entry_save_draft($id, ['draft' => json_enc($draft)], 'seed');
-			entry_publish($id);
-			$this->log[] = 'Menu: item "Sócios" adicionado.';
+			if ($clean) {
+				entry_publish($id);
+			}
+			$this->log[] = 'Menu: item "Sócios" removido.';
 		}
-		setting_set('seed_migrations', $done + ['menu-socios-2026-10' => now()]);
+		setting_set('seed_migrations', $done + ['menu-socios-removido-2026-10' => now()]);
 	}
 
 	/** Menus: renomeia itens de plataforma ainda com o nome antigo e segue a nova ordem. */
