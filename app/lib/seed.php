@@ -82,6 +82,8 @@ final class Seeder
 		$this->removePartnersMenuOnce();
 		$this->migrateHomeCopy($c);
 		$this->migrateHubProblemOnce($c);
+		$this->migrateHomeHeadlineOnce($c);
+		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10']);
 		$this->log[] = 'Concluído.';
 		return $this->log;
 	}
@@ -430,8 +432,8 @@ final class Seeder
 		if (!$changes) {
 			return;
 		}
-		revision_add($id, (string) $row['title'], (string) $row['slug'], (string) $row['draft'], 'antes-' . $tag);
-		entry_save_draft($id, $changes, 'migracao-' . $tag);
+		revision_add($id, (string) $row['title'], (string) $row['slug'], (string) $row['draft'], substr('antes-' . $tag, 0, 20));
+		entry_save_draft($id, $changes, substr('migracao-' . $tag, 0, 20)); // revisions.action: 20 caracteres
 		if ($clean) {
 			entry_publish($id);
 		}
@@ -496,6 +498,45 @@ final class Seeder
 		}
 		setting_set('seed_migrations', $done + ['home-copy-2026-10' => now()]);
 		$this->log[] = 'Textos da Home atualizados' . ($conflicts ? ' (' . count($conflicts) . ' edição(ões) do painel preservada(s): ' . implode(', ', $conflicts) . ')' : '') . '.';
+	}
+
+	/**
+	 * Tira clientes da faixa de logos a pedido do cliente: despublica uma única
+	 * vez (fica como rascunho no painel e pode voltar se for republicado).
+	 */
+	private function removeClientsOnce(array $clients): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$new  = [];
+		foreach ($clients as $slug => $key) {
+			if (!empty($done[$key])) {
+				continue;
+			}
+			$id = $this->find('client:' . $slug);
+			if ($id && entry_raw($id)['published'] !== null) {
+				entry_unpublish($id);
+				$this->log[] = 'Faixa de logos: cliente "' . $slug . '" despublicado.';
+			}
+			$new[$key] = now();
+		}
+		if ($new) {
+			setting_set('seed_migrations', $done + $new);
+		}
+	}
+
+	/** Novo título do hero da Home (pedido do cliente, 24/10/2026), uma única vez. */
+	private function migrateHomeHeadlineOnce(array $c): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done['home-headline-2026-10'])) {
+			return;
+		}
+		$conflicts = [];
+		if (($id = $this->ids['page']['home'] ?? null) && !isset($this->created[$id])) {
+			$this->migrateEntry($id, ['hero' => ['headline' => $c['pages']['home']['meta']['hero']['headline']]], ['hero' => ['headline' => 'O que se conecta, se multiplica.']], 'page:home', $conflicts, tag: 'hero');
+		}
+		setting_set('seed_migrations', $done + ['home-headline-2026-10' => now()]);
+		$this->log[] = 'Home: título do hero atualizado' . ($conflicts ? ' (edição do painel preservada)' : '') . '.';
 	}
 
 	/** Novo título do bloco Problema do FullHub (pedido do cliente, 24/10/2026), uma única vez. */

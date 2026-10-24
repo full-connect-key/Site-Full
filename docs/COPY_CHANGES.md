@@ -65,3 +65,14 @@ Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-
 | Victor Fávaro | Diretor de Arte | "Conecta conceitos a soluções criativas." |
 
 As fotos foram convertidas do RAW (IMG_9927.CR2 e IMG_9980_1.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). A seção usa a grade de retratos do ADR-018.
+
+## Hero da Home e faixa de logos (24/10/2026)
+
+| Onde | Antes | Agora |
+|---|---|---|
+| Home › Hero › título principal | "O que se conecta, se multiplica." | "O que se conecta, multiplica." |
+| Home › Faixa de logos | 20 clientes | 19 clientes: Brentwood saiu a pedido do cliente |
+
+Os dois pedidos são do cliente. A assinatura do rodapé e o título do CTA do Ecossistema continuam com "O que se conecta, se multiplica.", porque o pedido foi só para o hero. No site no ar, as duas mudanças acontecem uma única vez (`home-headline-2026-10` e `client-brentwood-off-2026-10`). A Brentwood fica despublicada, não apagada, e pode voltar pelo painel.
+
+Correção técnica junto: o nome da ação gravada no histórico de revisões é limitado a 20 caracteres, e a migração agora corta rótulos maiores. Sem isso, a atualização automática pararia com erro.

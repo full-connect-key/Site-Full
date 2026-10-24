@@ -146,7 +146,7 @@ function fck_seed_content(): array {
 				'status'   => 'publish',
 				'meta'     => array(
 					'hero'         => array(
-						'headline'     => 'O que se conecta, se multiplica.',
+						'headline'     => 'O que se conecta, multiplica.',
 						'headline_alt' => '', // vazio = usa a assinatura global (Marca › Assinatura), D2
 						'lead'         => 'Conectamos estratégia, criatividade, tecnologia, marketing e vendas para transformar desafios em oportunidades e oportunidades em resultados.',
 						'cta'          => array( 'label' => 'Descubra a Full', 'to' => 'page:sm' ),
@@ -524,7 +524,6 @@ function fck_seed_content(): array {
 			'fispal-tecnologia' => array( 'title' => 'Fispal Tecnologia', 'logo' => 'clients/fispal-tecnologia.png', 'order' => 8 ),
 			'tecnocarne' => array( 'title' => 'Tecnocarne', 'logo' => 'clients/tecnocarne.png', 'order' => 9 ),
 			'dinner-in-the-sky' => array( 'title' => 'Dinner in the Sky', 'logo' => 'clients/dinner-in-the-sky.png', 'order' => 10 ),
-			'brentwood' => array( 'title' => 'Brentwood', 'logo' => 'clients/brentwood.png', 'order' => 11 ),
 			'avima' => array( 'title' => 'AVIMA Chocolate Orgânico', 'logo' => 'clients/avima.png', 'order' => 12 ),
 			'ambev' => array( 'title' => 'Ambev', 'logo' => 'clients/ambev.png', 'order' => 13 ),
 			'abf-franchising-expo' => array( 'title' => 'ABF Franchising Expo', 'logo' => 'clients/abf-franchising-expo.png', 'order' => 14 ),
