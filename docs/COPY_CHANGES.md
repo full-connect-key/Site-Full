@@ -71,7 +71,7 @@ As fotos foram convertidas do RAW (IMG_9927.CR2 e IMG_9980_1.CR2) com a mesma lu
 | Onde | Antes | Agora |
 |---|---|---|
 | Home › Hero › título principal | "O que se conecta, se multiplica." | "O que se conecta, multiplica." |
-| Home › Faixa de logos | 20 clientes | 19 clientes: Brentwood saiu a pedido do cliente |
+| Home › Faixa de logos | 20 clientes | 18 clientes: Brentwood e Paraíso Saudável saíram a pedido do cliente (`client-paraiso-off-2026-10` para a Paraíso) |
 
 Os dois pedidos são do cliente. A assinatura do rodapé e o título do CTA do Ecossistema continuam com "O que se conecta, se multiplica.", porque o pedido foi só para o hero. No site no ar, as duas mudanças acontecem uma única vez (`home-headline-2026-10` e `client-brentwood-off-2026-10`). A Brentwood fica despublicada, não apagada, e pode voltar pelo painel.
 

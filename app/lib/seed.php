@@ -83,7 +83,7 @@ final class Seeder
 		$this->migrateHomeCopy($c);
 		$this->migrateHubProblemOnce($c);
 		$this->migrateHomeHeadlineOnce($c);
-		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10']);
+		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10', 'paraiso-saudavel' => 'client-paraiso-off-2026-10']);
 		$this->log[] = 'Concluído.';
 		return $this->log;
 	}
