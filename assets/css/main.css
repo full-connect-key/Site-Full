@@ -666,8 +666,8 @@ button:disabled { cursor: not-allowed; }
 .partner__bio { color: var(--dark-text-2); }
 .partner__bio p { margin: 0.75rem 0 0; }
 @media (min-width: 40rem) {
-  .partner__media > img { filter: grayscale(1) brightness(0.92); }
-  .partner.is-active .partner__media > img { filter: none; transform: scale(1.03); }
+  .partner__media > img { filter: none; } /* colorida em repouso; preto e branco ao abrir as infos (pedido do cliente) */
+  .partner.is-active .partner__media > img { filter: grayscale(1) brightness(0.92); transform: scale(1.03); }
   .partner__bio { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.5s var(--ease-out), opacity 0.4s; }
   .partner__bio > * { overflow: hidden; }
   .partner.is-active .partner__bio, .no-js .partner__bio { grid-template-rows: 1fr; opacity: 1; }

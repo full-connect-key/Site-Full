@@ -19,11 +19,11 @@ $partners = array_slice( $partners, 0, 3 );
 		<div class="partners__row" data-module="partners">
 			<?php foreach ( $partners as $i => $p ) : ?>
 				<?php $pd = g( $p, 'details' ); ?>
-				<article class="partner<?php echo 0 === $i ? ' is-active' : ''; ?>" data-partner>
+				<article class="partner" data-partner>
 					<div class="media-frame partner__media"><?php echo media_html( $pd['photo'], array( 'size' => 'card', 'sizes' => '(min-width: 40rem) 34vw, 100vw' ) ); // phpcs:ignore ?></div>
 					<div class="partner__body">
 						<h3 class="partner__heading">
-							<button class="partner__toggle" type="button" aria-expanded="<?php echo 0 === $i ? 'true' : 'false'; ?>" aria-controls="partner-bio-<?php echo (int) $i; ?>">
+							<button class="partner__toggle" type="button" aria-expanded="false" aria-controls="partner-bio-<?php echo (int) $i; ?>">
 								<span class="partner__name display-xs"><?php echo e( $p['title'] ); ?></span>
 								<?php text_el( $pd['role'] ?? '', 'span', 'partner__role small' ); ?>
 							</button>

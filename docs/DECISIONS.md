@@ -107,3 +107,7 @@
 - Animação: os cards entram em sequência (o `.reveal` do site, com 0,12 s de atraso entre um e outro). Com hover ou foco de teclado, o card sobe 0,5rem com brilho e contorno azuis, a foto sai do preto e branco com leve zoom e a frase "Conecta X a Y." se abre sob o cargo.
 - Acessibilidade: cada card recebe foco pelo teclado e mostra o mesmo estado do hover. Em telas de toque, foto colorida e frase sempre visíveis. Com movimento reduzido, nada se move e a frase fica sempre visível.
 - Só pessoas reais com foto aparecem. Não há espaços vazios no site; os tracejados existem só nos protótipos.
+
+## ADR-019 — Sócios coloridos em repouso
+- Pedido do cliente (26/10/2026): os retratos dos sócios ficam coloridos em repouso. Com hover, foco ou toque, o retrato selecionado fica em preto e branco e mostra a bio. Isso inverte o comportamento do ADR-012/layout B.
+- Nenhum card abre sozinho ao carregar. Ao sair da seção (mouse ou foco), todos voltam ao repouso. Clicar de novo fecha o card. No celular, como antes, todas as bios ficam visíveis e as fotos coloridas. Sem JS, as bios aparecem abertas.
