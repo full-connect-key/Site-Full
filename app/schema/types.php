@@ -323,6 +323,18 @@ function fck_type_schemas(): array {
 			),
 		),
 
+		'credential'  => array(
+			array(
+				'id'          => 'details',
+				'title'       => 'Credencial',
+				'description' => 'Plataforma em que a agência é credenciada. Aparece na faixa de credenciais da Home, na ordem do campo Ordem. Use o logo oficial em versão branca (fundo transparente).',
+				'fields'      => array(
+					fck_image( 'logo', 'Logo (SVG ou PNG transparente, versão branca)', array( 'required' => true ) ),
+					fck_text( 'level', 'Nível (opcional, ex.: Partner Premier)', 60 ),
+				),
+			),
+		),
+
 		'client'      => array(
 			array(
 				'id'          => 'details',

@@ -152,6 +152,11 @@ function fck_seed_content(): array {
 						'cta'          => array( 'label' => 'Descubra a Full', 'to' => 'page:sm' ),
 					),
 					'logos'        => array( 'enabled' => true ),
+					'credentials'  => array(
+						'enabled' => true,
+						'eyebrow' => 'Credenciais', // (*)
+						'title'   => 'Credenciada pelas plataformas que movem o mercado.', // (*) sugestão do desenvolvimento, a aprovar
+					),
 					'essence'      => array(
 						'enabled' => true,
 						'title'   => 'Conexões que fazem negócios evoluírem.',
@@ -539,6 +544,15 @@ function fck_seed_content(): array {
 		'team'       => array(
 			'gabriela-oliveira' => array( 'title' => 'Gabriela Oliveira', 'photo' => array( 'file' => 'people/gabriela-oliveira.jpg', 'alt' => 'Retrato de Gabriela Oliveira', 'focal' => '50% 30%' ), 'order' => 1, 'meta' => array( 'details' => array( 'role' => 'Gerente de Projetos', 'connects' => 'Conecta estratégia a execução.' ) ) ),
 			'victor-favaro'     => array( 'title' => 'Victor Fávaro', 'photo' => array( 'file' => 'people/victor-favaro.jpg', 'alt' => 'Retrato de Victor Fávaro', 'focal' => '50% 30%' ), 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Diretor de Arte', 'connects' => 'Conecta conceitos a soluções criativas.' ) ) ),
+		),
+
+		// Credenciais da agência (logos enviados pela Full em 26/10/2026, em app/seed/credentials/).
+		'credentials' => array(
+			'google-ads' => array( 'title' => 'Google Ads', 'logo' => 'credentials/google-ads.png', 'order' => 1 ),
+			'meta'       => array( 'title' => 'Meta', 'logo' => 'credentials/meta.png', 'order' => 2 ),
+			'rd-station' => array( 'title' => 'RD Station', 'logo' => 'credentials/rd-station.png', 'order' => 3 ),
+			'spotify'    => array( 'title' => 'Spotify', 'logo' => 'credentials/spotify.png', 'order' => 4 ),
+			'tiktok-ads' => array( 'title' => 'TikTok Ads', 'logo' => 'credentials/tiktok-ads.png', 'order' => 5 ),
 		),
 
 		'categories' => array(

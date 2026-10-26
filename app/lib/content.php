@@ -20,6 +20,7 @@ function content_types(): array
 		'author'      => ['Autor', 'Autores', 'public' => false, 'group' => 'Insights', 'icon' => '◔'],
 		'press'       => ['Matéria', 'Full na Mídia', 'public' => false, 'group' => 'Imprensa', 'icon' => '❝'],
 		'sector'      => ['Setor', 'Setores', 'public' => false, 'group' => 'Home', 'icon' => '◫'],
+		'credential'  => ['Credencial', 'Credenciais', 'public' => false, 'group' => 'Home', 'icon' => '✓'],
 		'partner'     => ['Sócio', 'Sócios', 'public' => false, 'group' => 'Pessoas', 'icon' => '◉'],
 		'team'        => ['Pessoa do time', 'Time', 'public' => false, 'group' => 'Pessoas', 'icon' => '◌'],
 		'testimonial' => ['Depoimento', 'Depoimentos', 'public' => false, 'group' => 'Pessoas', 'icon' => '“'],

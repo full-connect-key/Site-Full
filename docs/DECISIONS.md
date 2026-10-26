@@ -111,3 +111,10 @@
 ## ADR-019 — Sócios coloridos em repouso
 - Pedido do cliente (26/10/2026): os retratos dos sócios ficam coloridos em repouso. Com hover, foco ou toque, o retrato selecionado fica em preto e branco e mostra a bio. Isso inverte o comportamento do ADR-012/layout B.
 - Nenhum card abre sozinho ao carregar. Ao sair da seção (mouse ou foco), todos voltam ao repouso. Clicar de novo fecha o card. No celular, como antes, todas as bios ficam visíveis e as fotos coloridas. Sem JS, as bios aparecem abertas.
+
+## ADR-020 — Faixa de credenciais (proposta B)
+- Pedido do cliente (26/10/2026): carrossel com as plataformas em que a agência é credenciada, sempre em movimento. Foi aplicada a proposta B dos protótipos (`docs/prototipos-credenciais/`): o título fica à esquerda e os logos correm sem parar à direita, sem botão de pausa e sem parar no hover, como na faixa de clientes. Com movimento reduzido, os logos ficam parados, em grade.
+- Novo tipo no painel, **Credenciais** (grupo Home), com logo e nível opcional (ex.: Partner Premier), e nova seção da Home, "2a. Faixa de credenciais", com chamada e título. A seção fica logo abaixo da faixa de clientes e some se não houver credenciais publicadas.
+- Logos enviados: Google Ads, Meta, RD Station, Spotify e TikTok Ads, em versão branca (`app/seed/credentials/`). Os arquivos têm só 52 a 103 px de altura e podem ficar um pouco suaves em telas de alta densidade. Versões em SVG ou maiores melhoram a nitidez.
+- O título "Credenciada pelas plataformas que movem o mercado." e a chamada "Credenciais" foram criados no desenvolvimento (marcados com (*)) e aguardam aprovação. Os dois podem ser editados no painel.
+- Em sites já instalados, o seed cria e publica as credenciais uma única vez (`credential:<slug>`) e preenche os textos da seção (`home-credentials-2026-10`).

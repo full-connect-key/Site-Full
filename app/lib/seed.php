@@ -52,6 +52,7 @@ final class Seeder
 		$this->publishPartnersOnce($partners);
 		$this->clients($c['clients'] ?? []);
 		$this->team($c['team'] ?? []);
+		$this->credentials($c['credentials'] ?? []);
 		$order = 0;
 		foreach ($c['categories'] as $slug => $name) {
 			$this->ensure('category', 'category:' . $slug, ['title' => $name, 'slug' => $slug, 'status' => 'publish', 'order' => ++$order]);
@@ -83,6 +84,7 @@ final class Seeder
 		$this->migrateHomeCopy($c);
 		$this->migrateHubProblemOnce($c);
 		$this->migrateHomeHeadlineOnce($c);
+		$this->addCredentialsSectionOnce($c);
 		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10', 'paraiso-saudavel' => 'client-paraiso-off-2026-10']);
 		$this->log[] = 'Concluído.';
 		return $this->log;
@@ -132,6 +134,48 @@ final class Seeder
 		}
 		$this->log[] = 'Mídia importada: ' . ($def['alt'] ?? $def['file']);
 		return (int) $mid;
+	}
+
+	/**
+	 * Credenciais da agência: cria, importa o logo e publica cada uma uma
+	 * única vez (credential:<slug> em seed_migrations).
+	 */
+	private function credentials(array $items): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$new  = [];
+		foreach ($items as $slug => $p) {
+			$id  = $this->ensure('credential', 'credential:' . $slug, $p + ['slug' => $slug]);
+			$mid = $this->photo('credential-logo:' . $slug, ['file' => $p['logo'], 'alt' => $p['title']], 'Logo da plataforma — credencial informada pela Full (26/10/2026)');
+			if (!$mid) {
+				continue;
+			}
+			$this->complete($id, ['details' => ['logo' => $mid]]);
+			if (empty($done['credential:' . $slug])) {
+				if (entry_raw($id)['published'] === null) {
+					entry_publish($id);
+				}
+				$new['credential:' . $slug] = now();
+			}
+		}
+		if ($new) {
+			setting_set('seed_migrations', $done + $new);
+			$this->log[] = 'Credenciais publicadas (' . count($new) . ').';
+		}
+	}
+
+	/** Textos da faixa de credenciais na Home de sites já instalados, uma única vez. */
+	private function addCredentialsSectionOnce(array $c): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done['home-credentials-2026-10'])) {
+			return;
+		}
+		$conflicts = [];
+		if (($id = $this->ids['page']['home'] ?? null) && !isset($this->created[$id])) {
+			$this->migrateEntry($id, ['credentials' => $c['pages']['home']['meta']['credentials']], ['credentials' => []], 'page:home', $conflicts, tag: 'creds');
+		}
+		setting_set('seed_migrations', $done + ['home-credentials-2026-10' => now()]);
 	}
 
 	/**

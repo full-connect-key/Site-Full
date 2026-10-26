@@ -1,10 +1,10 @@
 <?php
 /**
- * Home — 11 seções em ordem fixa. Cada seção pode ser ocultada no painel;
+ * Home — 12 seções em ordem fixa. Cada seção pode ser ocultada no painel;
  * seções que dependem de conteúdo real somem quando ele não existe.
  */
 defined( 'FCK_ROOT' ) || exit;
-$sections = array( 'hero', 'logos', 'essence', 'ecosystem', 'sectors', 'cases', 'partners', 'testimonials', 'team', 'insights', 'footer_cta' );
+$sections = array( 'hero', 'logos', 'credentials', 'essence', 'ecosystem', 'sectors', 'cases', 'partners', 'testimonials', 'team', 'insights', 'footer_cta' );
 foreach ( $sections as $section ) {
 	$data = g( $entry, $section );
 	if ( 'hero' !== $section && ! section_enabled( $data ) ) {
