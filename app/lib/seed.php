@@ -53,6 +53,7 @@ final class Seeder
 		$this->clients($c['clients'] ?? []);
 		$this->team($c['team'] ?? []);
 		$this->teamOrderOnce($c['team'] ?? [], 'team-order-2026-10');
+		$this->teamOrderOnce($c['team'] ?? [], 'team-order-marcela-2026-10');
 		$this->gabrielaUpdateOnce($c['team']['gabriela-oliveira'] ?? []);
 		$this->teamCopyOnce('gabriela-oliveira', 'Conecta estratégia a execução.', $c['team']['gabriela-oliveira']['meta']['details']['connects'] ?? '', 'team-gabriela-2026-10');
 		$this->teamCopyOnce('monique-godoy', 'Conecta ideias criativas a conteúdos que geram conversas e engajamento de verdade.', $c['team']['monique-godoy']['meta']['details']['connects'] ?? '', 'team-monique-2026-10');

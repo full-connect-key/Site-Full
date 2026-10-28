@@ -65,6 +65,7 @@ Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-
 | Victor Fávaro | Diretor de Arte | "Conecta conceitos a soluções criativas." |
 | Monique Godoy | Social Media | "Conecta ideias criativas a engajamento real." (ponto final acrescentado; substitui a primeira versão, mais longa) |
 | Giovanna Marino | Diretora de Arte | "Conecta conceitos a imagens." |
+| Marcela Antunes | Diretora de Arte | sem frase, por enquanto (foto enviada em WebP 1086×1448, recortada e ampliada) |
 | Giovanna Bellucci | Diretora de Arte | "Conecta referências a possibilidades." (foto enviada em JPG 1333×2000, recortada e ampliada para o padrão 1400×2100) |
 | Guilherme Santos | Analista de Mídias Pagas ("Midias" sem acento na mensagem; acentuado) | sem frase, por enquanto |
 | Fernanda Ghislotti | Conteúdo | "Conecta marcas e histórias às pessoas." (texto do cliente; vírgula antes de "às" retirada) |
