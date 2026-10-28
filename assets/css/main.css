@@ -715,10 +715,15 @@ button:disabled { cursor: not-allowed; }
 .no-js .slider__controls { display: none; }
 
 /* Time (ADR-018): grade de retratos */
-.team__head { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
-.team__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; list-style: none; }
-@media (min-width: 48rem) { .team__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 64rem) { .team__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.team__head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: clamp(1.25rem, 3vw, 2.5rem); }
+.team__buttons { display: flex; gap: 0.5rem; flex: none; }
+/* Uma fileira só, rolando para o lado; começa alinhada ao conteúdo e sangra à direita. */
+.team__scroller { --team-edge: max(var(--gutter), calc((100% - var(--content)) / 2)); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--team-edge); cursor: grab; padding-block: 1rem 1.5rem; }
+.team__scroller.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.team__scroller:focus-visible { outline-offset: -3px; }
+.team__grid { display: flex; gap: 1rem; width: max-content; padding-inline: var(--team-edge); list-style: none; }
+.team-card { flex: none; width: min(70vw, 17.5rem); scroll-snap-align: start; }
+@media (min-width: 64rem) { .team-card { width: calc((min(100vw - 2 * var(--gutter), var(--content)) - 3rem) / 4.25); } }
 .team-card__inner {
   position: relative; aspect-ratio: 3 / 4; border-radius: 1.25rem; overflow: hidden; background: var(--dark-card);
   transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
@@ -753,6 +758,7 @@ button:disabled { cursor: not-allowed; }
   .team-card__inner::after { display: none; }
   .team-card__media { position: relative; aspect-ratio: 3 / 4; border-radius: 1.25rem; overflow: hidden; }
   .team-card__caption { position: static; padding: 0.75rem 0 0; background: none; }
+  .team-card__more, .team-card__more > div { display: block; overflow: visible; }
   .team-card__name { font-size: 0.9375rem; } .team-card__role { font-size: 0.8125rem; } .team-card__connects { font-size: 0.9375rem; margin-top: 0.25rem; }
 }
 @media (prefers-reduced-motion: reduce) {

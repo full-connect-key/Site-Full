@@ -61,7 +61,7 @@ Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-
 
 | Pessoa | Cargo | Frase |
 |---|---|---|
-| Gabriela Oliveira | Gerente de Projetos | "Conecta estratégia a execução." (ponto final acrescentado, no padrão "Conecta X a Y.") |
+| Gabriela Oliveira | Gerente de Projetos | "Pessoas, estratégia e processos para fazer as coisas acontecerem!" (texto do cliente, sem o "Conecta"; substitui "Conecta estratégia a execução.") |
 | Victor Fávaro | Diretor de Arte | "Conecta conceitos a soluções criativas." |
 | Monique Godoy | Social Media | "Conecta ideias criativas a engajamento real." (ponto final acrescentado; substitui a primeira versão, mais longa) |
 | Giovanna Marino | Diretora de Arte | "Conecta conceitos a imagens." |

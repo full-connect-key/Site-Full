@@ -1,6 +1,7 @@
 <?php
 /**
- * Home 9 — O Time: grade de retratos (proposta A, ADR-018). Os cards entram em
+ * Home 9 — O Time: retratos da proposta A (ADR-018) numa fileira só, rolando
+ * para o lado (arraste, toque, setas do teclado ou botões). Os cards entram em
  * sequência; hover/foco dá cor à foto e revela "Conecta X a Y."; no toque e com
  * movimento reduzido tudo fica visível.
  */
@@ -13,7 +14,15 @@ if ( ! $team ) {
 ?>
 <section class="section team" data-theme="dark" aria-labelledby="team-title">
 	<div class="container">
-		<?php section_head( array( 'title' => $d['title'] ?? '', 'text' => $d['text'] ?? '', 'id' => 'team-title', 'size' => 'display-l', 'class' => 'team__head' ) ); ?>
+		<div class="team__head">
+			<?php section_head( array( 'title' => $d['title'] ?? '', 'text' => $d['text'] ?? '', 'id' => 'team-title', 'size' => 'display-l' ) ); ?>
+			<div class="team__buttons">
+				<button class="icon-btn" type="button" data-scroll-prev aria-controls="team-track" aria-label="<?php echo e( ui( 'a11y', 'previous' ) ); ?>"><?php echo icon( 'arrow-left' ); // phpcs:ignore ?></button>
+				<button class="icon-btn" type="button" data-scroll-next aria-controls="team-track" aria-label="<?php echo e( ui( 'a11y', 'next' ) ); ?>"><?php echo icon( 'arrow' ); // phpcs:ignore ?></button>
+			</div>
+		</div>
+	</div>
+	<div class="team__scroller no-scrollbar" id="team-track" data-module="drag-scroll" tabindex="0" role="region" aria-label="<?php echo e( ui( 'a11y', 'scroll_hint' ) ); ?>">
 		<ul class="team__grid">
 			<?php foreach ( $team as $i => $p ) : ?>
 				<?php $pd = g( $p, 'details' ); ?>
