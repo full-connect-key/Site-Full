@@ -90,10 +90,12 @@ function button(mixed $link, string $variant = 'primary', array $opts = []): voi
 	if (!$l) {
 		return;
 	}
+	// Link para vídeo (ADR-022): sempre com o ícone de play, que avisa que abre um vídeo.
+	$video = (bool) preg_match('/\.(mp4|webm)$/i', (string) parse_url($l['href'], PHP_URL_PATH));
 	printf(
 		'<a class="btn btn--%s %s" href="%s"%s><span>%s</span>%s%s</a>',
-		e($variant), e($opts['class'] ?? ''), e($l['href']), link_attrs($l), e($l['label']),
-		($opts['arrow'] ?? true) ? icon($l['external'] ? 'external' : 'arrow', 'btn__arrow') : '',
+		e($variant), e(trim(($opts['class'] ?? '') . ($video ? ' btn--video' : ''))), e($l['href']), link_attrs($l), e($l['label']),
+		$video ? icon('play', 'btn__arrow') : (($opts['arrow'] ?? true) ? icon($l['external'] ? 'external' : 'arrow', 'btn__arrow') : ''),
 		external_notice($l)
 	);
 }

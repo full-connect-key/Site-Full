@@ -136,3 +136,9 @@
 - Menu: um item cujo destino está oculto e que tem subitens vira só rótulo, em vez de sumir com os subitens.
 - Pendente: os vídeos não têm legendas (WCAG 1.2.2). Com arquivos .vtt, dá para acrescentar a faixa de legenda no player.
 - O banco de teste retira os vídeos para manter a cobertura das páginas do Ecossistema.
+
+## ADR-023 — Botão do cabeçalho: "Conheça o ecossistema"
+- Pedido do cliente (28/10/2026): o botão "Vamos conversar" do cabeçalho deu lugar a um botão em destaque, "Conheça o ecossistema", que abre o vídeo do Ecossistema (ADR-022). O mesmo botão aparece no menu do celular.
+- Destaque: o vidro continua transparente, como os outros botões (ADR-010), com contorno ciano e um brilho que "respira" a cada 2,8 s. Com movimento reduzido, o brilho fica parado.
+- Todo botão que aponta para um vídeo mostra o ícone de play no lugar da seta, avisando que abre um vídeo.
+- Contato continua acessível pelo CTA final e pelo rodapé ("Vamos conversar"). Em sites já instalados, o seed troca o botão uma única vez (`header-cta-eco-2026-10`), e só se ele ainda estiver como "Vamos conversar".

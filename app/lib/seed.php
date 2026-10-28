@@ -87,6 +87,7 @@ final class Seeder
 		$this->addCredentialsSectionOnce($c);
 		$this->platformVideosOnce($c['platform_videos'] ?? []);
 		$this->ecosystemVideoOnce($c['ecosystem_video'] ?? []);
+		$this->headerCtaOnce($c['site']['header']['cta']);
 		$this->hidePagesOnce(['cases', 'insights', 'press'], 'hide-pages-2026-10');
 		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10', 'paraiso-saudavel' => 'client-paraiso-off-2026-10']);
 		$this->log[] = 'Concluído.';
@@ -573,6 +574,32 @@ final class Seeder
 			setting_set('seed_migrations', $done + $new);
 			$this->log[] = 'Vídeos das plataformas cadastrados (' . count($new) . ').';
 		}
+	}
+
+	/**
+	 * Botão do cabeçalho: "Vamos conversar" vira "Conheça o ecossistema" (abre o
+	 * vídeo do Ecossistema), uma única vez e só se ainda estiver como o seed antigo.
+	 */
+	private function headerCtaOnce(array $cta): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$id   = $this->find('global:site');
+		if (!empty($done['header-cta-eco-2026-10']) || !$id) {
+			return;
+		}
+		$row   = entry_raw($id);
+		$draft = json_dec($row['draft']);
+		$cur   = $draft['menu']['cta'] ?? [];
+		if (($cur['label'] ?? '') === 'Vamos conversar' || empty($cur['label'])) {
+			$clean                 = $row['status'] === 'published';
+			$draft['menu']['cta'] = $this->link($cta['label'], $cta['to']);
+			entry_save_draft($id, ['draft' => json_enc($draft)], 'seed');
+			if ($clean) {
+				entry_publish($id);
+			}
+			$this->log[] = 'Cabeçalho: botão "' . $cta['label'] . '".';
+		}
+		setting_set('seed_migrations', $done + ['header-cta-eco-2026-10' => now()]);
 	}
 
 	/** Vídeo da visão geral do Ecossistema, uma única vez (video:ecosystem). */

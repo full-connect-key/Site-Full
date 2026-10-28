@@ -22,7 +22,7 @@ function fck_seed_content(): array {
 				'site_name' => 'Full Connect Key',
 				'signature' => 'Vire a chave dos seus resultados. Ative o modo Full.', // D2 (adendo do Ecossistema)
 			),
-			'header'       => array( 'cta' => $talk ),
+			'header'       => array( 'cta' => array( 'label' => 'Conheça o ecossistema', 'to' => 'page:ecosystem' ) ), // pedido do cliente (28/10/2026): abre o vídeo do Ecossistema
 			'footer'       => array(
 				'tagline'   => 'O que se conecta, se multiplica.',
 				'text'      => 'Estratégia, criatividade, tecnologia, marketing e vendas conectados para transformar oportunidades em resultados.',

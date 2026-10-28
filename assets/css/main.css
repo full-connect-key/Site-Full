@@ -346,6 +346,11 @@ button:disabled { cursor: not-allowed; }
 .site-header__actions { display: flex; align-items: center; gap: 0.5rem; }
 .site-header__cta { display: none; }
 @media (min-width: 40rem) { .site-header__cta { display: inline-flex; } }
+/* Botão em destaque do cabeçalho: mesmo vidro transparente, com contorno ciano e brilho que respira. */
+.btn--highlight { --btn-color: var(--brand-cyan); border-color: var(--brand-cyan); box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-cyan) 45%, transparent); animation: btn-glow 2.8s ease-in-out infinite; }
+.btn--highlight .btn__arrow { width: 0.875rem; height: 0.875rem; }
+@keyframes btn-glow { 50% { box-shadow: 0 0 1.25rem 0.125rem color-mix(in srgb, var(--brand-cyan) 35%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .btn--highlight { animation: none; box-shadow: 0 0 1rem 0 color-mix(in srgb, var(--brand-cyan) 30%, transparent); } }
 
 .main-nav { display: none; }
 @media (min-width: 64rem) { .main-nav { display: block; } }
