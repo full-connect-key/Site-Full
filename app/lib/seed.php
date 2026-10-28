@@ -96,7 +96,7 @@ final class Seeder
 		$this->headerCtaOnce($c['site']['header']['cta']);
 		$this->signatureOnce('Vire a chave dos seus resultados. Ative o modo Full.', $c['site']['brand']['signature'], 'signature-2026-10');
 		$this->hidePagesOnce(['cases', 'insights', 'press'], 'hide-pages-2026-10');
-		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10', 'paraiso-saudavel' => 'client-paraiso-off-2026-10']);
+		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10', 'paraiso-saudavel' => 'client-paraiso-off-2026-10', 'luxo-design' => 'client-luxo-off-2026-10']);
 		$this->log[] = 'Concluído.';
 		return $this->log;
 	}

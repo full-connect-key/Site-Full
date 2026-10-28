@@ -524,7 +524,6 @@ function fck_seed_content(): array {
 			'shell-select' => array( 'title' => 'Shell Select', 'logo' => 'clients/shell-select.png', 'order' => 2 ),
 			'oxxo' => array( 'title' => 'OXXO', 'logo' => 'clients/oxxo.png', 'order' => 4 ),
 			'mundo-verde' => array( 'title' => 'Mundo Verde', 'logo' => 'clients/mundo-verde.png', 'order' => 5 ),
-			'luxo-design' => array( 'title' => 'Luxo & Design', 'logo' => 'clients/luxo-design.png', 'order' => 6 ),
 			'intermodal' => array( 'title' => 'Intermodal South America', 'logo' => 'clients/intermodal.png', 'order' => 7 ),
 			'fispal-tecnologia' => array( 'title' => 'Fispal Tecnologia', 'logo' => 'clients/fispal-tecnologia.png', 'order' => 8 ),
 			'tecnocarne' => array( 'title' => 'Tecnocarne', 'logo' => 'clients/tecnocarne.png', 'order' => 9 ),
