@@ -52,6 +52,7 @@ final class Seeder
 		$this->publishPartnersOnce($partners);
 		$this->clients($c['clients'] ?? []);
 		$this->team($c['team'] ?? []);
+		$this->teamOrderOnce($c['team'] ?? [], 'team-order-2026-10');
 		$this->teamCopyOnce('gabriela-oliveira', 'Conecta estratégia a execução.', $c['team']['gabriela-oliveira']['meta']['details']['connects'] ?? '', 'team-gabriela-2026-10');
 		$this->teamCopyOnce('monique-godoy', 'Conecta ideias criativas a conteúdos que geram conversas e engajamento de verdade.', $c['team']['monique-godoy']['meta']['details']['connects'] ?? '', 'team-monique-2026-10');
 		$this->credentials($c['credentials'] ?? []);
@@ -140,6 +141,22 @@ final class Seeder
 		}
 		$this->log[] = 'Mídia importada: ' . ($def['alt'] ?? $def['file']);
 		return (int) $mid;
+	}
+
+	/** Aplica a ordem do time definida pelo cliente (campo Ordem), uma única vez. */
+	private function teamOrderOnce(array $people, string $key): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done[$key])) {
+			return;
+		}
+		foreach ($people as $slug => $p) {
+			if ($id = $this->find('team:' . $slug)) {
+				db_update('entries', ['menu_order' => (int) $p['order']], ['id' => $id]);
+			}
+		}
+		setting_set('seed_migrations', $done + [$key => now()]);
+		$this->log[] = 'Time: ordem atualizada.';
 	}
 
 	/** Troca a frase de uma pessoa do time uma única vez, se ainda estiver com a versão anterior. */
