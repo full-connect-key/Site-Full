@@ -538,6 +538,7 @@ function fck_seed_content(): array {
 			'plastico-brasil' => array( 'title' => 'Plástico Brasil', 'logo' => 'clients/plastico-brasil.png', 'order' => 18 ),
 			'catarinense-implantes' => array( 'title' => 'Catarinense Implantes', 'logo' => 'clients/catarinense-implantes.png', 'order' => 19 ),
 			'nt-expo' => array( 'title' => 'NT Expo', 'logo' => 'clients/nt-expo.png', 'order' => 20 ),
+			'abf' => array( 'title' => 'ABF — Associação Brasileira de Franchising', 'logo' => 'clients/abf.png', 'order' => 21 ),
 		),
 
 		// Time (enviado pela Full em 24/10/2026; foto em app/seed/people/, convertida do RAW
