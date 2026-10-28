@@ -151,6 +151,12 @@ function fck_template_schemas(): array {
 
 		// -----------------------------------------------------------------
 		'ecosystem' => array(
+			array(
+				'id'          => 'presentation',
+				'title'       => 'Vídeo de apresentação',
+				'description' => 'Com vídeo cadastrado, todos os links para esta página (menu, Home, rodapé) abrem o vídeo numa janela sobre o site e a página sai do ar. Sem vídeo, a página volta.',
+				'fields'      => array( fck_f( 'media', 'video', 'Vídeo (MP4)' ) ),
+			),
 			$hero( true ),
 			array(
 				'id'     => 'solutions',

@@ -196,8 +196,26 @@ function path_for(array $entry): ?string
 	};
 }
 
+/**
+ * Vídeo de apresentação que substitui a página (plataformas e a visão geral
+ * do Ecossistema; ADR-022). Null se não houver vídeo válido.
+ */
+function entry_video(array $entry): ?array
+{
+	$id = match (true) {
+		$entry['type'] === 'platform'                                  => g($entry, 'identity')['video'] ?? 0,
+		$entry['type'] === 'page' && $entry['template'] === 'ecosystem' => g($entry, 'presentation')['video'] ?? 0,
+		default                                                        => 0,
+	};
+	$m = $id ? media_get((int) $id) : null;
+	return $m && media_is_video($m) ? $m : null;
+}
+
 function url_for(array $entry): string
 {
+	if (!is_preview() && ($video = entry_video($entry))) {
+		return url(uploads_rel() . '/' . $video['path']); // o JS abre na janela de vídeo
+	}
 	$path = path_for($entry) ?? '/';
 	$url  = url($path === '/' ? '/' : $path);
 	return is_preview() ? $url . '?preview=1' : $url;

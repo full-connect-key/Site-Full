@@ -384,7 +384,7 @@ button:disabled { cursor: not-allowed; }
 .mobile-menu__nav { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 2.5rem; padding-bottom: 2.5rem; padding-top: 1rem; }
 .mobile-menu__list { list-style: none; }
 .mobile-menu__list > li { border-bottom: 1px solid var(--line); }
-.mobile-menu__list > li > a { display: flex; align-items: center; min-height: 3.5rem; padding-block: 0.75rem; font-family: var(--font-display); font-size: var(--fs-display-s); }
+.mobile-menu__list > li > a, .mobile-menu__label { display: flex; align-items: center; min-height: 3.5rem; padding-block: 0.75rem; font-family: var(--font-display); font-size: var(--fs-display-s); }
 .mobile-menu__list a[aria-current='page'] { color: var(--accent); }
 .mobile-menu__sub { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; padding-bottom: 1rem; list-style: none; }
 .mobile-menu__sub a { display: flex; align-items: center; min-height: 2.75rem; font-size: var(--fs-small); color: var(--fg-2); }
@@ -1399,3 +1399,10 @@ textarea.field__input { resize: vertical; min-height: 9rem; }
 .eco__method { margin: 0; }
 .eco-home__summary { display: grid; gap: 0.125rem; }
 .eco-home__verb { font-weight: 600; color: var(--product-text); }
+
+/* Janela de vídeo das plataformas (ADR-022) */
+.video-modal { width: min(64rem, calc(100vw - 2 * var(--gutter))); max-width: none; padding: 0; border: 0; border-radius: 1.5rem; background: transparent; color: var(--fg); overflow: visible; }
+.video-modal::backdrop { background: color-mix(in srgb, var(--hero-black) 86%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.video-modal__box { position: relative; }
+.video-modal__video { display: block; width: 100%; max-height: 80svh; aspect-ratio: 16 / 9; border-radius: 1.5rem; background: var(--hero-black); }
+.video-modal__close { position: absolute; top: -3.5rem; right: 0; }

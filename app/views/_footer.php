@@ -109,5 +109,6 @@ $has_contacts = ! empty( $contacts['email'] ) || has_text( $contacts['phone'] ??
 </footer>
 
 <?php view( 'parts/cookie-banner' ); ?>
+<?php view( 'parts/video-modal' ); ?>
 </body>
 </html>

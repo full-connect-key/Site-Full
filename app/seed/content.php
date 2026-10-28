@@ -49,6 +49,7 @@ function fck_seed_content(): array {
 				'footer_nav'            => 'Navegação do rodapé', // (*)
 				'open_menu'             => 'Abrir menu',
 				'close_menu'            => 'Fechar menu',
+				'close_video'           => 'Fechar vídeo', // (*)
 				'open_submenu'          => 'Abrir submenu de {label}', // (*)
 				'back_to_top'           => 'Voltar ao topo',
 				'next_project'          => 'Próximo projeto',
@@ -255,7 +256,7 @@ function fck_seed_content(): array {
 				'title'    => 'Ecossistema Full',
 				'slug'     => 'ecossistema',
 				'template' => 'ecosystem',
-				'status'   => 'publish',
+				'status'   => 'publish', // os links abrem o vídeo de apresentação (ADR-022)
 				'order'    => 2,
 				'meta'     => array(
 					'hero'      => array(
@@ -554,6 +555,18 @@ function fck_seed_content(): array {
 			'spotify'    => array( 'title' => 'Spotify', 'logo' => 'credentials/spotify.png', 'order' => 4 ),
 			'tiktok-ads' => array( 'title' => 'TikTok Ads', 'logo' => 'credentials/tiktok-ads.png', 'order' => 5 ),
 		),
+
+		// Vídeos de apresentação das plataformas (enviados pela Full em 28/10/2026,
+		// em app/seed/videos/). Com vídeo, os links da plataforma abrem o vídeo e a
+		// página dela sai do ar (ADR-022).
+		'platform_videos' => array(
+			'mix'   => array( 'file' => 'videos/fullmix.mp4', 'alt' => 'Vídeo de apresentação do FullMix' ),
+			'dash'  => array( 'file' => 'videos/fulldash.mp4', 'alt' => 'Vídeo de apresentação do FullDash' ),
+			'leads' => array( 'file' => 'videos/fullleads.mp4', 'alt' => 'Vídeo de apresentação do FullLeads' ),
+			'match' => array( 'file' => 'videos/fullmatch.mp4', 'alt' => 'Vídeo de apresentação do FullMatch' ),
+			'hub'   => array( 'file' => 'videos/fullhub.mp4', 'alt' => 'Vídeo de apresentação do FullHub' ),
+		),
+		'ecosystem_video' => array( 'file' => 'videos/ecossistema.mp4', 'alt' => 'Vídeo de apresentação do Ecossistema Full' ),
 
 		'categories' => array(
 			'estrategia'    => 'Estratégia',

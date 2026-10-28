@@ -106,6 +106,18 @@ foreach (['page:cases', 'page:insights', 'page:press'] as $key) {
 	}
 }
 
+// Ecossistema: no site, as plataformas abrem vídeos e as páginas estão ocultas
+// (ADR-022). No banco de teste, os vídeos são retirados para manter a
+// cobertura das páginas do Ecossistema.
+foreach (db_all("SELECT id, draft FROM entries WHERE type = 'platform' OR seed_key = 'page:ecosystem'") as $row) {
+	$data = json_dec($row['draft']);
+	if (!empty($data['identity']['video']) || !empty($data['presentation']['video'])) {
+		unset($data['identity']['video'], $data['presentation']['video']);
+		entry_save_draft((int) $row['id'], ['draft' => json_enc($data)], 'seed');
+		entry_publish((int) $row['id']);
+	}
+}
+
 // Usuário editor para testes de permissão.
 if (!db_value('SELECT id FROM users WHERE email = ?', ['e2e-editor@localhost.test'])) {
 	create_user('e2e-editor@localhost.test', 'e2e-editor-pass-123', 'editor', 'Editor Teste');

@@ -85,6 +85,8 @@ final class Seeder
 		$this->migrateHubProblemOnce($c);
 		$this->migrateHomeHeadlineOnce($c);
 		$this->addCredentialsSectionOnce($c);
+		$this->platformVideosOnce($c['platform_videos'] ?? []);
+		$this->ecosystemVideoOnce($c['ecosystem_video'] ?? []);
 		$this->hidePagesOnce(['cases', 'insights', 'press'], 'hide-pages-2026-10');
 		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10', 'paraiso-saudavel' => 'client-paraiso-off-2026-10']);
 		$this->log[] = 'Concluído.';
@@ -543,6 +545,52 @@ final class Seeder
 		}
 		setting_set('seed_migrations', $done + ['home-copy-2026-10' => now()]);
 		$this->log[] = 'Textos da Home atualizados' . ($conflicts ? ' (' . count($conflicts) . ' edição(ões) do painel preservada(s): ' . implode(', ', $conflicts) . ')' : '') . '.';
+	}
+
+	/**
+	 * Cadastra o vídeo de apresentação de cada plataforma uma única vez
+	 * (video:<plataforma>). Se o campo já tiver outro vídeo escolhido no
+	 * painel, ele é mantido.
+	 */
+	private function platformVideosOnce(array $videos): void
+	{
+		$done      = (array) setting('seed_migrations', []);
+		$new       = [];
+		$conflicts = [];
+		foreach ($videos as $key => $def) {
+			$id = $this->ids['platform'][$key] ?? null;
+			if (!empty($done['video:' . $key]) || !$id) {
+				continue;
+			}
+			$mid = $this->photo('video:' . $key, $def, 'Vídeo enviado pela Full Connect Key (28/10/2026)');
+			if (!$mid) {
+				continue;
+			}
+			$this->migrateEntry($id, ['identity' => ['video' => $mid]], ['identity' => ['video' => null]], "platform:$key", $conflicts, tag: 'video');
+			$new['video:' . $key] = now();
+		}
+		if ($new) {
+			setting_set('seed_migrations', $done + $new);
+			$this->log[] = 'Vídeos das plataformas cadastrados (' . count($new) . ').';
+		}
+	}
+
+	/** Vídeo da visão geral do Ecossistema, uma única vez (video:ecosystem). */
+	private function ecosystemVideoOnce(array $def): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$id   = $this->ids['page']['ecosystem'] ?? null;
+		if (!$def || !empty($done['video:ecosystem']) || !$id) {
+			return;
+		}
+		$mid = $this->photo('video:ecosystem', $def, 'Vídeo enviado pela Full Connect Key (28/10/2026)');
+		if (!$mid) {
+			return;
+		}
+		$conflicts = [];
+		$this->migrateEntry($id, ['presentation' => ['video' => $mid]], ['presentation' => ['video' => null]], 'page:ecosystem', $conflicts, tag: 'video');
+		setting_set('seed_migrations', $done + ['video:ecosystem' => now()]);
+		$this->log[] = 'Vídeo do Ecossistema cadastrado.';
 	}
 
 	/**

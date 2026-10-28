@@ -156,10 +156,7 @@ function menu_tree(array $items): array
 	$current = rtrim(url(request_path()), '/');
 	$tree    = [];
 	foreach ($items as $it) {
-		$l = link_of($it['link'] ?? null);
-		if (!$l) {
-			continue;
-		}
+		$l        = link_of($it['link'] ?? null);
 		$children = [];
 		foreach ((array) ($it['children'] ?? []) as $c) {
 			$cl = link_of($c['link'] ?? null);
@@ -170,9 +167,17 @@ function menu_tree(array $items): array
 				$children[]        = $cl;
 			}
 		}
-		$href          = rtrim(strtok($l['href'], '?'), '/');
-		$l['current']  = $href === $current;
-		$l['ancestor'] = $href !== rtrim(url('/'), '/') && str_starts_with($current . '/', $href . '/');
+		if (!$l) {
+			// Destino oculto: com subitens, o item vira só um rótulo (ex.: Ecossistema Full com os vídeos).
+			$label = trim((string) ($it['link']['label'] ?? ''));
+			if (!$children || $label === '') {
+				continue;
+			}
+			$l = ['href' => '', 'label' => $label, 'external' => false];
+		}
+		$href          = $l['href'] === '' ? '' : rtrim((string) strtok($l['href'], '?'), '/');
+		$l['current']  = $href !== '' && $href === $current;
+		$l['ancestor'] = $href !== '' && $href !== rtrim(url('/'), '/') && str_starts_with($current . '/', $href . '/');
 		$l['children'] = $children;
 		$tree[]        = $l;
 	}

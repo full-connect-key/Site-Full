@@ -90,7 +90,7 @@ function route_public(string $path): void
 	}
 	if (count($segments) === 1) {
 		$page = entry_by_slug('page', $segments[0]);
-		if ($page && $page['template'] !== 'home') {
+		if ($page && $page['template'] !== 'home' && (!entry_video($page) || is_preview())) {
 			render_entry($page);
 			return;
 		}
@@ -99,7 +99,7 @@ function route_public(string $path): void
 		foreach (['platform', 'case', 'article'] as $type) {
 			if ($segments[0] === route_base($type)) {
 				$item = entry_by_slug($type, $segments[1]);
-				if ($item) {
+				if ($item && (!entry_video($item) || is_preview())) {
 					render_entry($item);
 					return;
 				}

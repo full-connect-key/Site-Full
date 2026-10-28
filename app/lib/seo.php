@@ -154,7 +154,7 @@ function render_sitemap(): never
 	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 	foreach (['page', 'platform', 'case', 'article'] as $type) {
 		foreach (entries_of($type) as $entry) {
-			if (!empty(g($entry, 'seo')['noindex'])) {
+			if (!empty(g($entry, 'seo')['noindex']) || entry_video($entry)) {
 				continue;
 			}
 			printf("<url><loc>%s</loc><lastmod>%s</lastmod></url>\n", e(url_for($entry)), e(date('Y-m-d', strtotime((string) $entry['updated_at']))));

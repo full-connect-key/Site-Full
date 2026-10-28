@@ -124,3 +124,15 @@
 - Em sites já instalados, o seed despublica as três uma única vez (`hide-pages-2026-10`). Na instalação nova, elas já nascem como rascunho.
 - Para trazer de volta, basta publicar a página no painel: menu e rodapé voltam junto.
 - Os modelos continuam no código. O banco de teste republica as três para manter a cobertura dos testes.
+
+## ADR-022 — Ecossistema em vídeo (páginas ocultas por enquanto)
+- Pedido do cliente (28/10/2026): por enquanto, ninguém deve ver as páginas do Ecossistema. Quem clicar para saber mais vê o vídeo de apresentação.
+- Painel: cada plataforma ganhou o campo "Vídeo de apresentação" (Identidade) e a página Ecossistema ganhou o grupo "Vídeo de apresentação". Quando o vídeo está cadastrado:
+  - todo link para aquela página (menu, submenu, menu do celular, lista e botão da Home, rodapé) aponta para o arquivo de vídeo, porque `url_for` devolve o vídeo;
+  - o JS (`video-modal.js`) abre o vídeo numa janela sobre a página. Esc, o botão ou um clique fora fecham, o vídeo para e o foco volta ao link. O nome da janela é o nome do link. Sem JS, o navegador abre o arquivo;
+  - a página responde 404 (exceto em preview) e sai do sitemap.
+- Sem vídeo, tudo volta a ser como antes. Para reativar uma página, basta tirar o vídeo no painel.
+- Vídeos enviados: Ecossistema (visão geral), FullMix, FullDash, FullLeads, FullMatch e FullHub. Todos em 1080p H.264 + AAC, de 10 a 20 MB, remuxados com `faststart` para começar a tocar antes de baixar inteiros (`app/seed/videos/`). O seed cadastra cada vídeo uma única vez (`video:<plataforma>` e `video:ecosystem`) e mantém um vídeo diferente que já tenha sido escolhido no painel.
+- Menu: um item cujo destino está oculto e que tem subitens vira só rótulo, em vez de sumir com os subitens.
+- Pendente: os vídeos não têm legendas (WCAG 1.2.2). Com arquivos .vtt, dá para acrescentar a faixa de legenda no player.
+- O banco de teste retira os vídeos para manter a cobertura das páginas do Ecossistema.

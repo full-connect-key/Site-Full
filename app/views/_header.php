@@ -88,6 +88,8 @@ $skip     = ui( 'a11y', 'skip_to_content' );
 					<li>
 						<?php if ( $item['href'] ) : ?>
 							<a href="<?php echo e( $item['href'] ); ?>"<?php echo $item['current'] ? ' aria-current="page"' : ''; ?>><?php echo e( $item['label'] ); ?></a>
+						<?php else : ?>
+							<span class="mobile-menu__label"><?php echo e( $item['label'] ); ?></span>
 						<?php endif; ?>
 						<?php if ( $item['children'] ) : ?>
 							<ul class="mobile-menu__sub">

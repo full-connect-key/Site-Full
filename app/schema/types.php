@@ -22,6 +22,7 @@ function fck_type_schemas(): array {
 					fck_textarea( 'card_text', 'Card no Ecossistema — texto (2 frases)', 400 ),
 					fck_textarea( 'connects', 'Card no Ecossistema — "Como se conecta"', 200 ),
 					fck_image( 'eco_image', 'Imagem no Ecossistema (opcional)' ),
+					fck_f( 'media', 'video', 'Vídeo de apresentação (MP4) — substitui a página', array( 'help' => 'Com vídeo cadastrado, todos os links desta plataforma abrem o vídeo numa janela sobre o site e a página dela sai do ar. Sem vídeo, a página volta.' ) ),
 				),
 			),
 			array(

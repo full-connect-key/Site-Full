@@ -29,6 +29,7 @@ function fck_ui_definition(): array {
 			'footer_nav'          => array( 'Nome da navegação do rodapé', 60 ),
 			'open_menu'           => array( 'Abrir menu', 40 ),
 			'close_menu'          => array( 'Fechar menu', 40 ),
+			'close_video'         => array( 'Fechar vídeo', 40 ),
 			'open_submenu'        => array( 'Abrir submenu', 60, 'Use {label} para o nome do item.' ),
 			'back_to_top'         => array( 'Voltar ao topo', 40 ),
 			'next_project'        => array( 'Próximo projeto', 40 ),
