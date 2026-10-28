@@ -71,7 +71,7 @@ $skip     = ui( 'a11y', 'skip_to_content' );
 		<?php endif; ?>
 
 		<div class="site-header__actions">
-			<?php button( $cta, 'primary', array( 'arrow' => false, 'class' => 'btn--sm btn--highlight site-header__cta' ) ); ?>
+			<?php button( $cta, 'primary', array( 'arrow' => false, 'class' => 'btn--sm site-header__cta' ) ); ?>
 			<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="<?php echo e( ui( 'a11y', 'open_menu' ) ); ?>" data-menu-toggle data-label-open="<?php echo e( ui( 'a11y', 'open_menu' ) ); ?>" data-label-close="<?php echo e( ui( 'a11y', 'close_menu' ) ); ?>">
 				<span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span></span>
 			</button>
