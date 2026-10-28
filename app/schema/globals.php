@@ -234,8 +234,9 @@ function fck_global_schemas(): array {
 			array(
 				'id'          => 'cookies',
 				'title'       => 'Cookies',
-				'description' => 'Hoje o site usa apenas o essencial e não grava cookies opcionais. Decisão a validar com o jurídico.',
+				'description' => 'Ferramentas opcionais só carregam depois do consentimento do visitante no banner (LGPD).',
 				'fields'      => array(
+					fck_text( 'ga4_id', 'Google Analytics 4 — ID de medição', 20, array( 'help' => 'Formato G-XXXXXXXXXX. Vazio = sem Analytics. Só carrega para quem aceitar os cookies de análise.' ) ),
 					fck_f(
 						'select',
 						'banner_mode',
@@ -243,7 +244,7 @@ function fck_global_schemas(): array {
 						array(
 							'no_empty' => true,
 							'options'  => array(
-								'auto'   => 'Automático — só quando houver ferramentas opcionais aprovadas',
+								'auto'   => 'Automático — só quando houver ferramentas opcionais (ex.: Analytics)',
 								'always' => 'Sempre exibir',
 								'never'  => 'Nunca exibir',
 							),

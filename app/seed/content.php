@@ -35,7 +35,7 @@ function fck_seed_content(): array {
 				'title_template'      => '%s | Full Connect Key',
 				'default_description' => 'Conectamos estratégia, criatividade, tecnologia, marketing e vendas para transformar desafios em oportunidades e resultados.',
 			),
-			'cookies'      => array( 'banner_mode' => 'auto' ),
+			'cookies'      => array( 'banner_mode' => 'auto', 'ga4_id' => 'G-0YXD3R9VJK' ), // GA4 informado pela Full em 28/10/2026
 		),
 
 		// ------------------------------------------------------------------

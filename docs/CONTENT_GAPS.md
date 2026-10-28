@@ -29,3 +29,5 @@ Sem dados fictícios: enquanto um item não chega, a seção correspondente fica
 **Recebido:** sócios completos (nomes, cargos, bios e retratos de Rita Frare, Emerson Aguiar e Felipe Pelá — publicados); assinatura "powered by 4REAL" no logo do FullMatch confirmada pelo cliente (mantida); logos oficiais da Full (completo e compacto, versões para fundo escuro e claro) e das 5 plataformas (escuro e claro), e a tipografia Google Sans.
 
 - **Faixa de credenciais (26/10/2026):** aprovar o título sugerido "Credenciada pelas plataformas que movem o mercado." e informar o nível de cada credencial, se houver (ex.: Google Partner Premier). Se possível, enviar os logos em SVG ou em resolução maior.
+
+- **Analytics ativo (28/10/2026):** com o GA4 ligado, o banner de cookies aparece. Falta publicar a Política de Cookies (texto jurídico) e preencher "Descrição — análise" em Configurações › Textos de interface › Banner de cookies.

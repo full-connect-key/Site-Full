@@ -1,8 +1,8 @@
 <?php
 /**
  * Banner e central de preferências de cookies.
- * Nada opcional é carregado sem consentimento; hoje não há ferramentas
- * opcionais aprovadas (assets/js/modules/consent.js → OPTIONAL_TOOLS vazio).
+ * Nada opcional é carregado sem consentimento. Ferramenta opcional hoje:
+ * Google Analytics 4 (Configurações › Cookies), em assets/js/modules/cookies.js.
  */
 
 defined( 'FCK_ROOT' ) || exit;
@@ -33,7 +33,11 @@ $row = static function ( string $key, bool $locked = false ) use ( $c ): void {
 	<?php
 };
 ?>
-<div data-module="cookies" data-mode="<?php echo e( $mode ); ?>">
+<?php
+$ga4 = strtoupper( trim( (string) ( site( 'cookies' )['ga4_id'] ?? '' ) ) );
+$ga4 = preg_match( '/^G-[A-Z0-9]{4,16}$/', $ga4 ) ? $ga4 : '';
+?>
+<div data-module="cookies" data-mode="<?php echo e( $mode ); ?>"<?php echo $ga4 ? ' data-ga4="' . e( $ga4 ) . '"' : ''; ?>>
 	<section class="cookie-banner" data-theme="dark" aria-labelledby="cookie-title" data-cookie-banner hidden>
 		<h2 id="cookie-title"><?php echo e( $c( 'title' ) ); ?></h2>
 		<p>

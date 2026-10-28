@@ -148,3 +148,10 @@
 - Proposta A aprovada na segunda rodada (`docs/prototipos-cabecalho-2/`). Não há caixa nem fundo no topo: o logo completo fica à esquerda, e o menu e "Conheça o ecossistema" à direita. O CTA é um link de texto com sublinhado ciano (ícone de play), sem caixa.
 - Ao rolar, aparece uma faixa escura (92%) com desfoque e linha embaixo. O cabeçalho afina de 6rem para 4,5rem e o logo vai de 3,75rem para 2,75rem. Continua escondendo ao descer e aparecendo ao subir.
 - A barra flutuante de vidro e o brilho pulsante do botão (ADR-017/023) saíram. No menu do celular, o botão de fechar fica no mesmo lugar do botão de abrir.
+
+## ADR-025 — Google Analytics 4 com consentimento
+- Pedido do cliente (28/10/2026): GA4 com o ID G-0YXD3R9VJK, editável em Configurações do site › Cookies › "Google Analytics 4 — ID de medição". Com o campo vazio, não há Analytics.
+- LGPD: o gtag.js só é baixado depois que o visitante aceita os cookies de análise no banner ("Aceitar todos" ou a central de preferências). Usa o Consent Mode v2, com padrão negado e anúncios sempre negados. Se o visitante recusar depois, o consentimento é atualizado e a medição para. Sem aceite, nenhuma requisição vai ao Google.
+- Com o ID preenchido, o banner passa a aparecer (modo "Automático"). Evento extra: `video_open`, com o nome do arquivo, quando alguém abre um vídeo do Ecossistema.
+- A CSP libera só os domínios do GA4 (googletagmanager.com, google-analytics.com, analytics.google.com).
+- Pendências (jurídico): a descrição de "Cookies de análise" está vazia e a Política de Cookies está em rascunho. Por isso o link "Política de Cookies" do banner ainda não leva a uma página. É recomendável publicar a política antes de divulgar o site.

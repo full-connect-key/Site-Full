@@ -45,7 +45,7 @@ function send_security_headers(): void
 	if (fck_is_production() && str_starts_with(base_url(), 'https://')) {
 		header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 	}
-	header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-" . csp_nonce() . "'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self'; font-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'");
+	header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-" . csp_nonce() . "' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.google-analytics.com https://*.googletagmanager.com; media-src 'self'; font-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'");
 	if (is_preview()) {
 		header('Cache-Control: no-store');
 	}

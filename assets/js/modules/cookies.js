@@ -1,11 +1,40 @@
 /**
- * Consentimento de cookies. A escolha fica em localStorage (nenhum cookie é
- * gravado). Nenhuma ferramenta opcional está aprovada: OPTIONAL_TOOLS vazio.
- * Scripts futuros devem ser carregados com loadIfConsented().
+ * Consentimento de cookies (LGPD). A escolha fica em localStorage. Ferramentas
+ * opcionais só carregam depois do "sim" da categoria delas:
+ * - Google Analytics 4 (análise), ID em Configurações › Cookies (data-ga4).
+ *   Usa o Consent Mode v2: padrão negado; ao aceitar, carrega gtag.js; ao
+ *   recusar depois, avisa o Google e para de medir.
  */
 export const CONSENT_KEY = 'fck:cookie-consent'
 export const CONSENT_VERSION = 1
-export const OPTIONAL_TOOLS = [] // ex.: { name: 'Analytics', category: 'analytics', src: '...' }
+let ga4Loaded = false
+
+/** Carrega o GA4 só com consentimento de análise; atualiza o Consent Mode se mudar. */
+function applyGa4(id, consent) {
+  if (!id) return
+  const granted = Boolean(consent?.analytics)
+  window.dataLayer = window.dataLayer || []
+  window.gtag = window.gtag || function gtag() { window.dataLayer.push(arguments) }
+  if (!ga4Loaded) {
+    if (!granted) return
+    window.gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })
+    window.gtag('consent', 'update', { analytics_storage: 'granted' })
+    window.gtag('js', new Date())
+    window.gtag('config', id, { anonymize_ip: true })
+    const s = document.createElement('script')
+    s.async = true
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`
+    document.head.appendChild(s)
+    ga4Loaded = true
+    // Vídeos de apresentação (Ecossistema): evento quando alguém abre um.
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href$=".mp4"], a[href$=".webm"]')
+      if (a && hasConsent('analytics')) window.gtag('event', 'video_open', { video: a.pathname.split('/').pop() })
+    })
+    return
+  }
+  window.gtag('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' })
+}
 
 export function readConsent() {
   try {
@@ -36,7 +65,10 @@ export default function cookies(el) {
   const dialog = el.querySelector('[data-cookie-dialog]')
   const form = el.querySelector('[data-cookie-form]')
   const mode = el.dataset.mode || 'auto'
-  const shouldShow = mode === 'always' || (mode === 'auto' && OPTIONAL_TOOLS.length > 0)
+  const ga4 = el.dataset.ga4 || ''
+  const shouldShow = mode === 'always' || (mode === 'auto' && Boolean(ga4))
+  applyGa4(ga4, readConsent())
+  window.addEventListener('fck:consent', (e) => applyGa4(ga4, e.detail))
 
   const syncForm = () => {
     const c = readConsent()
