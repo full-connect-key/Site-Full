@@ -55,6 +55,7 @@ final class Seeder
 		$this->teamOrderOnce($c['team'] ?? [], 'team-order-2026-10');
 		$this->teamOrderOnce($c['team'] ?? [], 'team-order-marcela-2026-10');
 		$this->gabrielaUpdateOnce($c['team']['gabriela-oliveira'] ?? []);
+		$this->teamPhotoSwapOnce('marcela-antunes', 'photo:marcela-antunes', $c['team']['marcela-antunes']['photo'] ?? [], 'team-marcela-foto-2026-10');
 		$this->teamCopyOnce('gabriela-oliveira', 'Conecta estratégia a execução.', $c['team']['gabriela-oliveira']['meta']['details']['connects'] ?? '', 'team-gabriela-2026-10');
 		$this->teamCopyOnce('monique-godoy', 'Conecta ideias criativas a conteúdos que geram conversas e engajamento de verdade.', $c['team']['monique-godoy']['meta']['details']['connects'] ?? '', 'team-monique-2026-10');
 		$this->credentials($c['credentials'] ?? []);
@@ -162,6 +163,23 @@ final class Seeder
 		$conflicts = [];
 		$this->migrateEntry($id, ['details' => ['photo' => $new_photo, 'role' => $p['meta']['details']['role']]], ['details' => ['photo' => $old_photo ?: null, 'role' => 'Gerente de Projetos']], 'team:gabriela-oliveira', $conflicts, tag: 'team');
 		setting_set('seed_migrations', $done + ['team-gabriela-foto-2026-10' => now()]);
+	}
+
+	/** Troca a foto de uma pessoa do time uma única vez, se ainda for a anterior. */
+	private function teamPhotoSwapOnce(string $slug, string $old_key, array $def, string $key): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$id   = $this->find('team:' . $slug);
+		if (!empty($done[$key]) || !$id || empty($def['key'])) {
+			return;
+		}
+		$old       = (int) db_value('SELECT id FROM media WHERE seed_key = ?', [$old_key]);
+		$new       = $this->photo($def['key'], $def);
+		$conflicts = [];
+		if ($old && $new) {
+			$this->migrateEntry($id, ['details' => ['photo' => $new]], ['details' => ['photo' => $old]], "team:$slug", $conflicts, tag: 'team');
+		}
+		setting_set('seed_migrations', $done + [$key => now()]);
 	}
 
 	/** Aplica a ordem do time definida pelo cliente (campo Ordem), uma única vez. */
