@@ -56,7 +56,7 @@ test.describe('Ecossistema — estrutura e conteúdo', () => {
   test('Home e Ecossistema: ordem da jornada, verbos, cliente no centro e nota de independência', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('.eco-home__verb')).toHaveText(platforms.map((p) => p.verb))
-    await expect(page.locator('.hero__title')).toContainText('Ative o modo Full.')
+    await expect(page.locator('.hero__title')).toContainText('Ative o modo Full nos seus negócios.')
     await page.goto('/ecossistema')
     await expect(page.locator('.eco__tab-name')).toHaveText(platforms.map((p) => p.name))
     await expect(page.locator('h1')).toHaveText('Cinco soluções. Infinitas possibilidades de conexão.')
