@@ -730,7 +730,7 @@ button:disabled { cursor: not-allowed; }
 }
 .team-card__inner::after { content: ''; position: absolute; inset: 0; border: 1px solid transparent; border-radius: inherit; transition: border-color 0.5s; pointer-events: none; }
 .team-card__media { position: absolute; inset: 0; }
-.team-card__media img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: filter 0.6s, transform 0.9s var(--ease-out); pointer-events: none; }
+.team-card__media img { width: 100%; height: 100%; object-fit: cover; filter: none; transition: filter 0.6s, transform 0.9s var(--ease-out); pointer-events: none; }
 .team-card__caption {
   position: absolute; inset: auto 0 0 0; padding: clamp(0.875rem, 2vw, 1.25rem);
   background: linear-gradient(transparent, color-mix(in srgb, var(--hero-black) 90%, transparent) 55%);
@@ -743,7 +743,7 @@ button:disabled { cursor: not-allowed; }
 .team-card__inner:focus-visible { outline-offset: 4px; }
 .team-card__inner:hover, .team-card__inner:focus-visible { transform: translateY(-0.5rem); box-shadow: 0 1.5rem 3.75rem -1.25rem color-mix(in srgb, var(--brand-cyan) 45%, transparent); }
 .team-card__inner:hover::after, .team-card__inner:focus-visible::after { border-color: var(--brand-cyan); }
-.team-card__inner:hover img, .team-card__inner:focus-visible img { filter: none; transform: scale(1.06); }
+.team-card__inner:hover img, .team-card__inner:focus-visible img { filter: grayscale(1); transform: scale(1.06); } /* coloridas em repouso; P&B no hover (pedido do cliente) */
 /* Só com mouse a frase fica guardada até o hover; no toque, sempre visível. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .team-card__more { grid-template-rows: 0fr; }
@@ -751,7 +751,6 @@ button:disabled { cursor: not-allowed; }
   .team-card__inner:hover .team-card__more, .team-card__inner:focus-visible .team-card__more { grid-template-rows: 1fr; }
   .team-card__inner:hover .team-card__connects, .team-card__inner:focus-visible .team-card__connects { opacity: 1; }
 }
-@media (hover: none) { .team-card__media img { filter: none; } }
 /* Celular: o texto vai para baixo da foto, para não cobrir o rosto (frases longas). */
 @media (max-width: 47.99rem) {
   .team-card__inner { aspect-ratio: auto; background: transparent; overflow: visible; }

@@ -104,7 +104,7 @@
 
 ## ADR-018 — O Time em grade de retratos (proposta A)
 - Proposta A aprovada (protótipos e vídeos em `docs/prototipos-time/`). A galeria arrastável deu lugar a uma grade: 2 colunas no celular, 3 no tablet e 4 no desktop. As setas e o módulo `drag-scroll.js` saíram.
-- Animação: os cards entram em sequência (o `.reveal` do site, com 0,12 s de atraso entre um e outro). Com hover ou foco de teclado, o card sobe 0,5rem com brilho e contorno azuis, a foto sai do preto e branco com leve zoom e a frase "Conecta X a Y." se abre sob o cargo.
+- Animação: os cards entram em sequência (o `.reveal` do site, com 0,12 s de atraso entre um e outro). Com hover ou foco de teclado, o card sobe 0,5rem com brilho e contorno azuis, a foto fica em preto e branco com leve zoom (desde 28/10/2026, a pedido do cliente, as fotos ficam coloridas em repouso, como nos sócios) e a frase "Conecta X a Y." se abre sob o cargo.
 - Acessibilidade: cada card recebe foco pelo teclado e mostra o mesmo estado do hover. Em telas de toque, foto colorida e frase sempre visíveis. No celular (abaixo de 48rem), nome, cargo e frase ficam abaixo da foto para não cobrir o rosto. Com movimento reduzido, nada se move e a frase fica sempre visível.
 - Só pessoas reais com foto aparecem. Não há espaços vazios no site; os tracejados existem só nos protótipos.
 
