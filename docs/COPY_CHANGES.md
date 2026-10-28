@@ -82,3 +82,11 @@ As fotos foram convertidas do RAW (IMG_9927.CR2, IMG_9980_1.CR2, IMG_0030_1_1.CR
 Os dois pedidos são do cliente. A assinatura do rodapé e o título do CTA do Ecossistema continuam com "O que se conecta, se multiplica.", porque o pedido foi só para o hero. No site no ar, as duas mudanças acontecem uma única vez (`home-headline-2026-10` e `client-brentwood-off-2026-10`). A Brentwood fica despublicada, não apagada, e pode voltar pelo painel.
 
 Correção técnica junto: o nome da ação gravada no histórico de revisões é limitado a 20 caracteres, e a migração agora corta rótulos maiores. Sem isso, a atualização automática pararia com erro.
+
+## Assinatura / slogan do hero (28/10/2026)
+
+| Onde | Antes | Agora |
+|---|---|---|
+| Configurações › Marca › Assinatura institucional (título que alterna no hero da Home) | "Vire a chave dos seus resultados. Ative o modo Full." | "Vire a chave dos resultados. Ative o modo Full nos seus negócios." |
+
+Pedido do cliente. No site no ar, a troca acontece uma única vez (`signature-2026-10`) e só se a assinatura ainda for a anterior. A segunda frase continua em destaque azul.

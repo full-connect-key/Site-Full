@@ -91,6 +91,7 @@ final class Seeder
 		$this->platformVideosOnce($c['platform_videos'] ?? []);
 		$this->ecosystemVideoOnce($c['ecosystem_video'] ?? []);
 		$this->headerCtaOnce($c['site']['header']['cta']);
+		$this->signatureOnce('Vire a chave dos seus resultados. Ative o modo Full.', $c['site']['brand']['signature'], 'signature-2026-10');
 		$this->hidePagesOnce(['cases', 'insights', 'press'], 'hide-pages-2026-10');
 		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10', 'paraiso-saudavel' => 'client-paraiso-off-2026-10']);
 		$this->log[] = 'Concluído.';
@@ -607,6 +608,28 @@ final class Seeder
 			setting_set('seed_migrations', $done + $new);
 			$this->log[] = 'Vídeos das plataformas cadastrados (' . count($new) . ').';
 		}
+	}
+
+	/** Troca a assinatura institucional (título alternado do hero) uma única vez, se ainda for a anterior. */
+	private function signatureOnce(string $old, string $new, string $key): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$id   = $this->find('global:site');
+		if (!empty($done[$key]) || !$id) {
+			return;
+		}
+		$row   = entry_raw($id);
+		$draft = json_dec($row['draft']);
+		if (($draft['brand']['signature'] ?? '') === $old || empty($draft['brand']['signature'])) {
+			$clean                       = $row['status'] === 'published';
+			$draft['brand']['signature'] = $new;
+			entry_save_draft($id, ['draft' => json_enc($draft)], 'seed');
+			if ($clean) {
+				entry_publish($id);
+			}
+			$this->log[] = 'Assinatura atualizada.';
+		}
+		setting_set('seed_migrations', $done + [$key => now()]);
 	}
 
 	/**
