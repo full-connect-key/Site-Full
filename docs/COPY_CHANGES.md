@@ -65,6 +65,7 @@ Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-
 | Victor Fávaro | Diretor de Arte | "Conecta conceitos a soluções criativas." |
 | Monique Godoy | Social Media | "Conecta ideias criativas a engajamento real." (ponto final acrescentado; substitui a primeira versão, mais longa) |
 | Giovanna Marino | Diretora de Arte | "Conecta conceitos a imagens." |
+| Giovanna Bellucci | Diretora de Arte | "Conecta referências a possibilidades." (foto enviada em JPG 1333×2000, recortada e ampliada para o padrão 1400×2100) |
 
 As fotos foram convertidas do RAW (IMG_9927.CR2, IMG_9980_1.CR2, IMG_0030_1_1.CR2 e IMG_0004.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). A seção usa a grade de retratos do ADR-018.
 

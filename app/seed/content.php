@@ -547,6 +547,7 @@ function fck_seed_content(): array {
 			'victor-favaro'     => array( 'title' => 'Victor Fávaro', 'photo' => array( 'file' => 'people/victor-favaro.jpg', 'alt' => 'Retrato de Victor Fávaro', 'focal' => '50% 30%' ), 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Diretor de Arte', 'connects' => 'Conecta conceitos a soluções criativas.' ) ) ),
 			'monique-godoy'     => array( 'title' => 'Monique Godoy', 'photo' => array( 'file' => 'people/monique-godoy.jpg', 'alt' => 'Retrato de Monique Godoy', 'focal' => '50% 30%' ), 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Social Media', 'connects' => 'Conecta ideias criativas a engajamento real.' ) ) ),
 			'giovanna-marino'   => array( 'title' => 'Giovanna Marino', 'photo' => array( 'file' => 'people/giovanna-marino.jpg', 'alt' => 'Retrato de Giovanna Marino', 'focal' => '50% 30%' ), 'order' => 4, 'meta' => array( 'details' => array( 'role' => 'Diretora de Arte', 'connects' => 'Conecta conceitos a imagens.' ) ) ),
+			'giovanna-bellucci' => array( 'title' => 'Giovanna Bellucci', 'photo' => array( 'file' => 'people/giovanna-bellucci.jpg', 'alt' => 'Retrato de Giovanna Bellucci', 'focal' => '50% 30%' ), 'order' => 5, 'meta' => array( 'details' => array( 'role' => 'Diretora de Arte', 'connects' => 'Conecta referências a possibilidades.' ) ) ),
 		),
 
 		// Credenciais da agência (logos enviados pela Full em 26/10/2026, em app/seed/credentials/).
