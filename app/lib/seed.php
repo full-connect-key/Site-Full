@@ -52,6 +52,7 @@ final class Seeder
 		$this->publishPartnersOnce($partners);
 		$this->clients($c['clients'] ?? []);
 		$this->team($c['team'] ?? []);
+		$this->teamCopyOnce('monique-godoy', 'Conecta ideias criativas a conteúdos que geram conversas e engajamento de verdade.', $c['team']['monique-godoy']['meta']['details']['connects'] ?? '', 'team-monique-2026-10');
 		$this->credentials($c['credentials'] ?? []);
 		$order = 0;
 		foreach ($c['categories'] as $slug => $name) {
@@ -138,6 +139,20 @@ final class Seeder
 		}
 		$this->log[] = 'Mídia importada: ' . ($def['alt'] ?? $def['file']);
 		return (int) $mid;
+	}
+
+	/** Troca a frase de uma pessoa do time uma única vez, se ainda estiver com a versão anterior. */
+	private function teamCopyOnce(string $slug, string $old, string $new, string $key): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done[$key]) || $new === '') {
+			return;
+		}
+		$conflicts = [];
+		if ($id = $this->find('team:' . $slug)) {
+			$this->migrateEntry($id, ['details' => ['connects' => $new]], ['details' => ['connects' => $old]], "team:$slug", $conflicts, tag: 'team');
+		}
+		setting_set('seed_migrations', $done + [$key => now()]);
 	}
 
 	/**
