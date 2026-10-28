@@ -53,6 +53,7 @@ final class Seeder
 		$this->clients($c['clients'] ?? []);
 		$this->team($c['team'] ?? []);
 		$this->teamOrderOnce($c['team'] ?? [], 'team-order-2026-10');
+		$this->gabrielaUpdateOnce($c['team']['gabriela-oliveira'] ?? []);
 		$this->teamCopyOnce('gabriela-oliveira', 'Conecta estratégia a execução.', $c['team']['gabriela-oliveira']['meta']['details']['connects'] ?? '', 'team-gabriela-2026-10');
 		$this->teamCopyOnce('monique-godoy', 'Conecta ideias criativas a conteúdos que geram conversas e engajamento de verdade.', $c['team']['monique-godoy']['meta']['details']['connects'] ?? '', 'team-monique-2026-10');
 		$this->credentials($c['credentials'] ?? []);
@@ -144,6 +145,24 @@ final class Seeder
 		return (int) $mid;
 	}
 
+	/**
+	 * Gabriela (28/10/2026): nova foto e cargo "Gerente de Projetos e
+	 * Atendimento", uma única vez. Só troca o que ainda estiver como antes.
+	 */
+	private function gabrielaUpdateOnce(array $p): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$id   = $this->find('team:gabriela-oliveira');
+		if (!empty($done['team-gabriela-foto-2026-10']) || !$id || !$p) {
+			return;
+		}
+		$old_photo = (int) db_value('SELECT id FROM media WHERE seed_key = ?', ['photo:gabriela-oliveira']);
+		$new_photo = $this->photo($p['photo']['key'], $p['photo']);
+		$conflicts = [];
+		$this->migrateEntry($id, ['details' => ['photo' => $new_photo, 'role' => $p['meta']['details']['role']]], ['details' => ['photo' => $old_photo ?: null, 'role' => 'Gerente de Projetos']], 'team:gabriela-oliveira', $conflicts, tag: 'team');
+		setting_set('seed_migrations', $done + ['team-gabriela-foto-2026-10' => now()]);
+	}
+
 	/** Aplica a ordem do time definida pelo cliente (campo Ordem), uma única vez. */
 	private function teamOrderOnce(array $people, string $key): void
 	{
@@ -228,7 +247,7 @@ final class Seeder
 		foreach ($people as $slug => $p) {
 			$id   = $this->ensure('team', 'team:' . $slug, $p + ['slug' => $slug]);
 			$meta = $p['meta'] ?? [];
-			if (!empty($p['photo']['file']) && ($mid = $this->photo('photo:' . $slug, $p['photo']))) {
+			if (!empty($p['photo']['file']) && ($mid = $this->photo($p['photo']['key'] ?? 'photo:' . $slug, $p['photo']))) {
 				$meta['details']['photo'] = $mid;
 			}
 			$this->complete($id, $meta);
@@ -302,7 +321,8 @@ final class Seeder
 
 	/**
 	 * Completa no rascunho só os campos vazios (nunca sobrescreve o que foi
-	 * editado no painel e não publica). Usado para dados que chegaram depois
+	 * editado no painel). Republica só se o registro estava publicado sem
+	 * rascunho pendente. Usado para dados que chegaram depois
 	 * da instalação, como os cargos dos sócios.
 	 */
 	private function complete(int $id, array $meta): void
@@ -310,7 +330,9 @@ final class Seeder
 		if (!$id || !$meta) {
 			return;
 		}
-		$draft   = json_dec(entry_raw($id)['draft'] ?? null);
+		$row     = entry_raw($id);
+		$clean   = ($row['status'] ?? '') === 'published'; // publicado e sem rascunho pendente
+		$draft   = json_dec($row['draft'] ?? null);
 		$changed = false;
 		foreach ($meta as $group => $fields) {
 			foreach ((array) $fields as $k => $v) {
@@ -323,7 +345,10 @@ final class Seeder
 		}
 		if ($changed) {
 			entry_save_draft($id, ['draft' => json_enc($draft)], 'seed');
-			$this->log[] = 'Completado: ' . entry_raw($id)['title'];
+			if ($clean) {
+				entry_publish($id); // dado novo num registro já no ar (ex.: frase do time) vai junto
+			}
+			$this->log[] = 'Completado: ' . $row['title'] . ($clean ? ' (publicado)' : '');
 		}
 		unset($this->fresh[$id]);
 	}
