@@ -1,6 +1,6 @@
 <?php
 /**
- * Home 2a — Faixa de credenciais (ADR-020): título fixo à esquerda e os logos
+ * Home 12 — Faixa de credenciais, no fim da página (ADR-020): título fixo à esquerda e os logos
  * das plataformas correndo sem parar à direita. Com movimento reduzido, os
  * logos ficam parados, em grade.
  */

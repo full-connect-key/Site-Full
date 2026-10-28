@@ -42,12 +42,6 @@ function fck_template_schemas(): array {
 				'fields'      => array( fck_enabled() ),
 			),
 			array(
-				'id'          => 'credentials',
-				'title'       => '2a. Faixa de credenciais',
-				'description' => 'Faixa contínua com as plataformas em que a agência é credenciada (menu Credenciais). Sem credenciais publicadas, a faixa não aparece.',
-				'fields'      => array( fck_enabled(), fck_text( 'eyebrow', 'Chamada acima do título', 40 ), fck_text( 'title', 'Título', 120 ) ),
-			),
-			array(
 				'id'     => 'essence',
 				'title'  => '3. Nossa Essência',
 				'fields' => array(
@@ -115,6 +109,12 @@ function fck_template_schemas(): array {
 				'id'     => 'footer_cta',
 				'title'  => '11. CTA final',
 				'fields' => array( fck_enabled(), fck_text( 'title', 'Título', 120 ), fck_textarea( 'text', 'Texto', 300 ), fck_link_field() ),
+			),
+			array(
+				'id'          => 'credentials',
+				'title'       => '12. Faixa de credenciais (fim da página)',
+				'description' => 'Faixa contínua com as plataformas em que a agência é credenciada (menu Credenciais). Sem credenciais publicadas, a faixa não aparece.',
+				'fields'      => array( fck_enabled(), fck_text( 'eyebrow', 'Chamada acima do título', 40 ), fck_text( 'title', 'Título', 120 ) ),
 			),
 			fck_seo_group(),
 		),
