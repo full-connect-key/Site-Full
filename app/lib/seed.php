@@ -85,6 +85,7 @@ final class Seeder
 		$this->migrateHubProblemOnce($c);
 		$this->migrateHomeHeadlineOnce($c);
 		$this->addCredentialsSectionOnce($c);
+		$this->hidePagesOnce(['cases', 'insights', 'press'], 'hide-pages-2026-10');
 		$this->removeClientsOnce(['brentwood' => 'client-brentwood-off-2026-10', 'paraiso-saudavel' => 'client-paraiso-off-2026-10']);
 		$this->log[] = 'Concluído.';
 		return $this->log;
@@ -542,6 +543,27 @@ final class Seeder
 		}
 		setting_set('seed_migrations', $done + ['home-copy-2026-10' => now()]);
 		$this->log[] = 'Textos da Home atualizados' . ($conflicts ? ' (' . count($conflicts) . ' edição(ões) do painel preservada(s): ' . implode(', ', $conflicts) . ')' : '') . '.';
+	}
+
+	/**
+	 * Oculta páginas a pedido do cliente (28/10/2026: Cases, Insights e Full na
+	 * Mídia), uma única vez: despublica. Itens de menu que apontam para elas
+	 * somem sozinhos; republicar no painel traz tudo de volta.
+	 */
+	private function hidePagesOnce(array $pages, string $key): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		if (!empty($done[$key])) {
+			return;
+		}
+		foreach ($pages as $page) {
+			$id = $this->ids['page'][$page] ?? null;
+			if ($id && entry_raw($id)['published'] !== null) {
+				entry_unpublish($id);
+				$this->log[] = 'Página ocultada: ' . $page . '.';
+			}
+		}
+		setting_set('seed_migrations', $done + [$key => now()]);
 	}
 
 	/**

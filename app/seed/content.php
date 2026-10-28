@@ -289,7 +289,7 @@ function fck_seed_content(): array {
 				'title'    => 'Cases',
 				'slug'     => 'cases',
 				'template' => 'cases',
-				'status'   => 'publish',
+				'status'   => 'draft', // oculta a pedido do cliente (28/10/2026)
 				'order'    => 3,
 				'meta'     => array(
 					'hero'    => array(
@@ -330,7 +330,7 @@ function fck_seed_content(): array {
 				'title'    => 'Insights Full',
 				'slug'     => 'insights',
 				'template' => 'insights',
-				'status'   => 'publish',
+				'status'   => 'draft', // oculta a pedido do cliente (28/10/2026)
 				'order'    => 4,
 				'meta'     => array(
 					'hero'    => array(
@@ -372,7 +372,7 @@ function fck_seed_content(): array {
 				'title'    => 'Full na Mídia',
 				'slug'     => 'full-na-midia',
 				'template' => 'press',
-				'status'   => 'publish',
+				'status'   => 'draft', // oculta a pedido do cliente (28/10/2026)
 				'order'    => 5,
 				'meta'     => array(
 					'hero'    => array(

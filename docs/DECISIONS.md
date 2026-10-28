@@ -118,3 +118,9 @@
 - Logos enviados: Google Ads, Meta, RD Station, Spotify e TikTok Ads, em versão branca (`app/seed/credentials/`). Os arquivos têm só 52 a 103 px de altura e podem ficar um pouco suaves em telas de alta densidade. Versões em SVG ou maiores melhoram a nitidez.
 - O título "Credenciada pelas plataformas que movem o mercado." e a chamada "Credenciais" foram criados no desenvolvimento (marcados com (*)) e aguardam aprovação. Os dois podem ser editados no painel.
 - Em sites já instalados, o seed cria e publica as credenciais uma única vez (`credential:<slug>`) e preenche os textos da seção (`home-credentials-2026-10`).
+
+## ADR-021 — Cases, Insights e Full na Mídia ocultas por enquanto
+- Pedido do cliente (28/10/2026). As três páginas foram despublicadas e voltam a rascunho, sem perder conteúdo. Os itens de menu e de rodapé que apontam para elas somem sozinhos, e as URLs respondem 404 e saem do sitemap.
+- Em sites já instalados, o seed despublica as três uma única vez (`hide-pages-2026-10`). Na instalação nova, elas já nascem como rascunho.
+- Para trazer de volta, basta publicar a página no painel: menu e rodapé voltam junto.
+- Os modelos continuam no código. O banco de teste republica as três para manter a cobertura dos testes.

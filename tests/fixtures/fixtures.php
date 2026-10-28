@@ -97,6 +97,15 @@ for ($i = 1; $i <= 8; $i++) {
 setting_set('contact', ['recipients' => [['subject' => 'all', 'email' => 'contato-teste@localhost.test']], 'retention_months' => 12]);
 echo "Fixtures de teste aplicadas.\n";
 
+// Cases, Insights e Full na Mídia estão ocultas no site (decisão do cliente,
+// 28/10/2026), mas os modelos continuam no código: no banco de teste elas são
+// republicadas para manter a cobertura dos templates.
+foreach (['page:cases', 'page:insights', 'page:press'] as $key) {
+	if ($id = (int) db_value('SELECT id FROM entries WHERE seed_key = ? AND published IS NULL', [$key])) {
+		entry_publish($id);
+	}
+}
+
 // Usuário editor para testes de permissão.
 if (!db_value('SELECT id FROM users WHERE email = ?', ['e2e-editor@localhost.test'])) {
 	create_user('e2e-editor@localhost.test', 'e2e-editor-pass-123', 'editor', 'Editor Teste');
