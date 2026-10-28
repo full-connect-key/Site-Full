@@ -545,6 +545,7 @@ function fck_seed_content(): array {
 		'team'       => array(
 			'gabriela-oliveira' => array( 'title' => 'Gabriela Oliveira', 'photo' => array( 'file' => 'people/gabriela-oliveira.jpg', 'alt' => 'Retrato de Gabriela Oliveira', 'focal' => '50% 30%' ), 'order' => 1, 'meta' => array( 'details' => array( 'role' => 'Gerente de Projetos', 'connects' => 'Conecta estratégia a execução.' ) ) ),
 			'victor-favaro'     => array( 'title' => 'Victor Fávaro', 'photo' => array( 'file' => 'people/victor-favaro.jpg', 'alt' => 'Retrato de Victor Fávaro', 'focal' => '50% 30%' ), 'order' => 2, 'meta' => array( 'details' => array( 'role' => 'Diretor de Arte', 'connects' => 'Conecta conceitos a soluções criativas.' ) ) ),
+			'monique-godoy'     => array( 'title' => 'Monique Godoy', 'photo' => array( 'file' => 'people/monique-godoy.jpg', 'alt' => 'Retrato de Monique Godoy', 'focal' => '50% 30%' ), 'order' => 3, 'meta' => array( 'details' => array( 'role' => 'Social Media', 'connects' => 'Conecta ideias criativas a conteúdos que geram conversas e engajamento de verdade.' ) ) ),
 		),
 
 		// Credenciais da agência (logos enviados pela Full em 26/10/2026, em app/seed/credentials/).

@@ -747,7 +747,14 @@ button:disabled { cursor: not-allowed; }
   .team-card__inner:hover .team-card__connects, .team-card__inner:focus-visible .team-card__connects { opacity: 1; }
 }
 @media (hover: none) { .team-card__media img { filter: none; } }
-@media (max-width: 47.99rem) { .team-card__name { font-size: 0.9375rem; } .team-card__role { font-size: 0.8125rem; } .team-card__connects { font-size: 0.9375rem; margin-top: 0.25rem; } }
+/* Celular: o texto vai para baixo da foto, para não cobrir o rosto (frases longas). */
+@media (max-width: 47.99rem) {
+  .team-card__inner { aspect-ratio: auto; background: transparent; overflow: visible; }
+  .team-card__inner::after { display: none; }
+  .team-card__media { position: relative; aspect-ratio: 3 / 4; border-radius: 1.25rem; overflow: hidden; }
+  .team-card__caption { position: static; padding: 0.75rem 0 0; background: none; }
+  .team-card__name { font-size: 0.9375rem; } .team-card__role { font-size: 0.8125rem; } .team-card__connects { font-size: 0.9375rem; margin-top: 0.25rem; }
+}
 @media (prefers-reduced-motion: reduce) {
   .team-card__inner, .team-card__media img, .team-card__more { transition: none; }
   .team-card__inner:hover, .team-card__inner:focus-visible { transform: none; }

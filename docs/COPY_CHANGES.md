@@ -63,8 +63,9 @@ Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-
 |---|---|---|
 | Gabriela Oliveira | Gerente de Projetos | "Conecta estratégia a execução." (ponto final acrescentado, no padrão "Conecta X a Y.") |
 | Victor Fávaro | Diretor de Arte | "Conecta conceitos a soluções criativas." |
+| Monique Godoy | Social Media | "Conecta ideias criativas a conteúdos que geram conversas e engajamento de verdade." |
 
-As fotos foram convertidas do RAW (IMG_9927.CR2 e IMG_9980_1.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). A seção usa a grade de retratos do ADR-018.
+As fotos foram convertidas do RAW (IMG_9927.CR2, IMG_9980_1.CR2 e IMG_0030_1_1.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). A seção usa a grade de retratos do ADR-018.
 
 ## Hero da Home e faixa de logos (24/10/2026)
 
