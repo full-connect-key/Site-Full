@@ -107,3 +107,9 @@ Conteúdo P0 (ver `docs/CONTENT_GAPS.md`):
 
 ### Cache
 CSS, fontes e imagens ficam 1 ano no navegador: o CSS leva `?v=` e as mídias têm nomes únicos. O JavaScript é revalidado a cada visita (`no-cache`) e os módulos levam `?v=<commit>`. Depois de um deploy, ninguém fica com JS antigo, e não é preciso limpar o cache.
+
+## Domínio sem www (29/10/2026)
+- O `.htaccess` redireciona qualquer `www.` para o domínio sem www, já em https e mantendo o caminho e os parâmetros, num único 301. Exemplo: `https://www.fullconnectkey.com.br/sm?x=1` → `https://fullconnectkey.com.br/sm?x=1`.
+- Para funcionar, o `www` precisa apontar para a Hostinger (DNS) e o certificado SSL precisa cobrir também o `www`. Sem isso, o navegador mostra erro antes do redirecionamento.
+- Em `app/config.php`, `site.url` deve usar o domínio sem www (`https://fullconnectkey.com.br`).
+- Como testar depois do deploy: `curl -sI https://www.fullconnectkey.com.br/sm` deve responder `301` com `location: https://fullconnectkey.com.br/sm`.

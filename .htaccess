@@ -6,6 +6,11 @@ AddDefaultCharset UTF-8
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # www → sem www (ex.: www.fullconnectkey.com.br → fullconnectkey.com.br),
+  # direto para https e mantendo caminho e parâmetros, num único 301.
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301,NE]
+
   # HTTPS (ativo só quando o site já responde em https)
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
