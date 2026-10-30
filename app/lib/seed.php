@@ -93,6 +93,7 @@ final class Seeder
 		$this->addCredentialsSectionOnce($c);
 		$this->platformVideosOnce($c['platform_videos'] ?? []);
 		$this->ecosystemVideoOnce($c['ecosystem_video'] ?? []);
+		$this->ecosystemPageBackOnce();
 		$this->headerCtaOnce($c['site']['header']['cta']);
 		$this->signatureOnce('Vire a chave dos seus resultados. Ative o modo Full.', $c['site']['brand']['signature'], 'signature-2026-10');
 		$this->hidePagesOnce(['cases', 'insights', 'press'], 'hide-pages-2026-10');
@@ -700,6 +701,30 @@ final class Seeder
 			$this->log[] = 'Cabeçalho: botão "' . $cta['label'] . '".';
 		}
 		setting_set('seed_migrations', $done + ['header-cta-eco-2026-10' => now()]);
+	}
+
+	/**
+	 * A página Ecossistema volta ao ar (pedido do cliente, 30/10/2026): tira o
+	 * vídeo que a substituía, uma única vez. As plataformas continuam em vídeo.
+	 */
+	private function ecosystemPageBackOnce(): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$id   = $this->ids['page']['ecosystem'] ?? null;
+		if (!empty($done['ecosystem-page-back-2026-10']) || !$id) {
+			return;
+		}
+		$video = (int) db_value('SELECT id FROM media WHERE seed_key = ?', ['video:ecosystem']);
+		if ($video) {
+			$conflicts = [];
+			$this->migrateEntry($id, ['presentation' => ['video' => null]], ['presentation' => ['video' => $video]], 'page:ecosystem', $conflicts, tag: 'video');
+		}
+		$row = entry_raw($id);
+		if ($row && $row['published'] === null) {
+			entry_publish($id);
+		}
+		setting_set('seed_migrations', $done + ['ecosystem-page-back-2026-10' => now()]);
+		$this->log[] = 'Ecossistema: página de volta ao ar.';
 	}
 
 	/** Vídeo da visão geral do Ecossistema, uma única vez (video:ecosystem). */

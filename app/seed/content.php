@@ -22,7 +22,7 @@ function fck_seed_content(): array {
 				'site_name' => 'Full Connect Key',
 				'signature' => 'Vire a chave dos resultados. Ative o modo Full nos seus negócios.', // D2; texto atualizado pelo cliente em 28/10/2026
 			),
-			'header'       => array( 'cta' => array( 'label' => 'Conheça o ecossistema', 'to' => 'page:ecosystem' ) ), // pedido do cliente (28/10/2026): abre o vídeo do Ecossistema
+			'header'       => array( 'cta' => array( 'label' => 'Conheça o ecossistema', 'to' => 'page:ecosystem' ) ), // pedido do cliente: leva à página do Ecossistema
 			'footer'       => array(
 				'tagline'   => 'O que se conecta, se multiplica.',
 				'text'      => 'Estratégia, criatividade, tecnologia, marketing e vendas conectados para transformar oportunidades em resultados.',
@@ -573,7 +573,7 @@ function fck_seed_content(): array {
 			'match' => array( 'file' => 'videos/fullmatch.mp4', 'alt' => 'Vídeo de apresentação do FullMatch' ),
 			'hub'   => array( 'file' => 'videos/fullhub.mp4', 'alt' => 'Vídeo de apresentação do FullHub' ),
 		),
-		'ecosystem_video' => array( 'file' => 'videos/ecossistema.mp4', 'alt' => 'Vídeo de apresentação do Ecossistema Full' ),
+		// Visão geral do Ecossistema: voltou a ser página (pedido do cliente, 30/10/2026); sem vídeo.
 
 		'categories' => array(
 			'estrategia'    => 'Estratégia',
