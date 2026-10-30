@@ -12,7 +12,7 @@ foreach ( array_merge( entries_of( 'platform' ), $eco ? array( $eco ) : array() 
 		break;
 	}
 }
-if ( ! $has ) {
+if ( ! $has && ( ! $eco || ! entry_intro_video( $eco ) ) ) {
 	return;
 }
 ?>
@@ -20,5 +20,8 @@ if ( ! $has ) {
 	<div class="video-modal__box">
 		<button class="icon-btn video-modal__close" type="button" data-video-close aria-label="<?php echo e( ui( 'a11y', 'close_video' ) ); ?>"><?php echo icon( 'close' ); // phpcs:ignore ?></button>
 		<video class="video-modal__video" controls playsinline preload="none"></video>
+		<?php if ( ui( 'a11y', 'unmute_video' ) ) : ?>
+			<button class="btn btn--primary btn--sm video-modal__unmute" type="button" data-video-unmute hidden><span><?php echo e( ui( 'a11y', 'unmute_video' ) ); ?></span></button>
+		<?php endif; ?>
 	</div>
 </dialog>

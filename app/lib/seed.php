@@ -94,6 +94,7 @@ final class Seeder
 		$this->platformVideosOnce($c['platform_videos'] ?? []);
 		$this->ecosystemVideoOnce($c['ecosystem_video'] ?? []);
 		$this->ecosystemPageBackOnce();
+		$this->ecosystemIntroVideoOnce($c['ecosystem_intro_video'] ?? []);
 		$this->headerCtaOnce($c['site']['header']['cta']);
 		$this->signatureOnce('Vire a chave dos seus resultados. Ative o modo Full.', $c['site']['brand']['signature'], 'signature-2026-10');
 		$this->hidePagesOnce(['cases', 'insights', 'press'], 'hide-pages-2026-10');
@@ -725,6 +726,23 @@ final class Seeder
 		}
 		setting_set('seed_migrations', $done + ['ecosystem-page-back-2026-10' => now()]);
 		$this->log[] = 'Ecossistema: página de volta ao ar.';
+	}
+
+	/** Vídeo de abertura (popup ao entrar) da página Ecossistema, uma única vez. */
+	private function ecosystemIntroVideoOnce(array $def): void
+	{
+		$done = (array) setting('seed_migrations', []);
+		$id   = $this->ids['page']['ecosystem'] ?? null;
+		if (!$def || !empty($done['video-intro:ecosystem']) || !$id) {
+			return;
+		}
+		$mid = $this->photo('video:ecosystem', $def, 'Vídeo enviado pela Full Connect Key (28/10/2026)');
+		if ($mid) {
+			$conflicts = [];
+			$this->migrateEntry($id, ['presentation' => ['intro_video' => $mid]], ['presentation' => ['intro_video' => null]], 'page:ecosystem', $conflicts, tag: 'video');
+		}
+		setting_set('seed_migrations', $done + ['video-intro:ecosystem' => now()]);
+		$this->log[] = 'Ecossistema: vídeo de abertura cadastrado.';
 	}
 
 	/** Vídeo da visão geral do Ecossistema, uma única vez (video:ecosystem). */

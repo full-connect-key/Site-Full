@@ -211,6 +211,16 @@ function entry_video(array $entry): ?array
 	return $m && media_is_video($m) ? $m : null;
 }
 
+/** Vídeo que abre num popup ao entrar na página (por enquanto, página Ecossistema). */
+function entry_intro_video(array $entry): ?array
+{
+	if ($entry['type'] !== 'page' || $entry['template'] !== 'ecosystem') {
+		return null;
+	}
+	$m = media_get((int) (g($entry, 'presentation')['intro_video'] ?? 0));
+	return $m && media_is_video($m) ? $m : null;
+}
+
 function url_for(array $entry): string
 {
 	if (!is_preview() && ($video = entry_video($entry))) {

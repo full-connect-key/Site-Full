@@ -50,6 +50,7 @@ function fck_seed_content(): array {
 				'open_menu'             => 'Abrir menu',
 				'close_menu'            => 'Fechar menu',
 				'close_video'           => 'Fechar vídeo', // (*)
+				'unmute_video'          => 'Ativar som', // (*)
 				'open_submenu'          => 'Abrir submenu de {label}', // (*)
 				'back_to_top'           => 'Voltar ao topo',
 				'next_project'          => 'Próximo projeto',
@@ -573,7 +574,8 @@ function fck_seed_content(): array {
 			'match' => array( 'file' => 'videos/fullmatch.mp4', 'alt' => 'Vídeo de apresentação do FullMatch' ),
 			'hub'   => array( 'file' => 'videos/fullhub.mp4', 'alt' => 'Vídeo de apresentação do FullHub' ),
 		),
-		// Visão geral do Ecossistema: voltou a ser página (pedido do cliente, 30/10/2026); sem vídeo.
+		// Visão geral do Ecossistema: é página (30/10/2026) e abre este vídeo num popup ao entrar.
+		'ecosystem_intro_video' => array( 'file' => 'videos/ecossistema.mp4', 'alt' => 'Vídeo de apresentação do Ecossistema Full' ),
 
 		'categories' => array(
 			'estrategia'    => 'Estratégia',

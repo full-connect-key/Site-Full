@@ -154,8 +154,11 @@ function fck_template_schemas(): array {
 			array(
 				'id'          => 'presentation',
 				'title'       => 'Vídeo de apresentação',
-				'description' => 'Com vídeo cadastrado, todos os links para esta página (menu, Home, rodapé) abrem o vídeo numa janela sobre o site e a página sai do ar. Sem vídeo, a página volta.',
-				'fields'      => array( fck_f( 'media', 'video', 'Vídeo (MP4)' ) ),
+				'description' => '"Vídeo que substitui a página": todos os links para esta página abrem o vídeo e a página sai do ar. "Vídeo de abertura": a página fica no ar e o vídeo abre num popup ao entrar.',
+				'fields'      => array(
+					fck_f( 'media', 'video', 'Vídeo que substitui a página (MP4)' ),
+					fck_f( 'media', 'intro_video', 'Vídeo de abertura (MP4)', array( 'help' => 'Abre num popup quando a pessoa entra na página (uma vez por visita). A página continua no ar por baixo.' ) ),
+				),
 			),
 			$hero( true ),
 			array(

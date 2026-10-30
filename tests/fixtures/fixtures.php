@@ -111,8 +111,8 @@ foreach (['page:cases', 'page:insights', 'page:press'] as $key) {
 // cobertura das páginas do Ecossistema.
 foreach (db_all("SELECT id, draft FROM entries WHERE type = 'platform' OR seed_key = 'page:ecosystem'") as $row) {
 	$data = json_dec($row['draft']);
-	if (!empty($data['identity']['video']) || !empty($data['presentation']['video'])) {
-		unset($data['identity']['video'], $data['presentation']['video']);
+	if (!empty($data['identity']['video']) || !empty($data['presentation']['video']) || !empty($data['presentation']['intro_video'])) {
+		unset($data['identity']['video'], $data['presentation']['video'], $data['presentation']['intro_video']);
 		entry_save_draft((int) $row['id'], ['draft' => json_enc($data)], 'seed');
 		entry_publish((int) $row['id']);
 	}

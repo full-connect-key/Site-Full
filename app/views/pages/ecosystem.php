@@ -27,6 +27,9 @@ if ( $platforms ) :
 	$total  = count( $platforms );
 	$center = has_text( $sol['center_label'] ?? '' ) ? $sol['center_label'] : '';
 	?>
+	<?php if ( $intro = entry_intro_video( $entry ) ) : ?>
+	<a href="<?php echo e( url( uploads_rel() . '/' . $intro['path'] ) ); ?>" data-video-autoopen hidden aria-label="<?php echo e( (string) ( $intro['alt'] ?: $entry['title'] ) ); ?>"></a>
+<?php endif; ?>
 	<section class="section eco" data-theme="dark" aria-labelledby="eco-title">
 		<div class="container">
 			<?php text_el( $sol['intro'] ?? '', 'p', 'lead eco__journey' ); ?>
