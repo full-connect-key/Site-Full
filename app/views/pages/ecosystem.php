@@ -35,11 +35,15 @@ if ( $platforms ) :
 			<?php else : ?>
 				<h2 id="eco-title" class="screen-reader-text"><?php echo e( $entry['title'] ); ?></h2>
 			<?php endif; ?>
-			<div class="eco__nav" data-module="tabs eco" data-tabs-hover="false">
+			<?php
+			// Com vídeo de apresentação (ADR-022), clicar no produto ou no nó abre o vídeo; o hover (desktop) troca o painel.
+			$has_video = (bool) array_filter( $platforms, fn( $p ) => entry_video( $p ) );
+			?>
+			<div class="eco__nav" data-module="tabs eco" data-tabs-hover="<?php echo $has_video ? 'true' : 'false'; ?>">
 				<div class="eco__list" role="tablist" aria-orientation="vertical" aria-labelledby="eco-title">
 					<?php foreach ( $platforms as $i => $p ) : ?>
 						<?php $id = g( $p, 'identity' ); ?>
-						<button class="eco__tab" type="button" role="tab" id="eco-tab-<?php echo (int) $i; ?>" aria-controls="eco-panel-<?php echo (int) $i; ?>" aria-selected="<?php echo 0 === $i ? 'true' : 'false'; ?>" tabindex="<?php echo 0 === $i ? '0' : '-1'; ?>" data-product="<?php echo e( $id['product'] ?? '' ); ?>" data-eco-index="<?php echo (int) $i; ?>">
+						<button class="eco__tab" type="button" role="tab" id="eco-tab-<?php echo (int) $i; ?>" aria-controls="eco-panel-<?php echo (int) $i; ?>" aria-selected="<?php echo 0 === $i ? 'true' : 'false'; ?>" tabindex="<?php echo 0 === $i ? '0' : '-1'; ?>" data-product="<?php echo e( $id['product'] ?? '' ); ?>" data-eco-index="<?php echo (int) $i; ?>"<?php echo entry_video( $p ) ? ' data-eco-video' : ''; ?>>
 							<span class="eco__tab-dot" aria-hidden="true"></span>
 							<span class="eco__tab-name"><?php echo e( $p['title'] ); ?></span>
 							<?php text_el( $id['verb'] ?? '', 'span', 'eco__tab-sig small' ); ?>
