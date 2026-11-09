@@ -70,6 +70,7 @@ Pedido do cliente. No site no ar, a troca acontece uma única vez (`hub-problem-
 | Guilherme Santos | Analista de Mídias Pagas ("Midias" sem acento na mensagem; acentuado) | sem frase, por enquanto |
 | Fernanda Ghislotti | Conteúdo | "Conecta marcas e histórias às pessoas." (texto do cliente; vírgula antes de "às" retirada) |
 | Livia Uccella | Assistente de Atendimento | sem frase, por enquanto |
+| Agnes Kettermann | Atendimento | sem frase, por enquanto (foto WebP 1254×1254, recortada para 2:3) |
 
 As fotos foram convertidas do RAW (IMG_9927.CR2, IMG_9980_1.CR2, IMG_0030_1_1.CR2 e IMG_0004.CR2) com a mesma luz, o mesmo branco de parede e o mesmo enquadramento dos sócios (`app/seed/people/`). O seed publica cada pessoa do time uma única vez (`team:<slug>`). A seção usa a grade de retratos do ADR-018.
 
